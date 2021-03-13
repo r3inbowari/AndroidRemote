@@ -7,6 +7,11 @@ import android.os.Bundle;
 import com.mujin.androidremoteservant.core.shell.ProcessShell;
 import com.mujin.androidremoteservant.core.stf.cap.MiniCap;
 import com.mujin.androidremoteservant.core.stf.touch.MiniTouch;
+import com.mujin.androidremoteservant.grpc.SimpleStreamObserver;
+import com.mujin.androidremoteservant.grpc.gRPCChannelPool;
+import com.r3inb.pb.HelloGrpc;
+import com.r3inb.pb.HelloReply;
+import com.r3inb.pb.HelloRequest;
 
 import java.io.IOException;
 
@@ -14,6 +19,8 @@ import static com.mujin.androidremoteservant.core.SystemInit.prepareRuntimeNDKEn
 import static com.mujin.androidremoteservant.core.utils.Utils.rootGrant;
 
 public class MainActivity extends AppCompatActivity {
+
+    HelloGrpc.HelloStub helloGrpc;
 
     @Override
     protected void onDestroy() {
@@ -58,5 +65,16 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        gRPCChannelPool.init("192.168.5.67", 5005);
+
+        helloGrpc = HelloGrpc.newStub(gRPCChannelPool.get().getChannel("hello"));
+        HelloRequest request = HelloRequest.newBuilder().setName("hello").build();
+        helloGrpc.sayHello(request, new SimpleStreamObserver<HelloReply>() {
+            @Override
+            protected void onSuccess(HelloReply value) {
+                System.out.println("OK");
+            }
+        });
     }
 }
