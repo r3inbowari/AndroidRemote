@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        gRPCChannelPool.init("192.168.5.67", 5005);
 
         rootGrant(getPackageCodePath());
 
@@ -43,21 +44,23 @@ public class MainActivity extends AppCompatActivity {
         ps.Swipe(100, 200, 400, 500);
 
 
-        MiniTouch.getInstance().run();
+        // MiniTouch.getInstance().run();
         MiniCap.getInstance().run();
+
+        MiniCap.getInstance().startSender();
 
         try {
             // TMP ANR
-            Thread.sleep(2000);
+            Thread.sleep(4000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
         try {
 
-            MiniTouch.getInstance().connect();
-            MiniTouch.getInstance().getLocalReceiver().start();
-            MiniTouch.getInstance().getLocalSender().start();
+//            MiniTouch.getInstance().connect();
+//            MiniTouch.getInstance().getLocalReceiver().start();
+//            MiniTouch.getInstance().getLocalSender().start();
 
             MiniCap.getInstance().connect();
             MiniCap.getInstance().getLocalReceiver().start();
@@ -66,15 +69,15 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        gRPCChannelPool.init("192.168.5.67", 5005);
 
-        helloGrpc = HelloGrpc.newStub(gRPCChannelPool.get().getChannel("hello"));
-        HelloRequest request = HelloRequest.newBuilder().setName("hello").build();
-        helloGrpc.sayHello(request, new SimpleStreamObserver<HelloReply>() {
-            @Override
-            protected void onSuccess(HelloReply value) {
-                System.out.println("OK");
-            }
-        });
+
+//        helloGrpc = HelloGrpc.newStub(gRPCChannelPool.get().getChannel("hello"));
+//        HelloRequest request = HelloRequest.newBuilder().setName("hello").build();
+//        helloGrpc.sayHello(request, new SimpleStreamObserver<HelloReply>() {
+//            @Override
+//            protected void onSuccess(HelloReply value) {
+//                System.out.println("OK");
+//            }
+//        });
     }
 }

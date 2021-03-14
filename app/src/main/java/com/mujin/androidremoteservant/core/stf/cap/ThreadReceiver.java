@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.util.concurrent.BlockingQueue;
 
 public class ThreadReceiver extends Thread {
 
@@ -16,9 +17,12 @@ public class ThreadReceiver extends Thread {
     boolean Running = false;
     Thread thread = null;
 
-    ThreadReceiver(MiniCap miniCap) {
+    private final BlockingQueue<byte[]> taskQueue;
+
+    ThreadReceiver(MiniCap miniCap, BlockingQueue<byte[]> taskQueue) {
         this.Running = true;
         this.threadMaster = miniCap;
+        this.taskQueue = taskQueue;
     }
 
     public void start() {
@@ -39,59 +43,49 @@ public class ThreadReceiver extends Thread {
             return;
         }
 
+        // 帧长预
+        int frameLen = 0;
+
         InputStream mRace = null;
         try {
             mRace = threadMaster.localSocket.getInputStream();
             CapProbe.HeadScanner(mRace);
 
-            byte[] data;
-            int receiveLen = 0;
-            // data = new byte[2048]; // 2 MB
+            // 预分配缓冲区 64 KB
+            // byte[] data = new byte[256 * 1024];
+            // 预分配长度空间 4 Bytes
+            byte[] len = new byte[4];
 
+            // testCount
+            int testCount = 0;
 
-            // 1. 获取第一帧的帧长度 分配4个字节的空间并进行读取操作
-            data = new byte[4]; // 2 MB
-            mRace.read(data);
-            ByteBuffer byteBuffer = ByteBuffer.wrap(data).order(ByteOrder.LITTLE_ENDIAN);
-            int frameLen = byteBuffer.getInt();
-            Log.e("frameframe", Integer.toString(frameLen));
+            long nanoStart = System.nanoTime();
 
-            int sum = 0;
-            data = new byte[frameLen];
-            int loopCount = 0;
             while (Running) {
-                // receiveLen = localSocket.getReceiveBufferSize();
-
-                // int a = mRace.read(data);
-                // ByteBuffer byteBuffer = ByteBuffer.wrap(Utils.subBytes(data, 2, 4)).order(ByteOrder.LITTLE_ENDIAN);
-                // Log.e("header", CapProbe.maxX + "12");
-
-                // 2. 分配 frameLen 个长度进行读取则成功获得第一帧的部分内容, 完成一次帧获取
-                loopCount++;
-
-                sum += mRace.read(data);
-                if (frameLen == sum) {
-                    Log.e("frameframe", "ok!");
-                    String kg = Utils.printHexBinary(data);
-                    System.out.println(kg);
-
-                    data = new byte[4]; // 2 MB
-                    mRace.read(data);
-                    ByteBuffer bb = ByteBuffer.wrap(data).order(ByteOrder.LITTLE_ENDIAN);
-                    int sd = bb.getInt();
-                    Log.e("frameframe", Integer.toString(frameLen));
-
-                    break;
+                mRace.read(len);
+                frameLen = Utils.parseFrameLen(len);
+                byte[] data = new byte[frameLen];
+                while (frameLen != 0) {
+                    int reduce = mRace.read(data, 0, frameLen);
+                    // long reduce = mRace.skip(frameLen);
+                    frameLen -= reduce;
                 }
-
-
+                taskQueue.put(data);
+                testCount++;
+                if (testCount == 30) {
+                    long nanoEnd = System.nanoTime();
+                    System.out.println("30 FP -> Time Consuming: " + Long.toString((nanoEnd - nanoStart) / 1000000));
+                    nanoStart = nanoEnd;
+                    testCount = 0;
+                }
             }
 
             mRace.close();
             // localSocket.close();
 
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
+            System.out.println(frameLen);
         } finally {
             this.thread = null;
         }

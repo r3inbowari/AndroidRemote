@@ -70,7 +70,7 @@ public class Utils {
     }
 
     /**
-     * 文件推送
+     * 文件推送 假的。。。
      *
      * @deprecated 弃用的方法
      */
@@ -100,6 +100,12 @@ public class Utils {
 
     private static final char[] hexCode = "0123456789ABCDEF".toCharArray();
 
+    /**
+     * hex dump
+     *
+     * @param bytes
+     * @return
+     */
     public static String printHexBinary(byte[] bytes) {
         String strHex = "";
         StringBuilder sb = new StringBuilder("");
@@ -111,12 +117,26 @@ public class Utils {
         return sb.toString().trim().toUpperCase();
     }
 
+    /**
+     * bytes 截取
+     *
+     * @param src
+     * @param begin
+     * @param count
+     * @return
+     */
     public static byte[] subBytes(byte[] src, int begin, int count) {
         byte[] bs = new byte[count];
         System.arraycopy(src, begin, bs, 0, count);
         return bs;
     }
 
+    /**
+     * 缓存地址获取
+     *
+     * @param context
+     * @return
+     */
     public String getDiskCacheDir(Context context) {
         String cachePath = null;
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
@@ -128,4 +148,36 @@ public class Utils {
         return cachePath;
     }
 
+    /**
+     * 大小端转换 byte[4] -> int
+     *
+     * @param src
+     * @param offset
+     * @return
+     */
+    public static int bytesToIntByLE(byte[] src, int offset) {
+        return ((src[offset + 3] & 0xFF) << 24)
+                | ((src[offset + 2] & 0xFF) << 16)
+                | ((src[offset + 1] & 0xFF) << 8)
+                | (src[offset] & 0xFF);
+    }
+
+    public static int bytesToIntByBE(byte[] src, int offset) {
+        return ((src[offset] & 0xFF) << 24)
+                | ((src[offset + 1] & 0xFF) << 16)
+                | ((src[offset + 2] & 0xFF) << 8)
+                | (src[offset + 3] & 0xFF);
+    }
+
+    /**
+     * 快速帧长度扫描 max 16777215
+     *
+     * @param src 长度一定是 4,并且不可以做其他用途
+     * @return
+     */
+    public static int parseFrameLen(byte[] src) {
+        return ((src[2] & 0xFF) << 16)
+                | ((src[1] & 0xFF) << 8)
+                | (src[0] & 0xFF);
+    }
 }

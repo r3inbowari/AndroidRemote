@@ -3,23 +3,72 @@ package com.mujin.androidremoteservant.core.stf.cap;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.google.protobuf.ByteString;
 import com.mujin.androidremoteservant.core.utils.ScreenMetrics;
 import com.mujin.androidremoteservant.core.utils.Utils;
+import com.mujin.androidremoteservant.grpc.SimpleStreamObserver;
+import com.mujin.androidremoteservant.grpc.gRPCChannelPool;
+import com.r3inb.pb.HelloGrpc;
+import com.r3inb.pb.HelloReply;
+import com.r3inb.pb.JPEGGrpc;
+import com.r3inb.pb.JPEGRequest;
+import com.r3inb.pb.Pics;
+import com.r3inb.pb.Reply;
 
 import java.io.DataOutputStream;
+import java.sql.Time;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 public class MiniCap extends AbstractMiniCap {
 
     private static MiniCap sInstance = null;
 
+    private final BlockingQueue<byte[]> taskQueue;
+    JPEGGrpc.JPEGStub jpegStub;
+
+
     MiniCap() {
         super("minicap");
+        taskQueue = new ArrayBlockingQueue<>(100);
+        jpegStub = JPEGGrpc.newStub(gRPCChannelPool.get().getChannel("jpeg"));
+    }
+
+    public void startSender() {
+        System.out.println("-------------------------------------------- Sender Probe Start --------------------------------------------");
+        new Thread(() -> {
+            int count = 0;
+
+            try {
+                while (true) {
+                    byte[] bytes = taskQueue.take();
+                    count++;
+
+                    JPEGRequest jpegRequest = JPEGRequest.newBuilder().setData(ByteString.copyFrom(bytes)).build();
+                    jpegStub.sendJPEG(jpegRequest, new SimpleStreamObserver<Reply>() {
+                        @Override
+                        protected void onSuccess(Reply value) {
+                            // System.out.println("OK");
+                        }
+                    });
+
+                    if (count == 30) {
+                        count = 0;
+                        System.out.println("30 FP By Sender Probe");
+                    }
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        }).start();
     }
 
     @Override
     public ThreadReceiver getLocalReceiver() {
         if (threadReceiver == null)
-            this.threadReceiver = new ThreadReceiver(this);
+            this.threadReceiver = new ThreadReceiver(this, taskQueue);
         return threadReceiver;
     }
 
@@ -64,7 +113,7 @@ class MiniCapNDK extends Thread {
         if (mx > 5000 || my > 5000) {
             Log.e(TAG, "run failed used a error x or y metrics pixel");
         }
-        String dp = "-P " + mx + "x" + my + "@" + mx + "x" + my + "/0";
+        String dp = "-P " + mx + "x" + my + "@" + mx + "x" + my + "/0 -Q 50";
 
         execString = TextUtils.join(" ",
                 new Object[]{
