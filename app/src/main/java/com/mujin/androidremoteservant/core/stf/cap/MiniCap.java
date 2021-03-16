@@ -25,14 +25,19 @@ public class MiniCap extends AbstractMiniCap {
 
     private static MiniCap sInstance = null;
 
-    private final BlockingQueue<byte[]> taskQueue;
+    // private final BlockingQueue<byte[]> taskQueue;
+
+    private final FrameAlloc frameAlloc;
+
     JPEGGrpc.JPEGStub jpegStub;
 
 
     MiniCap() {
         super("minicap");
-        taskQueue = new ArrayBlockingQueue<>(100);
-        jpegStub = JPEGGrpc.newStub(gRPCChannelPool.get().getChannel("jpeg"));
+        // taskQueue = new ArrayBlockingQueue<>(100);
+        this.frameAlloc = new FrameAlloc(100, 1024 * 256);
+
+        this.jpegStub = JPEGGrpc.newStub(gRPCChannelPool.get().getChannel("jpeg"));
     }
 
     public void startSender() {
@@ -42,7 +47,7 @@ public class MiniCap extends AbstractMiniCap {
 
             try {
                 while (true) {
-                    byte[] bytes = taskQueue.take();
+                    byte[] bytes = frameAlloc.take().getFrameBuffer();
                     count++;
 
                     JPEGRequest jpegRequest = JPEGRequest.newBuilder().setData(ByteString.copyFrom(bytes)).build();
@@ -68,7 +73,8 @@ public class MiniCap extends AbstractMiniCap {
     @Override
     public ThreadReceiver getLocalReceiver() {
         if (threadReceiver == null)
-            this.threadReceiver = new ThreadReceiver(this, taskQueue);
+            this.threadReceiver = new ThreadReceiver(this, frameAlloc);
+        // this.threadReceiver = new ThreadReceiver(this, taskQueue);
         return threadReceiver;
     }
 
@@ -113,7 +119,7 @@ class MiniCapNDK extends Thread {
         if (mx > 5000 || my > 5000) {
             Log.e(TAG, "run failed used a error x or y metrics pixel");
         }
-        String dp = "-P " + mx + "x" + my + "@" + mx + "x" + my + "/0 -Q 50";
+        String dp = "-P " + mx + "x" + my + "@" + mx + "x" + my + "/0 -Q 30";
 
         execString = TextUtils.join(" ",
                 new Object[]{

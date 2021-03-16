@@ -17,12 +17,15 @@ public class ThreadReceiver extends Thread {
     boolean Running = false;
     Thread thread = null;
 
-    private final BlockingQueue<byte[]> taskQueue;
+    // private final BlockingQueue<byte[]> taskQueue;
+    private final FrameAlloc frameAlloc;
 
-    ThreadReceiver(MiniCap miniCap, BlockingQueue<byte[]> taskQueue) {
+    // ThreadReceiver(MiniCap miniCap, BlockingQueue<byte[]> taskQueue) {
+    ThreadReceiver(MiniCap miniCap, FrameAlloc taskQueue) {
         this.Running = true;
         this.threadMaster = miniCap;
-        this.taskQueue = taskQueue;
+        // this.taskQueue = taskQueue;
+        this.frameAlloc = taskQueue;
     }
 
     public void start() {
@@ -64,13 +67,17 @@ public class ThreadReceiver extends Thread {
             while (Running) {
                 mRace.read(len);
                 frameLen = Utils.parseFrameLen(len);
-                byte[] data = new byte[frameLen];
+                // byte[] data = new byte[frameLen];
+
+                Frame frame = frameAlloc.alloc();
+
                 while (frameLen != 0) {
-                    int reduce = mRace.read(data, 0, frameLen);
+                    int reduce = mRace.read(frame.getFrameBuffer(), 0, frameLen);
                     // long reduce = mRace.skip(frameLen);
                     frameLen -= reduce;
                 }
-                taskQueue.put(data);
+
+                frameAlloc.put(frame);
                 testCount++;
                 if (testCount == 30) {
                     long nanoEnd = System.nanoTime();
