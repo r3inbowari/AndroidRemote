@@ -1,0 +1,23 @@
+syntax = "proto3";
+// build 编译包名
+option java_package = "com.r3inb.pb";
+// build 类名
+option java_outer_classname = "Control";
+
+option java_multiple_files = true;
+
+package control;
+
+service Chat {
+  rpc BidStream(stream ChatRequest) returns (stream ChatResponse) {}
+}
+
+// 请求数据 Request格式定义
+message ChatRequest {
+  string input = 1;
+}
+
+// 响应数据Response格式定义
+message ChatResponse {
+  string output = 1;
+}
