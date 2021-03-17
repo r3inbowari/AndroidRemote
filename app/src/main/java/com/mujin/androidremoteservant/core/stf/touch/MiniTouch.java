@@ -5,7 +5,7 @@ import android.util.Log;
 
 
 import com.mujin.androidremoteservant.core.shell.ProcessShell;
-import com.mujin.androidremoteservant.core.stf.touch.event.EventUtils;
+import com.mujin.androidremoteservant.core.stf.touch.event.EventManager;
 
 import java.io.DataOutputStream;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -19,79 +19,34 @@ public class MiniTouch extends AbstractMiniTouch {
 
     private MiniTouchInfo miniTouchInfo = null;
 
+    private EventManager eventManager = null;
+
     private final String TAG = "MiniTouch";
 
     public MiniTouch() {
         super("minitouch");
-        taskQueue = new ArrayBlockingQueue<>(100);
+        this.taskQueue = new ArrayBlockingQueue<>(100);
+        this.eventManager = new EventManager(taskQueue);
 
         new Thread(() -> {
             while (true) {
                 try {
                     Thread.sleep(3000);
-                    taskQueue.put(EventUtils.tap(0, 200, 300, 1));
-                    Thread.sleep(4);
-                    taskQueue.put(EventUtils.commit());
-                    Thread.sleep(4);
+                    this.eventManager.tap(0, 400, 400);
+                    Thread.sleep(16);
+                    this.eventManager.release(0);
 
-                    taskQueue.put(EventUtils.move(0, 210, 310, 0));
-                    Thread.sleep(4);
-                    taskQueue.put(EventUtils.commit());
-                    Thread.sleep(4);
-
-                    taskQueue.put(EventUtils.move(0, 220, 310, 0));
-                    Thread.sleep(4);
-                    taskQueue.put(EventUtils.commit());
-                    Thread.sleep(4);
-
-                    taskQueue.put(EventUtils.move(0, 230, 310, 0));
-                    Thread.sleep(4);
-                    taskQueue.put(EventUtils.commit());
-                    Thread.sleep(4);
-
-                    taskQueue.put(EventUtils.move(0, 240, 310, 0));
-                    Thread.sleep(4);
-                    taskQueue.put(EventUtils.commit());
-                    Thread.sleep(4);
-
-                    taskQueue.put(EventUtils.move(0, 250, 310, 0));
-                    Thread.sleep(4);
-                    taskQueue.put(EventUtils.commit());
-                    Thread.sleep(4);
-
-                    taskQueue.put(EventUtils.move(0, 260, 310, 0));
-                    Thread.sleep(10);
-                    taskQueue.put(EventUtils.commit());
-                    Thread.sleep(10);
-
-                    taskQueue.put(EventUtils.move(0, 270, 310, 0));
-                    Thread.sleep(4);
-                    taskQueue.put(EventUtils.commit());
-                    Thread.sleep(4);
-
-                    taskQueue.put(EventUtils.move(0, 280, 310, 0));
-                    Thread.sleep(4);
-                    taskQueue.put(EventUtils.commit());
-                    Thread.sleep(4);
-
-                    taskQueue.put(EventUtils.move(0, 290, 310, 0));
-                    Thread.sleep(4);
-                    taskQueue.put(EventUtils.commit());
-                    Thread.sleep(4);
-
-                    taskQueue.put(EventUtils.move(0, 300, 310, 0));
-                    Thread.sleep(4);
-                    taskQueue.put(EventUtils.commit());
-                    Thread.sleep(4);
-
-                    taskQueue.put(EventUtils.move(0, 310, 310, 0));
-                    Thread.sleep(4);
-                    taskQueue.put(EventUtils.commit());
-                    Thread.sleep(4);
-
-
-                    taskQueue.put(EventUtils.release(0));
-
+                    this.eventManager.move(3, 400, 200);
+                    Thread.sleep(1621);
+                    this.eventManager.move(3, 410, 210);
+                    Thread.sleep(1621);
+                    this.eventManager.move(3, 420, 230);
+                    Thread.sleep(1621);
+                    this.eventManager.move(3, 450, 220);
+                    Thread.sleep(1621);
+                    this.eventManager.move(3, 460, 320);
+                    Thread.sleep(1621);
+                    this.eventManager.release(3);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -99,6 +54,10 @@ public class MiniTouch extends AbstractMiniTouch {
 
         }).start();
 
+    }
+
+    public EventManager getEventManager() {
+        return this.eventManager;
     }
 
     public static MiniTouch getInstance() {
@@ -132,7 +91,7 @@ public class MiniTouch extends AbstractMiniTouch {
 
     @Override
     public void touch(int contact, int x, int y, int pressure) {
-
+        // taskQueue.put(EventUtils.move(0, 270, 310, 0));
     }
 
     @Override

@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         ps.Swipe(100, 200, 400, 500);
 
 
-        // MiniTouch.getInstance().run();
+        MiniTouch.getInstance().run();
         MiniCap.getInstance().run();
 
         MiniCap.getInstance().startSender();
@@ -58,9 +58,9 @@ public class MainActivity extends AppCompatActivity {
 
         try {
 
-//            MiniTouch.getInstance().connect();
-//            MiniTouch.getInstance().getLocalReceiver().start();
-//            MiniTouch.getInstance().getLocalSender().start();
+            MiniTouch.getInstance().connect();
+            MiniTouch.getInstance().getLocalReceiver().start();
+            MiniTouch.getInstance().getLocalSender().start();
 
             MiniCap.getInstance().connect();
             MiniCap.getInstance().getLocalReceiver().start();
@@ -71,13 +71,13 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-//        helloGrpc = HelloGrpc.newStub(gRPCChannelPool.get().getChannel("hello"));
-//        HelloRequest request = HelloRequest.newBuilder().setName("hello").build();
-//        helloGrpc.sayHello(request, new SimpleStreamObserver<HelloReply>() {
-//            @Override
-//            protected void onSuccess(HelloReply value) {
-//                System.out.println("OK");
-//            }
-//        });
+        helloGrpc = HelloGrpc.newStub(gRPCChannelPool.get().getChannel("hello"));
+        HelloRequest request = HelloRequest.newBuilder().setName("hello").build();
+        helloGrpc.sayHello(request, new SimpleStreamObserver<HelloReply>() {
+            @Override
+            protected void onSuccess(HelloReply value) {
+                System.out.println("OK");
+            }
+        });
     }
 }
