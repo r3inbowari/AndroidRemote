@@ -1,0 +1,30 @@
+syntax = "proto3";
+// build 编译包名
+option java_package = "com.r3inb.pb";
+// build 类名
+option java_outer_classname = "Tap";
+
+option java_multiple_files = true;
+
+package touch;
+
+service Touch {
+  rpc TouchReq (TouchRequest) returns (stream TouchReply);
+}
+
+message TouchReply {
+  TouchType type = 1;
+  enum TouchType {
+    TAP = 0;
+    SWIPE = 1;
+    RELEASE = 2;
+  }
+  int32 x = 2;
+  int32 y = 3;
+  int32 contact = 4;
+  int64 ts = 5;
+}
+
+message TouchRequest {
+  string message = 1;
+}

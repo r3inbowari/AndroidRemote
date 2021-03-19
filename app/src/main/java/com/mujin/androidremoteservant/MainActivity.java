@@ -2,28 +2,21 @@ package com.mujin.androidremoteservant;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 
-import com.google.common.base.Strings;
 import com.mujin.androidremoteservant.core.shell.ProcessShell;
 import com.mujin.androidremoteservant.core.stf.cap.CapProbe;
 import com.mujin.androidremoteservant.core.stf.cap.MiniCap;
 import com.mujin.androidremoteservant.core.stf.touch.MiniTouch;
-import com.mujin.androidremoteservant.core.utils.AssetsDBHelper;
 import com.mujin.androidremoteservant.core.utils.PID;
-import com.mujin.androidremoteservant.grpc.SimpleStreamObserver;
 import com.mujin.androidremoteservant.grpc.gRPCChannelPool;
 import com.r3inb.pb.ChatGrpc;
 import com.r3inb.pb.ChatRequest;
 import com.r3inb.pb.ChatResponse;
-import com.r3inb.pb.Control;
-import com.r3inb.pb.HelloGrpc;
-import com.r3inb.pb.HelloReply;
-import com.r3inb.pb.HelloRequest;
-import com.r3inb.pb.Reply;
-import com.r3inb.pb.Request;
+import com.r3inb.pb.TouchGrpc;
+import com.r3inb.pb.TouchReply;
+import com.r3inb.pb.TouchRequest;
 
 import java.io.IOException;
 
@@ -117,5 +110,38 @@ public class MainActivity extends AppCompatActivity {
         result.onNext(request);
         result.onCompleted();
 
+
+        touchStub = TouchGrpc.newStub(gRPCChannelPool.get().getChannel("touch"));
+        TouchRequest request1 = TouchRequest.newBuilder().setMessage("attach touch").build();
+        touchStub.touchReq(request1, new StreamObserver<TouchReply>() {
+            @Override
+            public void onNext(TouchReply value) {
+                try {
+                    if (value.getType().equals(TouchReply.TouchType.TAP)) {
+                        MiniTouch.getInstance().getEventManager().tap(value.getContact(), value.getX(), value.getY());
+                    } else if (value.getType().equals(TouchReply.TouchType.SWIPE)) {
+                        MiniTouch.getInstance().getEventManager().move(value.getContact(), value.getX(), value.getY());
+                    } else if (value.getType().equals(TouchReply.TouchType.RELEASE)) {
+                        MiniTouch.getInstance().getEventManager().release(value.getContact());
+                    }
+                } catch (InterruptedException e) {
+                    Log.i("TouchOb", "Touch failed..");
+                }
+            }
+
+            @Override
+            public void onError(Throwable t) {
+
+            }
+
+            @Override
+            public void onCompleted() {
+                System.out.println("touch end off");
+            }
+        });
+
     }
+
+    // private ChatGrpc.ChatStub chatStub = null;
+    private TouchGrpc.TouchStub touchStub = null;
 }
