@@ -49,6 +49,7 @@ public class ThreadReceiver extends Thread {
 
                 String ret = new String(data);
                 threadMaster.setMiniTouchInfo(MiniTouchInfo.parse(ret));
+
                 // Log.i(Tag, "receiver.getReceiveBufferSize()" + receiveLen + " --- " + ret + " ---");
 
             }

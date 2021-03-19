@@ -1,5 +1,6 @@
 package com.mujin.androidremoteservant.core.stf.cap;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.mujin.androidremoteservant.core.utils.Utils;

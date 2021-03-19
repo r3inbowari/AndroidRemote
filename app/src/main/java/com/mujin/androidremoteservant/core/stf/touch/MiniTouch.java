@@ -23,6 +23,10 @@ public class MiniTouch extends AbstractMiniTouch {
 
     private final String TAG = "MiniTouch";
 
+    public MiniTouchInfo getMiniTouchInfo() {
+        return miniTouchInfo;
+    }
+
     public MiniTouch() {
         super("minitouch");
         this.taskQueue = new ArrayBlockingQueue<>(100);
@@ -52,7 +56,7 @@ public class MiniTouch extends AbstractMiniTouch {
                 }
             }
 
-        }).start();
+        });
 
     }
 

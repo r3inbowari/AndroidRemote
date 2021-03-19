@@ -180,4 +180,9 @@ public class Utils {
                 | ((src[1] & 0xFF) << 8)
                 | (src[0] & 0xFF);
     }
+
+    // -9
+    public static void kill(String name) {
+        ProcessShell.exec("kill -9 " + name, true);
+    }
 }

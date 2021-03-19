@@ -2,11 +2,17 @@ package com.mujin.androidremoteservant;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
+import com.google.common.base.Strings;
 import com.mujin.androidremoteservant.core.shell.ProcessShell;
+import com.mujin.androidremoteservant.core.stf.cap.CapProbe;
 import com.mujin.androidremoteservant.core.stf.cap.MiniCap;
 import com.mujin.androidremoteservant.core.stf.touch.MiniTouch;
+import com.mujin.androidremoteservant.core.utils.AssetsDBHelper;
+import com.mujin.androidremoteservant.core.utils.PID;
 import com.mujin.androidremoteservant.grpc.SimpleStreamObserver;
 import com.mujin.androidremoteservant.grpc.gRPCChannelPool;
 import com.r3inb.pb.ChatGrpc;
@@ -40,6 +46,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // PID.checkProcess(this);
+        // PID.Attach(this, "minicap", 102010);
+
+
         gRPCChannelPool.init("192.168.5.67", 5005);
 
         rootGrant(getPackageCodePath());
@@ -55,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         MiniTouch.getInstance().run();
         MiniCap.getInstance().run();
 
+
         MiniCap.getInstance().startSender();
 
         try {
@@ -64,17 +76,30 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+
         try {
 
-//            MiniTouch.getInstance().connect();
-//            MiniTouch.getInstance().getLocalReceiver().start();
-//            MiniTouch.getInstance().getLocalSender().start();
+            MiniTouch.getInstance().connect();
+            MiniTouch.getInstance().getLocalReceiver().start();
+            MiniTouch.getInstance().getLocalSender().start();
 
             MiniCap.getInstance().connect();
             MiniCap.getInstance().getLocalReceiver().start();
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        try {
+            // TMP ANR
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        if (CapProbe.pid != 0 && MiniTouch.getInstance().getMiniTouchInfo() != null) {
+            PID.Attach(this, "minicap", CapProbe.pid);
+            PID.Attach(this, "minitouch", Integer.valueOf(MiniTouch.getInstance().getMiniTouchInfo().PID));
         }
 
 
