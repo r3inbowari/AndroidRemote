@@ -39,6 +39,7 @@ public class FrameAlloc {
 
 class Frame {
     private byte[] frame;
+    private int len;
     private long ts;
     // ...
 
@@ -48,5 +49,14 @@ class Frame {
 
     public byte[] getFrameBuffer() {
         return this.frame;
+    }
+
+    public Frame setLen(int len) {
+        this.len = len;
+        return this;
+    }
+
+    public int getLen() {
+        return len;
     }
 }

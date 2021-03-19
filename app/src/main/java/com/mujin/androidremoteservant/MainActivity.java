@@ -52,30 +52,30 @@ public class MainActivity extends AppCompatActivity {
         ps.Swipe(100, 200, 400, 500);
 
 
-//        MiniTouch.getInstance().run();
-//        MiniCap.getInstance().run();
-//
-//        MiniCap.getInstance().startSender();
-//
-//        try {
-//            // TMP ANR
-//            Thread.sleep(4000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//
-//        try {
-//
+        MiniTouch.getInstance().run();
+        MiniCap.getInstance().run();
+
+        MiniCap.getInstance().startSender();
+
+        try {
+            // TMP ANR
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        try {
+
 //            MiniTouch.getInstance().connect();
 //            MiniTouch.getInstance().getLocalReceiver().start();
 //            MiniTouch.getInstance().getLocalSender().start();
-//
-//            MiniCap.getInstance().connect();
-//            MiniCap.getInstance().getLocalReceiver().start();
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+
+            MiniCap.getInstance().connect();
+            MiniCap.getInstance().getLocalReceiver().start();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
 //        helloGrpc = HelloGrpc.newStub(gRPCChannelPool.get().getChannel("hello"));
@@ -112,11 +112,32 @@ public class MainActivity extends AppCompatActivity {
         result.onNext(request);
         result.onCompleted();
 
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
+//        try {
+//            Thread.sleep(5000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//
+//
+//        try {
+//            MiniCap.getInstance().disconnect();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        try {
+//            Thread.sleep(50000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//
+//        try {
+//            MiniCap.getInstance().connect();
+//
+//            MiniCap.getInstance().getLocalReceiver().start();
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 }

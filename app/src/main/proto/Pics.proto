@@ -9,10 +9,10 @@ option java_multiple_files = true;
 package pics;
 
 service JPEG {
-  rpc SendJPEG (JPEGRequest) returns (Reply);
+  rpc SendJPEG (stream JPEGRequest) returns (stream JPEGReply);
 }
 
-message Reply {
+message JPEGReply {
   int32 length = 1;
 }
 

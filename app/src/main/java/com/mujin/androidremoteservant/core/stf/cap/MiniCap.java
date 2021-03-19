@@ -8,10 +8,13 @@ import com.mujin.androidremoteservant.core.utils.ScreenMetrics;
 import com.mujin.androidremoteservant.core.utils.Utils;
 import com.mujin.androidremoteservant.grpc.SimpleStreamObserver;
 import com.mujin.androidremoteservant.grpc.gRPCChannelPool;
+import com.r3inb.pb.ChatRequest;
 import com.r3inb.pb.HelloGrpc;
 import com.r3inb.pb.HelloReply;
 import com.r3inb.pb.JPEGGrpc;
+import com.r3inb.pb.JPEGReply;
 import com.r3inb.pb.JPEGRequest;
+import com.r3inb.pb.JPEGRequestOrBuilder;
 import com.r3inb.pb.Pics;
 import com.r3inb.pb.Reply;
 
@@ -21,6 +24,8 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
+import io.grpc.stub.StreamObserver;
+
 public class MiniCap extends AbstractMiniCap {
 
     private static MiniCap sInstance = null;
@@ -29,16 +34,41 @@ public class MiniCap extends AbstractMiniCap {
 
     private final FrameAlloc frameAlloc;
 
-    JPEGGrpc.JPEGStub jpegStub;
+    private JPEGGrpc.JPEGStub jpegStub;
 
+    private final String TAG = "MiniCap";
+
+    private StreamObserver<JPEGRequest> requestJPEG;
 
     MiniCap() {
         super("minicap");
         // taskQueue = new ArrayBlockingQueue<>(100);
         this.frameAlloc = new FrameAlloc(100, 1024 * 256);
 
+        // 初始化 RPC 存根
         this.jpegStub = JPEGGrpc.newStub(gRPCChannelPool.get().getChannel("jpeg"));
+
+        StreamObserver<JPEGReply> streamObserver = new StreamObserver<JPEGReply>() {
+            @Override
+            public void onNext(JPEGReply value) {
+                Log.i(TAG, "jpeg sender closed");
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                t.printStackTrace();
+            }
+
+            @Override
+            public void onCompleted() {
+                System.out.println("aa");
+            }
+        };
+
+        requestJPEG = jpegStub.sendJPEG(streamObserver);
     }
+
+    private JPEGRequest jpegRequest;
 
     public void startSender() {
         System.out.println("-------------------------------------------- Sender Probe Start --------------------------------------------");
@@ -47,16 +77,20 @@ public class MiniCap extends AbstractMiniCap {
 
             try {
                 while (true) {
-                    byte[] bytes = frameAlloc.take().getFrameBuffer();
+                    Frame frame = frameAlloc.take();
                     count++;
 
-                    JPEGRequest jpegRequest = JPEGRequest.newBuilder().setData(ByteString.copyFrom(bytes)).build();
-                    jpegStub.sendJPEG(jpegRequest, new SimpleStreamObserver<Reply>() {
-                        @Override
-                        protected void onSuccess(Reply value) {
-                            // System.out.println("OK");
-                        }
-                    });
+                    // byte[] a = frame.getFrameBuffer();
+                    // this.jpegStub = JPEGGrpc.newStub(gRPCChannelPool.get().getChannel("jpeg"));
+                    jpegRequest = JPEGRequest.newBuilder().setData(ByteString.copyFrom(frame.getFrameBuffer(), 0, frame.getLen())).build();
+                    requestJPEG.onNext(jpegRequest);
+
+//                    jpegStub.sendJPEG(jpegRequest, new SimpleStreamObserver<Reply>() {
+//                        @Override
+//                        protected void onSuccess(Reply value) {
+//                            // System.out.println("OK");
+//                        }
+//                    });
 
                     if (count == 30) {
                         count = 0;
@@ -119,7 +153,7 @@ class MiniCapNDK extends Thread {
         if (mx > 5000 || my > 5000) {
             Log.e(TAG, "run failed used a error x or y metrics pixel");
         }
-        String dp = "-P " + mx + "x" + my + "@" + mx + "x" + my + "/0 -Q 30";
+        String dp = "-P " + mx + "x" + my + "@" + mx + "x" + my + "/0";
 
         execString = TextUtils.join(" ",
                 new Object[]{

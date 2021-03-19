@@ -67,14 +67,13 @@ public class ThreadReceiver extends Thread {
             while (Running) {
                 mRace.read(len);
                 frameLen = Utils.parseFrameLen(len);
-                // byte[] data = new byte[frameLen];
+                Frame frame = frameAlloc.alloc().setLen(frameLen);
 
-                Frame frame = frameAlloc.alloc();
-
-                while (frameLen != 0) {
-                    int reduce = mRace.read(frame.getFrameBuffer(), 0, frameLen);
-                    // long reduce = mRace.skip(frameLen);
-                    frameLen -= reduce;
+                int read = 0;
+                while (frameLen != read) {
+                    // 增量   偏移量   剩余
+                    // read   read    frameLen - read
+                    read += mRace.read(frame.getFrameBuffer(), read, frameLen - read);
                 }
 
                 frameAlloc.put(frame);
@@ -89,7 +88,6 @@ public class ThreadReceiver extends Thread {
 
             mRace.close();
             // localSocket.close();
-
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
             System.out.println(frameLen);

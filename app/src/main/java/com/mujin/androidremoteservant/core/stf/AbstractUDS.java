@@ -39,9 +39,11 @@ public abstract class AbstractUDS {
      */
     public void disconnect() throws IOException {
         if (localSocket.isConnected()) {
+            localSocket.shutdownInput();
+            localSocket.shutdownOutput();
             localSocket.close();
             boolean a = localSocket.isConnected();
-            System.out.println(a);
+            System.out.println("adsssssssssssssssssssssssssssssssssssssssssssssssssssss"+a);
         }
     }
 
@@ -49,7 +51,7 @@ public abstract class AbstractUDS {
      * @throws IOException
      * @deprecated can't not close local socket safely due to the native impl
      */
-    public void reconnect() throws IOException {
+    public void reconnect() throws IOException, InterruptedException {
 
         // destroy and release
         // threadReceiver.close();
@@ -63,7 +65,7 @@ public abstract class AbstractUDS {
      * @throws IOException
      * @deprecated can't not close local socket safely due to the native impl
      */
-    public void reconnect(String local) throws IOException {
+    public void reconnect(String local) throws IOException, InterruptedException {
 
         // destroy and release
         // threadReceiver.close();
