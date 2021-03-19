@@ -1,0 +1,25 @@
+syntax = "proto3";
+// option go_package = ".;com.r3inb.grpc.touch";
+
+package touch;
+
+service Touch {
+  rpc TouchReq (TouchRequest) returns (stream TouchReply);
+}
+
+message TouchReply {
+  TouchType type = 1;
+  enum TouchType {
+    TAP = 0;
+    SWIPE = 1;
+    RELEASE = 2;
+  }
+  int32 x = 2;
+  int32 y = 3;
+  int32 contact = 4;
+  int64 ts = 5;
+}
+
+message TouchRequest {
+  string message = 1;
+}

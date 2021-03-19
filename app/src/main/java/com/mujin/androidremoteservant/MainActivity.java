@@ -117,12 +117,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onNext(TouchReply value) {
                 try {
-                    if (value.getType().equals(TouchReply.TouchType.TAP)) {
+                    if (value.getType().equals(TouchReply.TouchType.RELEASE)) {
+                        MiniTouch.getInstance().getEventManager().release(value.getContact());
+                    } else if (value.getType().equals(TouchReply.TouchType.TAP)) {
                         MiniTouch.getInstance().getEventManager().tap(value.getContact(), value.getX(), value.getY());
                     } else if (value.getType().equals(TouchReply.TouchType.SWIPE)) {
                         MiniTouch.getInstance().getEventManager().move(value.getContact(), value.getX(), value.getY());
-                    } else if (value.getType().equals(TouchReply.TouchType.RELEASE)) {
-                        MiniTouch.getInstance().getEventManager().release(value.getContact());
                     }
                 } catch (InterruptedException e) {
                     Log.i("TouchOb", "Touch failed..");

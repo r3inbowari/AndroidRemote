@@ -1,0 +1,4 @@
+how to use
+
+protoc *.proto --go_out=.
+protoc.exe *.proto --go-grpc_out=.

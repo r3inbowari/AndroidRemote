@@ -1,0 +1,17 @@
+syntax = "proto3";
+// build 编译包名
+// option go_package = "com.r3inb.grpc.hello";
+
+package pics;
+
+service JPEG {
+  rpc SendJPEG (stream JPEGRequest) returns (stream JPEGReply);
+}
+
+message JPEGReply {
+  int32 length = 1;
+}
+
+message JPEGRequest {
+  bytes data = 1;
+}
