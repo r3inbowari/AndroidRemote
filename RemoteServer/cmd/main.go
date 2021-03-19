@@ -6,10 +6,6 @@ import (
 	"RemoteServer/ws"
 )
 
-const ()
-
-var ak = 0
-
 func main() {
 	bilicoin.InitLogger()
 	bilicoin.AppInfo("streamer")

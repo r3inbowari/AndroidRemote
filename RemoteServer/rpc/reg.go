@@ -18,7 +18,7 @@ func RegRPCServer(s *grpc.Server) {
 }
 
 func StartRPC() {
-	bilicoin.Info("service -> gRPC start listening on " + bilicoin.GetConfig().APIAddr)
+	bilicoin.Info("service -> gRPC start listened on " + bilicoin.GetConfig().APIAddr)
 	lis, err := net.Listen("tcp", bilicoin.GetConfig().APIAddr)
 	if err != nil {
 		bilicoin.Fatal("failed to listen: " + err.Error())

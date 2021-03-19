@@ -14,11 +14,16 @@ import (
  * local config struct
  */
 type LocalConfig struct {
-	Finger      string    `json:"finger"`    // canvas指纹
-	APIAddr     string    `json:"api_addr"`  // API服务ADDR
-	CacheTime   time.Time `json:"-"`         // 缓存时间
-	LoggerLevel *string   `json:"log_level"` // 日志等级
-	WsAddr      string    `json:"ws_addr"`   // Ws服务ADDR
+	Finger         string    `json:"finger"`           // canvas指纹
+	APIAddr        string    `json:"api_addr"`         // API服务ADDR
+	CacheTime      time.Time `json:"-"`                // 缓存时间
+	LoggerLevel    *string   `json:"log_level"`        // 日志等级
+	WsAddr         string    `json:"ws_addr"`          // Ws服务ADDR
+	BrokerHost     *string   `json:"broker_host"`      // host
+	BrokerUsername *string   `json:"broker_username"`  // us
+	BrokerPassword *string   `json:"broker_password"`  // ps
+	BrokerScheme   *string   `json:"broker_scheme"`    // sc
+	BrokerClientID *string   `json:"broker_client_id"` // id
 }
 
 var config = new(LocalConfig)

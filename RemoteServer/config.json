@@ -1,5 +1,6 @@
 {
   "finger": "1777945899",
   "api_addr": ":5005",
-  "log_level": "debug"
+  "log_level": "debug",
+  "ws_addr": ":8080"
 }
