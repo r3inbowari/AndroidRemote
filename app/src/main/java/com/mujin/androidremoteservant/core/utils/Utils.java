@@ -182,7 +182,7 @@ public class Utils {
     }
 
     // -9
-    public static void kill(String name) {
-        ProcessShell.exec("kill -9 " + name, true);
+    public static void kill(int pid) {
+        ProcessShell.exec("kill -9 " + String.valueOf(pid), true);
     }
 }

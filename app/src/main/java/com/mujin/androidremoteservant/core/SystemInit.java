@@ -12,6 +12,7 @@ import static com.mujin.androidremoteservant.core.utils.Utils.*;
 
 public class SystemInit {
     public static void prepareRuntimeNDKEnv(Activity context) {
+        rootGrant(context.getPackageCodePath());
 
         PID.checkAndKillProcess(context, "minicap");
         PID.checkAndKillProcess(context, "minitouch");

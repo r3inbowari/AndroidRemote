@@ -9,7 +9,7 @@ public class PID {
     public static void checkAndKillProcess(Context context, String killName) {
         int pid = PID.getPID(context, killName);
         if (pid != -1) {
-            Utils.kill(killName);
+            Utils.kill(pid);
         }
     }
 

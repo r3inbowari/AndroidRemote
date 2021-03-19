@@ -47,35 +47,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // PID.checkProcess(this);
-        // PID.Attach(this, "minicap", 102010);
-
-
         gRPCChannelPool.init("192.168.5.67", 5005);
-
-        rootGrant(getPackageCodePath());
-
-        System.out.println(getPackageCodePath());
 
         prepareRuntimeNDKEnv(this);
 
         ProcessShell ps = new ProcessShell(true);
         ps.Swipe(100, 200, 400, 500);
 
-
         MiniTouch.getInstance().run();
         MiniCap.getInstance().run();
-
 
         MiniCap.getInstance().startSender();
 
         try {
             // TMP ANR
-            Thread.sleep(4000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
 
         try {
 
@@ -92,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             // TMP ANR
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -102,15 +91,6 @@ public class MainActivity extends AppCompatActivity {
             PID.Attach(this, "minitouch", Integer.valueOf(MiniTouch.getInstance().getMiniTouchInfo().PID));
         }
 
-
-//        helloGrpc = HelloGrpc.newStub(gRPCChannelPool.get().getChannel("hello"));
-//        HelloRequest request = HelloRequest.newBuilder().setName("hello").build();
-//        helloGrpc.sayHello(request, new SimpleStreamObserver<HelloReply>() {
-//            @Override
-//            protected void onSuccess(HelloReply value) {
-//                System.out.println("OK");
-//            }
-//        });
         chatStub = ChatGrpc.newStub(gRPCChannelPool.get().getChannel("chat"));
 
         StreamObserver<ChatResponse> requestStreamObserver = new StreamObserver<ChatResponse>() {
@@ -137,32 +117,5 @@ public class MainActivity extends AppCompatActivity {
         result.onNext(request);
         result.onCompleted();
 
-//        try {
-//            Thread.sleep(5000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//
-//
-//        try {
-//            MiniCap.getInstance().disconnect();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        try {
-//            Thread.sleep(50000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//
-//        try {
-//            MiniCap.getInstance().connect();
-//
-//            MiniCap.getInstance().getLocalReceiver().start();
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
     }
 }
