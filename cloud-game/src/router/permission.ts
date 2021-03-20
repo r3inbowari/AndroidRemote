@@ -1,4 +1,4 @@
-import { router } from './index'
+// import { router } from './index'
 
 // router.beforeEach((to, from, next) => {
 //     if (to.meta.login) {
@@ -12,9 +12,9 @@ import { router } from './index'
 //         }
 //     }else{
 //         if (to.meta.page) store.state.app.pageLoading = true
-//         next() 
+//         next()
 //     }
-    
+
 // })
 
 // router.afterEach((to, from) => {
