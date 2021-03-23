@@ -22,6 +22,8 @@
 
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
+import { HELLO } from '../../api/nav'
+
 // Component definition
 @Options({
   // Define component options
@@ -36,6 +38,9 @@ export default class MiniSearach extends Vue {
 
   created() {
     console.log('asd')
+    HELLO(1).then((res) => {
+      console.log(res)
+    })
   }
 }
 </script>
@@ -71,10 +76,10 @@ export default class MiniSearach extends Vue {
   position: absolute;
   top: 0px;
   right: 0;
-  margin: 0;
+  margin: 1px;
   padding: 0;
-  width: 48px;
-  height: 36px;
+  width: 56px;
+  height: 34px;
   border: none;
   border-radius: 2px;
   background: rgb(43, 43, 43);
@@ -99,6 +104,7 @@ export default class MiniSearach extends Vue {
 
 .nav-search-submit::before {
   content: '\e8aa';
+  font-size: 22px;
 }
 
 .nav-search-submit:hover {

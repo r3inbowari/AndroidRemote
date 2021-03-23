@@ -39,7 +39,8 @@ export default class HomePage extends Vue {
   }
 
   created() {
-    console.log('asd')
+    console.log(import.meta.env.DEV)
+    console.log(import.meta.env)
   }
 }
 </script>
@@ -76,6 +77,10 @@ export default class HomePage extends Vue {
   /* display: flex; */
   align-items: flex-start;
   justify-content: space-between;
+}
+
+.nav-search-box {
+  width: 500px;
 }
 
 .v-wrap {
