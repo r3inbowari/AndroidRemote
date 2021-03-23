@@ -1,68 +1,84 @@
 <template>
-  <el-container>
-    <el-header>
-      <div id="jjjj">
-        <div>as</div>
-        <div>as</div>
-        <div>as</div>
-        <div>as</div>
+  <div id="internalHeader" class="internalHeader">
+    <div class="page-header mini-type">
+      <div class="page-header-content">
+        <div class="nav-link">logo</div>
+        <div class="nav-search-box">
+          <MiniSearach></MiniSearach>
+        </div>
+        <div class="nav-user-center">center</div>
       </div>
-    </el-header>
+    </div>
+  </div>
 
-    <el-container>
-      <el-main
-        ><div>a</div>
-        <div>a</div>
-        <div>a</div>
-        <div>a</div>
-        <div>a</div>
-        <div>a</div>
-        <div>a</div>
-        <div>a</div>
-        <div>a</div>
-        <div>a</div></el-main
-      >
-    </el-container>
-  </el-container>
+  <div class="v-wrap">123123</div>
 </template>
 
+<script lang="ts">
+import { Vue, Options } from 'vue-class-component'
+import MiniSearach from '../components/MiniSearch/MiniSearch.vue'
+
+// Component definition
+@Options({
+  // Define component options
+  watch: {
+    count: (value) => {
+      console.log(value)
+    },
+  },
+  components: {
+    MiniSearach,
+  },
+})
+export default class HomePage extends Vue {
+  // The behavior in class is the same as the current
+  count = 0
+
+  increment() {
+    this.count++
+  }
+
+  created() {
+    console.log('asd')
+  }
+}
+</script>
+
 <style>
-#jjjj {
+.internalHeader {
+  min-width: 998;
+  min-height: 56;
+
+  z-index: 999;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+.internalHeader .mini-type {
+  position: relative;
   box-shadow: 0 2px 4px 0 rgb(0 0 0 / 8%);
-}
-.el-header,
-.el-footer {
-  background-color: rgb(21, 21, 21);
-
-  color: #333;
-  text-align: center;
-  line-height: 60px;
+  box-sizing: border-box;
 }
 
-.el-aside {
-  background-color: rgb(28, 32, 34);
-  color: #333;
-  text-align: center;
-  line-height: 200px;
+.page-header {
+  width: 100%;
+  height: 56px;
+  z-index: 1;
 }
 
-.el-main {
-  background-color: rgb(255, 255, 255);
-  color: #333;
-  text-align: center;
-  line-height: 160px;
+.page-header-content {
+  box-sizing: border-box;
+  padding: 10px 24px;
+  line-height: 30px;
+  position: relative;
+  margin: 0 auto;
+  /* display: flex; */
+  align-items: flex-start;
+  justify-content: space-between;
 }
 
-body > .el-container {
-  margin-bottom: 40px;
-}
-
-.el-container:nth-child(5) .el-aside,
-.el-container:nth-child(6) .el-aside {
-  line-height: 260px;
-}
-
-.el-container:nth-child(7) .el-aside {
-  line-height: 320px;
+.v-wrap {
+  height: 1000px;
 }
 </style>
