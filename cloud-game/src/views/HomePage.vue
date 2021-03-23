@@ -11,16 +11,22 @@
         <div class="nav-search-box">
           <MiniSearach></MiniSearach>
         </div>
-        <div class="nav-user-center">center</div>
+        <div class="nav-user-center">
+          <MiniUser> </MiniUser>
+        </div>
       </div>
     </div>
   </div>
-  <div class="v-wrap">123123</div>
+  <LoginDialog></LoginDialog>
+  <div class="v-wrap"></div>
 </template>
 
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import MiniSearach from '../components/MiniSearch/MiniSearch.vue'
+import MiniUser from '../components/User/User.vue'
+import LoginDialog from '../components/Login/Login.vue'
+import { HELLO } from '../api/nav'
 
 // Component definition
 @Options({
@@ -32,6 +38,8 @@ import MiniSearach from '../components/MiniSearch/MiniSearch.vue'
   },
   components: {
     MiniSearach,
+    MiniUser,
+    LoginDialog,
   },
 })
 export default class HomePage extends Vue {
@@ -42,6 +50,13 @@ export default class HomePage extends Vue {
     this.count++
   }
 
+  created() {
+    console.log('asd')
+    HELLO(1).then((res) => {
+      console.log(res)
+    })
+  }
+
   // created() {
   //   console.log(import.meta.env.DEV)
   //   console.log(import.meta.env)
@@ -50,6 +65,7 @@ export default class HomePage extends Vue {
   mounted() {
     console.log('123')
     window.addEventListener('scroll', this.Scroll, true)
+    // console.log(document.getElementById('internalHeader'))
   }
 
   Scroll() {
