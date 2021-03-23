@@ -1,8 +1,13 @@
 <template>
-  <div id="internalHeader" class="internalHeader">
+  <el-carousel :interval="5000" arrow="always">
+    <el-carousel-item v-for="item in 4" :key="item">
+      <h3>{{ item }}</h3>
+    </el-carousel-item>
+  </el-carousel>
+  <div id="internalHeader" v-if="headerHideActive" class="internalHeader">
     <div class="page-header mini-type">
       <div class="page-header-content">
-        <div class="nav-link">logo</div>
+        <div class="nav-link">游戏</div>
         <div class="nav-search-box">
           <MiniSearach></MiniSearach>
         </div>
@@ -10,7 +15,6 @@
       </div>
     </div>
   </div>
-
   <div class="v-wrap">123123</div>
 </template>
 
@@ -33,27 +37,69 @@ import MiniSearach from '../components/MiniSearch/MiniSearch.vue'
 export default class HomePage extends Vue {
   // The behavior in class is the same as the current
   count = 0
-
+  headerHideActive = false
   increment() {
     this.count++
   }
 
-  created() {
-    console.log(import.meta.env.DEV)
-    console.log(import.meta.env)
+  // created() {
+  //   console.log(import.meta.env.DEV)
+  //   console.log(import.meta.env)
+  // }
+
+  mounted() {
+    console.log('123')
+    window.addEventListener('scroll', this.Scroll, true)
+  }
+
+  Scroll() {
+    // console.log(window.scrollY)
+    if (window.scrollY > 280) {
+      console.log('sd')
+      this.headerHideActive = true
+    } else {
+      this.headerHideActive = false
+    }
   }
 }
 </script>
 
 <style>
+.el-carousel__item h3 {
+  color: #475669;
+  font-size: 18px;
+  opacity: 0.75;
+  line-height: 300px;
+  margin: 0;
+}
+
+.el-carousel__item:nth-child(2n) {
+  background-color: #99a9bf;
+}
+
+.el-carousel__item:nth-child(2n + 1) {
+  background-color: #d3dce6;
+}
+
+.el-carousel__button {
+  width: 10px;
+}
+
 .internalHeader {
   min-width: 998;
   min-height: 56;
 
   z-index: 999;
-  position: relative;
+  display: flex;
+  /* display: none; */
   margin: 0;
   padding: 0;
+
+  position: fixed;
+
+  top: 0px;
+
+  width: 100%;
 }
 
 .internalHeader .mini-type {
@@ -74,7 +120,7 @@ export default class HomePage extends Vue {
   line-height: 30px;
   position: relative;
   margin: 0 auto;
-  /* display: flex; */
+  display: flex;
   align-items: flex-start;
   justify-content: space-between;
 }
@@ -84,6 +130,6 @@ export default class HomePage extends Vue {
 }
 
 .v-wrap {
-  height: 1000px;
+  height: 2000px;
 }
 </style>
