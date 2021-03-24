@@ -37,7 +37,6 @@ export default class MiniSearach extends Vue {
   // The behavior in class is the same as the current
 
   created() {
-    console.log('asd')
     HELLO(1).then((res) => {
       console.log(res)
     })

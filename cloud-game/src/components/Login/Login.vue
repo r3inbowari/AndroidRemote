@@ -7,8 +7,7 @@
   >
     <div class="login-dialog-content">
       <div class="login-logo">
-        <!-- <img src="http://192.168.5.67:3000/login-bg.png" alt="logo" /> -->
-        <img id="logo-bg" :src="imgUrln" alt="logo" />
+        <img id="logo-bg" :src="logoUrl" alt="logo" />
       </div>
       <div class="login-title">
         <div class="login-top-title"><span>云游</span></div>
@@ -42,18 +41,8 @@
 
       <div class="third-login">
         <el-divider>
-          <a class="third-login-a"
-            ><span
-              class="dingtalk"
-              :style="{ backgroundImage: 'url(' + aa + ')' }"
-            ></span
-          ></a>
-          <a class="third-login-a"
-            ><span
-              :style="{ backgroundImage: 'url(' + aa + ')' }"
-              class="wechat"
-            ></span
-          ></a>
+          <a class="third-login-a"><span class="dingtalk"></span></a>
+          <a class="third-login-a"><span class="wechat"></span></a>
         </el-divider>
       </div>
 
@@ -73,28 +62,23 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import img1 from '../../assets/login-bg.png'
-import imgUrl from '/src/assets/login-bg.png'
+import imgUrl0 from '/src/assets/login-bg.png'
 
 @Options({
   components: {},
   data() {
     return {
-      imgUrln: imgUrl,
+      logoUrl: imgUrl0,
       loginData: {
         phone: '',
         passwd: '',
       },
-      // avatar: require('../../assets/login-bg.png'),
-      aa: import.meta.env['VITE_PICS_URL'] + 'third-part.png',
     }
   },
 })
 export default class Login extends Vue {
   dialogVisible = true
-  // aa = import.meta.env['VITE_PICS_URL'] + 'third-part.png'
-  created() {
-    console.log(this.aa)
-  }
+  created() {}
 
   onClick() {
     console.log('clk')
@@ -103,9 +87,7 @@ export default class Login extends Vue {
   // 登录窗口被关闭时
   handleClose() {}
 
-  mounted() {
-    console.log(document.getElementById('logo-bg'))
-  }
+  mounted() {}
 }
 </script>
 
@@ -114,8 +96,7 @@ export default class Login extends Vue {
   display: inline-block;
   width: 28px;
   height: 29px;
-  /* background-image: url(this.aa); */
-  /* background-image: url(https://gw.alipayobjects.com/mdn/prod_resou/afts/img/A*wLosTZsNyYcAAAAAAAAAAABjARQnAQ); */
+  background-image: url('/src/assets/third-part.png');
   background-repeat: no-repeat;
   background-size: 100%;
   vertical-align: middle;

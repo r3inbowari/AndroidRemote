@@ -51,7 +51,6 @@ export default class HomePage extends Vue {
   }
 
   created() {
-    console.log('asd')
     HELLO(1).then((res) => {
       console.log(res)
     })
@@ -63,9 +62,7 @@ export default class HomePage extends Vue {
   // }
 
   mounted() {
-    console.log('123')
     window.addEventListener('scroll', this.Scroll, true)
-    // console.log(document.getElementById('internalHeader'))
   }
 
   Scroll() {
