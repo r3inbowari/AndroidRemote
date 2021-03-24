@@ -1,13 +1,17 @@
 <template>
   <el-carousel :interval="5000" arrow="always">
-    <el-carousel-item v-for="item in 4" :key="item">
-      <h3>{{ item }}</h3>
+    <el-carousel-item v-for="item in picsObj.count" :key="item">
+      <el-image
+        style="width: 1920px; height: 300px"
+        :src="base + picsObj.pics[item - 1]"
+        fit="cover"
+      ></el-image>
     </el-carousel-item>
   </el-carousel>
   <div id="internalHeader" v-if="headerHideActive" class="internalHeader">
     <div class="page-header mini-type">
       <div class="page-header-content">
-        <div class="nav-link">游戏</div>
+        <div class="nav-link"><MiniLink></MiniLink></div>
         <div class="nav-search-box">
           <MiniSearach></MiniSearach>
         </div>
@@ -25,6 +29,7 @@
 import { Vue, Options } from 'vue-class-component'
 import MiniSearach from '../components/MiniSearch/MiniSearch.vue'
 import MiniUser from '../components/User/User.vue'
+import MiniLink from '../components/MiniLink.vue'
 import LoginDialog from '../components/Login/Login.vue'
 import { HELLO } from '../api/nav'
 
@@ -40,6 +45,10 @@ import { HELLO } from '../api/nav'
     MiniSearach,
     MiniUser,
     LoginDialog,
+    MiniLink,
+  },
+  data() {
+    return {}
   },
 })
 export default class HomePage extends Vue {
@@ -56,6 +65,15 @@ export default class HomePage extends Vue {
     })
   }
 
+  picsObj = {
+    count: 5,
+    pics: ['mihayo.jpg', 'guangyu.jpg'],
+    // we can overwrite the base path
+    base: '',
+  }
+
+  // webstatic setting
+  base = import.meta.env.VITE_STATIC_URL
   // created() {
   //   console.log(import.meta.env.DEV)
   //   console.log(import.meta.env)
@@ -66,7 +84,6 @@ export default class HomePage extends Vue {
   }
 
   Scroll() {
-    // console.log(window.scrollY)
     if (window.scrollY > 280) {
       console.log('sd')
       this.headerHideActive = true
@@ -78,6 +95,36 @@ export default class HomePage extends Vue {
 </script>
 
 <style>
+.nav-link .nav-link-ul {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  list-style: none;
+}
+
+.nav-link .nav-link-ul .nav-link-item {
+  margin-right: 12px;
+}
+
+.nav-link a {
+  color: #fff;
+  font-size: 14px;
+  line-height: 32px;
+  display: flex;
+  white-space: nowrap;
+  text-shadow: 0 1px 1px rgb(0 0 0 / 30%);
+  transition: color 0.3s;
+  text-decoration: none;
+}
+
+.nav-link .logo {
+  background-color: rgb(43, 43, 43);
+  width: 100px;
+  height: 34px;
+  margin-top: 1px;
+
+  border-radius: 5px;
+}
 .el-carousel__item h3 {
   color: #475669;
   font-size: 18px;
@@ -113,6 +160,8 @@ export default class HomePage extends Vue {
   top: 0px;
 
   width: 100%;
+
+  background: rgb(21, 21, 21);
 }
 
 .internalHeader .mini-type {

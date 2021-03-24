@@ -20,14 +20,15 @@ export default defineComponent({
     }
   },
   setup() {
-    // printEnv()
+    printEnv()
   },
 })
 </script>
 
 <style scoped>
 .builtState {
-  position: absolute;
+  position: fixed;
+  float: left;
   bottom: 4px;
   right: 16px;
 

@@ -54,8 +54,8 @@ export default class MiniSearach extends Vue {
   display: block;
   padding: 0 38px 0 16px;
   border-radius: 2px;
-  background: #151515 !important;
-  border-color: #151515 !important;
+  background: rgb(31, 31, 31) !important;
+  border-color: rgb(31, 31, 31) !important;
 }
 
 .nav-search-keyword {

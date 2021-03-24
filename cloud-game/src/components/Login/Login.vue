@@ -1,10 +1,5 @@
 <template>
-  <el-dialog
-    :close-on-click-modal="false"
-    v-model="dialogVisible"
-    width="400px"
-    :before-close="handleClose"
-  >
+  <el-dialog v-model="dialogVisible" width="400px" :before-close="handleClose">
     <div class="login-dialog-content">
       <div class="login-logo">
         <img id="logo-bg" :src="logoUrl" alt="logo" />
@@ -13,39 +8,44 @@
         <div class="login-top-title"><span>云游</span></div>
         <div class="login-mini-title"><span>专业云游戏中心</span></div>
       </div>
+      <transition name="el-fade-in">
+        <div v-if="show">
+          <div class="car-login">
+            <div class="login-form">
+              <el-form ref="loginData" :model="loginData" label-width="80px">
+                <el-form-item>
+                  <el-input
+                    prefix-icon="el-icon-mobile-phone"
+                    v-model="loginData.phone"
+                    placeholder="手机号"
+                  ></el-input>
+                </el-form-item>
 
-      <div class="login-form">
-        <el-form ref="loginData" :model="loginData" label-width="80px">
-          <el-form-item>
-            <el-input
-              prefix-icon="el-icon-mobile-phone"
-              v-model="loginData.phone"
-              placeholder="手机号"
-            ></el-input>
-          </el-form-item>
+                <el-form-item>
+                  <el-input
+                    prefix-icon="el-icon-lock"
+                    placeholder="密码"
+                    v-model="loginData.passwd"
+                    show-password
+                  ></el-input>
+                </el-form-item>
+              </el-form>
+            </div>
+          </div>
 
-          <el-form-item>
-            <el-input
-              prefix-icon="el-icon-lock"
-              placeholder="密码"
-              v-model="loginData.passwd"
-              show-password
-            ></el-input>
-          </el-form-item>
-        </el-form>
-      </div>
+          <div class="login-submit">
+            <el-button @click="onClick" type="success">登录</el-button>
+          </div>
 
-      <div class="login-submit">
-        <el-button type="success">登录</el-button>
-      </div>
-
-      <div class="third-login">
-        <el-divider>
-          <a class="third-login-a"><span class="dingtalk"></span></a>
-          <a class="third-login-a"><span class="wechat"></span></a>
-        </el-divider>
-      </div>
-
+          <div class="third-login">
+            <el-divider>
+              <a class="third-login-a"><span class="dingtalk"></span></a>
+              <a class="third-login-a"><span class="wechat"></span></a>
+            </el-divider>
+          </div>
+        </div>
+      </transition>
+      <div v-if="show1" v-loading="true" style="height: 100px"></div>
       <div class="login-footer">
         <a href="">找回密码</a>
         <span class="login-foot-span"></span>
@@ -73,6 +73,8 @@ import imgUrl0 from '/src/assets/login-bg.png'
         phone: '',
         passwd: '',
       },
+      show: true,
+      show1: false,
     }
   },
 })
@@ -82,16 +84,32 @@ export default class Login extends Vue {
 
   onClick() {
     console.log('clk')
+    this.show = false
+    setTimeout(() => {
+      this.show1 = true
+    }, 300)
+
+    setTimeout(() => {
+      this.show1 = false
+      this.show = true
+    }, 4000)
   }
 
   // 登录窗口被关闭时
-  handleClose() {}
+  handleClose() {
+    console.log('123')
+    this.dialogVisible = false
+  }
 
   mounted() {}
 }
 </script>
 
 <style>
+.car-login .el-carousel__item {
+  background-color: #fff !important;
+}
+
 .third-login span {
   display: inline-block;
   width: 28px;
@@ -165,6 +183,7 @@ span::selection {
 .login-form {
   width: 320px;
   margin-left: 20px;
+  height: 124px;
 }
 
 .login-submit .el-button {
