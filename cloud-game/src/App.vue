@@ -3,7 +3,7 @@
   <!-- 路由匹配到的组件将渲染在这里 -->
   <router-view></router-view>
 
-  <div v-if="dev" class="builtState">development mode</div>
+  <div v-if="dev" class="builtState">development mode v{{ version }}</div>
 </template>
 
 <script lang="ts">
@@ -17,6 +17,7 @@ export default defineComponent({
   data() {
     return {
       dev: import.meta.env.DEV,
+      version: import.meta.env['VITE_WEB_VERSION'],
     }
   },
   setup() {

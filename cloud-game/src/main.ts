@@ -10,6 +10,7 @@ import 'element-plus/lib/theme-chalk/index.css'
 
 // import global css
 import './css/glob.css'
+import './css/btn.css'
 
 // ali iconfont
 import './assets/icon/iconfont.css'

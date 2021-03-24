@@ -1,0 +1,19 @@
+.action-btn {
+  z-index: 13;
+  min-width: 60px;
+  line-height: 26px;
+  text-align: center;
+  border-radius: 6px;
+  box-sizing: border-box;
+  color: #fff;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+  border: none;
+  background-color: #00a1d5;
+}
+
+.action-btn:hover {
+  background-color: rgb(0, 181, 229);
+}

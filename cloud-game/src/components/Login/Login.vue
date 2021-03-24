@@ -79,7 +79,7 @@ import imgUrl0 from '/src/assets/login-bg.png'
   },
 })
 export default class Login extends Vue {
-  dialogVisible = true
+  dialogVisible = false
   created() {}
 
   onClick() {

@@ -22,7 +22,18 @@
     </div>
   </div>
   <LoginDialog></LoginDialog>
-  <div class="v-wrap"></div>
+  <div class="v-wrap">
+    <div class="game-list-content">
+      <HPGame> </HPGame>
+    </div>
+  </div>
+
+  <!-- back to top -->
+  <div class="v-float">
+    <div class="ele-backtop" style="right: 50px; bottom: 50px">
+      <i class="el-icon-caret-top"></i>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -31,6 +42,7 @@ import MiniSearach from '../components/MiniSearch/MiniSearch.vue'
 import MiniUser from '../components/User/User.vue'
 import MiniLink from '../components/MiniLink.vue'
 import LoginDialog from '../components/Login/Login.vue'
+import HPGame from '../components/HPGame/HPGame.vue'
 import { HELLO } from '../api/nav'
 
 // Component definition
@@ -46,6 +58,7 @@ import { HELLO } from '../api/nav'
     MiniUser,
     LoginDialog,
     MiniLink,
+    HPGame,
   },
   data() {
     return {}
@@ -66,7 +79,7 @@ export default class HomePage extends Vue {
   }
 
   picsObj = {
-    count: 5,
+    count: 2,
     pics: ['mihayo.jpg', 'guangyu.jpg'],
     // we can overwrite the base path
     base: '',
@@ -95,6 +108,22 @@ export default class HomePage extends Vue {
 </script>
 
 <style>
+.ele-backtop {
+  position: fixed;
+  background-color: rgb(22, 22, 22);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: #00a1d5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  box-shadow: 0 0 6px rgb(0 0 0 / 12%);
+  cursor: pointer;
+  z-index: 5;
+}
+
 .nav-link .nav-link-ul {
   height: 36px;
   display: flex;
@@ -192,6 +221,7 @@ export default class HomePage extends Vue {
 }
 
 .v-wrap {
-  height: 2000px;
+  /* height: 2000px; */
+  /* min-height: 1200px; */
 }
 </style>

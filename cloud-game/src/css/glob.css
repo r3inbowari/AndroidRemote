@@ -5,7 +5,8 @@
   -moz-osx-font-smoothing: grayscale;
   /* text-align: center; */
   color: rgb(28, 32, 34);
-  background-color: aqua;
+  /* app bg  */
+  background-color: rgb(28, 32, 34);
 }
 ::-webkit-scrollbar {
   /*滚动条整体样式*/
@@ -28,8 +29,8 @@
 
 body {
   margin: 0px;
-  /* bg scroll  */
-  background-color: rgb(28, 32, 34);
+  /* top bg scroll  */
+  background-color: rgb(28, 32, 34, 0.9);
 }
 
 /* 0px */
