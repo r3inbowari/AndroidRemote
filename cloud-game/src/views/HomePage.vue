@@ -2,13 +2,13 @@
   <el-carousel :interval="5000" arrow="always">
     <el-carousel-item v-for="item in picsObj.count" :key="item">
       <el-image
-        style="width: 1920px; height: 300px"
+        style="width: 1920px; height: 500px"
         :src="base + picsObj.pics[item - 1]"
         fit="cover"
       ></el-image>
     </el-carousel-item>
   </el-carousel>
-  <div id="internalHeader" v-if="headerHideActive" class="internalHeader">
+  <div id="internalHeader" v-show="headerHideActive" class="internalHeader">
     <div class="page-header mini-type">
       <div class="page-header-content">
         <div class="nav-link"><MiniLink></MiniLink></div>
@@ -21,7 +21,7 @@
       </div>
     </div>
   </div>
-  <LoginDialog></LoginDialog>
+
   <div class="v-wrap">
     <div class="game-list-content">
       <HPGame> </HPGame>
@@ -29,11 +29,7 @@
   </div>
 
   <!-- back to top -->
-  <div class="v-float">
-    <div class="ele-backtop" style="right: 50px; bottom: 50px">
-      <i class="el-icon-caret-top"></i>
-    </div>
-  </div>
+  <Backtop></Backtop>
 </template>
 
 <script lang="ts">
@@ -41,9 +37,13 @@ import { Vue, Options } from 'vue-class-component'
 import MiniSearach from '../components/MiniSearch/MiniSearch.vue'
 import MiniUser from '../components/User/User.vue'
 import MiniLink from '../components/MiniLink.vue'
+import Backtop from '../components/Backtop.vue'
 import LoginDialog from '../components/Login/Login.vue'
 import HPGame from '../components/HPGame/HPGame.vue'
 import { HELLO } from '../api/nav'
+
+import { useStore } from 'vuex'
+import { key } from '../store'
 
 // Component definition
 @Options({
@@ -59,9 +59,12 @@ import { HELLO } from '../api/nav'
     LoginDialog,
     MiniLink,
     HPGame,
+    Backtop,
   },
   data() {
-    return {}
+    return {
+      loginSwitch: true,
+    }
   },
 })
 export default class HomePage extends Vue {
@@ -73,9 +76,9 @@ export default class HomePage extends Vue {
   }
 
   created() {
-    HELLO(1).then((res) => {
-      console.log(res)
-    })
+    // HELLO(1).then((res) => {
+    //   console.log(res)
+    // })
   }
 
   picsObj = {
@@ -94,11 +97,15 @@ export default class HomePage extends Vue {
 
   mounted() {
     window.addEventListener('scroll', this.Scroll, true)
+
+    // this.$refs['nop'].needLogin()
+    // const store = useStore(key)
+    // store.commit('increment')
+    // console.log(store.state.count)
   }
 
   Scroll() {
     if (window.scrollY > 280) {
-      console.log('sd')
       this.headerHideActive = true
     } else {
       this.headerHideActive = false
@@ -108,22 +115,6 @@ export default class HomePage extends Vue {
 </script>
 
 <style>
-.ele-backtop {
-  position: fixed;
-  background-color: rgb(22, 22, 22);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  color: #00a1d5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  box-shadow: 0 0 6px rgb(0 0 0 / 12%);
-  cursor: pointer;
-  z-index: 5;
-}
-
 .nav-link .nav-link-ul {
   height: 36px;
   display: flex;
@@ -160,6 +151,10 @@ export default class HomePage extends Vue {
   opacity: 0.75;
   line-height: 300px;
   margin: 0;
+}
+
+.el-carousel__container {
+  height: 500px;
 }
 
 .el-carousel__item:nth-child(2n) {

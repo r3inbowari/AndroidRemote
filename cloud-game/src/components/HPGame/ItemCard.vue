@@ -201,6 +201,8 @@ export default defineComponent({
 
   width: 100%;
   height: auto;
+
+  border-radius: 22%;
 }
 
 .item-card-title {

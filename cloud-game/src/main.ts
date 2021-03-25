@@ -3,7 +3,7 @@ import App from './App.vue'
 // 路由
 import { router } from './router'
 // vuex
-import { key, store } from './store'
+import { store, key } from './store'
 // element+
 import ElementPlus from 'element-plus'
 import 'element-plus/lib/theme-chalk/index.css'

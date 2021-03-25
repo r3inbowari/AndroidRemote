@@ -1,7 +1,7 @@
 <template>
   <div class="nav-user-content">
-    <div class="user-login-btn">
-      <el-avatar :size="38" src="https://empty" @error="errorHandler">
+    <div @click="onClickAvatar" class="user-login-btn">
+      <el-avatar :size="38" @error="errorHandler">
         <img
           src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
         />
@@ -12,6 +12,7 @@
 
     <div class="user-avatar"></div>
   </div>
+  <LoginDialog ref="nop"></LoginDialog>
 </template>
 
 <script lang="ts">
@@ -27,9 +28,11 @@ import LoginDialog from '../Login/Login.vue'
 export default class MiniUser extends Vue {
   created() {}
 
-  onClick() {
-    console.log('clk')
+  onClickAvatar() {
+    this.$refs['nop'].needLogin()
   }
+
+  errorHandler(e) {}
 }
 </script>
 

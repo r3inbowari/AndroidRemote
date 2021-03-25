@@ -1,5 +1,5 @@
 <template>
-  <el-dialog v-model="dialogVisible" width="400px" :before-close="handleClose">
+  <el-dialog v-model="switch" width="400px" :before-close="handleClose">
     <div class="login-dialog-content">
       <div class="login-logo">
         <img id="logo-bg" :src="logoUrl" alt="logo" />
@@ -77,9 +77,16 @@ import imgUrl0 from '/src/assets/login-bg.png'
       show1: false,
     }
   },
+
+  props: {
+    // switch: {
+    //   type: Boolean,
+    //   default: false,
+    // },
+  },
 })
 export default class Login extends Vue {
-  dialogVisible = false
+  switch = false
   created() {}
 
   onClick() {
@@ -97,10 +104,12 @@ export default class Login extends Vue {
 
   // 登录窗口被关闭时
   handleClose() {
-    console.log('123')
-    this.dialogVisible = false
+    this.switch = false
   }
 
+  needLogin() {
+    this.switch = true
+  }
   mounted() {}
 }
 </script>

@@ -1,6 +1,6 @@
 {
   "name": "cloud-game",
-  "version": "0.0.1",
+  "version": "0.1.2",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",

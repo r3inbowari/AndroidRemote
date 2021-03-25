@@ -61,9 +61,9 @@ export default defineComponent({
           aid: '6c1de797-ce90-43db-a51d-c77c440792f6',
         },
         {
-          track: 'yuanshen.png',
-          name: '原神',
-          aid: '6c1de797-ce90-43db-a51d-c77c440792f6',
+          track: 'guangyu.png',
+          name: '光遇',
+          aid: '4d53d679-de16-49e6-9706-ddca21d6cb82',
         },
       ],
       spanLen: 8,
