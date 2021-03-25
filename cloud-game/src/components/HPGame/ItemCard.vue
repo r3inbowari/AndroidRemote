@@ -170,9 +170,7 @@ export default defineComponent({
   background-color: initial;
 }
 
-.card-content .el-image__error,
-.el-image__inner,
-.el-image__placeholder {
+.card-content .el-image__placeholder {
   border-radius: 6px;
   background-color: rgb(28, 32, 34);
 }
