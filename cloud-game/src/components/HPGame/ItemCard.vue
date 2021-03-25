@@ -60,7 +60,7 @@ import { defineComponent, ref, onMounted, toRefs } from 'vue'
 
 /**
  * 游戏卡片组件
- * @emit run 运行按钮按钮按下 return { gameData }
+ * @emit runApp 运行按钮按钮按下 return { gameData }
  * @props gameData
  *        track  图片名
  *        ext    扩展名     required false
@@ -133,9 +133,11 @@ export default defineComponent({
       loading,
     }
   },
+  // emits: ['runapp'],
   methods: {
     onRun() {
       // 统一交由上层处理
+      console.log('123213132')
       this.$emit('run', this.dat)
     },
   },
@@ -176,7 +178,7 @@ export default defineComponent({
 }
 
 .item-card {
-  background-color: rgb(28, 32, 34);
+  background-color: rgb(20, 20, 20);
   width: 180px;
   height: 260px;
   border-radius: 6px;

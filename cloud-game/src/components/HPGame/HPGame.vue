@@ -13,12 +13,24 @@
     <!-- <ItemCard class="display-item" :dat="dat" @run="onRun"> </ItemCard> -->
 
     <div class="display-list">
-      <div class="type-content">二次元游戏</div>
+      <div class="type-content">
+        <div
+          style="
+            background: rgb(0, 161, 213);
+            width: 8px;
+            height: 40px;
+            margin-right: 10px;
+          "
+        ></div>
+        <div class="type-title">二次元游戏</div>
+      </div>
+      <hr color="#00A1D5" />
       <el-row type="flex" class="row-bg">
-        <el-col v-for="name in 100" :span="spanLen" class="col-class"
-          ><ItemCard class="display-item" :dat="dat" @run="onRun"> </ItemCard
+        <el-col v-for="name in gameDatas" :span="spanLen" class="col-class"
+          ><ItemCard class="display-item" :dat="name" @run="runApp"> </ItemCard
         ></el-col>
       </el-row>
+      <!-- <ItemCard class="display-item" :dat="gameDatas[0]" @run="onb"> </ItemCard> -->
     </div>
   </div>
 </template>
@@ -37,23 +49,29 @@ export default defineComponent({
     return {
       yuanshen: '',
       kkk: 1,
-      dat: {
-        track: 'yuanshen.png',
-        name: '原神',
-        aid: '6c1de797-ce90-43db-a51d-c77c440792f6',
-      },
+      // dat: {
+      //   track: 'yuanshen.png',
+      //   name: '原神',
+      //   aid: '6c1de797-ce90-43db-a51d-c77c440792f6',
+      // },
+      gameDatas: [
+        {
+          track: 'yuanshen.png',
+          name: '原神',
+          aid: '6c1de797-ce90-43db-a51d-c77c440792f6',
+        },
+        {
+          track: 'yuanshen.png',
+          name: '原神',
+          aid: '6c1de797-ce90-43db-a51d-c77c440792f6',
+        },
+      ],
       spanLen: 8,
       screenWidth: document.body.clientWidth,
       background1: 0,
     }
   },
   setup() {},
-
-  methods: {
-    onRun(gameData) {
-      console.log(gameData.aid)
-    },
-  },
 
   mounted() {
     const that = this
@@ -63,12 +81,14 @@ export default defineComponent({
         that.screenWidth = window.screenWidth
       })()
     }
+    this.fix(this.screenWidth)
   },
-  watch: {
-    screenWidth(val) {
-      this.screenWidth = val
-      // console.log('this.screenWidth', this.screenWidth)
-      if (val < 1900 && val > 1820) {
+  methods: {
+    runApp(gameData) {
+      console.log(gameData.aid)
+    },
+    fix(val) {
+      if (val < 3000 && val > 1820) {
         this.background1 = 0
         this.spanLen = 4
       } else if (val < 1820 && val > 1720) {
@@ -92,6 +112,13 @@ export default defineComponent({
       }
     },
   },
+  watch: {
+    screenWidth(val) {
+      this.screenWidth = val
+      // console.log('this.screenWidth', this.screenWidth)
+      this.fix(val)
+    },
+  },
 })
 </script>
 
@@ -108,6 +135,7 @@ export default defineComponent({
   font-size: 26px;
   font-weight: bold;
 }
+
 .game-list-display {
   margin-top: 40px;
   /* width: 70%;
@@ -161,7 +189,7 @@ export default defineComponent({
 }
 
 .row-bg {
-  background-color: rgb(20, 20, 20);
+  background-color: rgb(32, 32, 32);
   padding-top: 20px;
   border-radius: 6px;
 }
