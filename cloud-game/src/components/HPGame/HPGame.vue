@@ -1,7 +1,6 @@
 <template>
   <div class="game-list-display">
-    <ItemCard v-for="item in kkk" :key="item" :track="yuanshen" ext="png">
-    </ItemCard>
+    <ItemCard :dat="dat" @run="onRun"> </ItemCard>
     <!-- <div class="display-list">
       <el-row :gutter="10">
         <el-col :xs="4" :sm="6" :md="4" :lg="3" :xl="1"
@@ -34,25 +33,31 @@ export default defineComponent({
   data() {
     return {
       yuanshen: '',
-      kkk: 2,
+      kkk: 1,
+      dat: {
+        track: 'yuanshen.png',
+        name: '原神',
+        aid: '6c1de797-ce90-43db-a51d-c77c440792f6',
+      },
     }
   },
   setup() {
-    const hello = () => {
-      console.log('hahaha')
-    }
-
-    onMounted(hello)
+    // const hello = () => {
+    //   console.log('hahaha')
+    // }
+    // onMounted(hello)
   },
 
-  methods: {},
+  methods: {
+    onRun(gameData) {
+      console.log(gameData.aid)
+    },
+  },
 
   mounted() {
-    setTimeout(() => {
-      this.yuanshen = 'yuanshen'
-      console.log(this.yuanshen)
-    }, 4000)
-
+    // setTimeout(() => {
+    //   this.dat.name = ''
+    // }, 4000)
     // setInterval(() => {
     //   this.kkk++
     // }, 2000)

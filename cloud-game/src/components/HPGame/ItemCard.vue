@@ -1,6 +1,10 @@
 <template>
-  <div class="item-card">
-    <el-skeleton :loading="loading" animated>
+  <div
+    id="data-123b1a"
+    class="item-card"
+    :class="{ 'item-card-background': background }"
+  >
+    <el-skeleton :loading="loading" animated :count="1">
       <template #template>
         <el-skeleton-item
           variant="h6"
@@ -27,26 +31,46 @@
       </template>
 
       <template #default>
-        <div class="card-content">
+        <!-- <div v-show="isLoad" class="card-content">
           <img ref="imgdom" class="item-card-img" />
           <div class="item-card-title">原神</div>
           <div class="item-card-action">
             <button class="action-btn">启动</button>
           </div>
-        </div>
+        </div> -->
       </template>
     </el-skeleton>
+
+    <!-- skeleton在vue3下目测不是很兼容，无法在插槽未显示时安全获取到ref dom，所以没办法只能这样搞 -->
+    <div class="default-card-content">
+      <div v-show="!loading" class="card-content">
+        <img ref="imgdom" class="item-card-img" />
+        <div class="item-card-title">{{ dat.name }}</div>
+        <div class="item-card-action">
+          <button @click="onRun" class="action-btn">启动</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, onMounted, toRefs } from 'vue'
-import { initImage } from './item.ts'
+// import { initImage } from './item.ts'
 
+/**
+ * 游戏卡片组件
+ * @emit run 运行按钮按钮按下 return { gameData }
+ * @props gameData
+ *        track  图片名
+ *        ext    扩展名     required false
+ *        name   游戏名
+ *        aid    普通索引
+ * @props background 是否开启卡片背景
+ **/
 export default defineComponent({
   data() {
     return {
-      // loading: true,
       fits: ['fill', 'contain', 'cover', 'none', 'scale-down'],
       url: 'yuanshen1.png',
       // base: import.meta.env.VITE_STATIC_URL,
@@ -55,58 +79,81 @@ export default defineComponent({
   },
 
   props: {
-    track: { type: String },
-    ext: { type: String },
+    dat: {
+      // define clearly
+      track: { type: String },
+      ext: { type: String },
+      name: { type: String },
+      aid: { type: String },
+    },
+    background: {
+      type: Boolean,
+      default: false,
+    },
   },
-  setup(props) {
-    // 图片加载
+
+  setup(props, { attrs, slots, emit }) {
+    // get refs
+    const { dat } = toRefs(props)
     const imgdom = ref(null)
     const loading = ref(true)
 
-    const { track, ext } = toRefs(props)
     const internalInitPic = () => {
-      imgdom.value.src = track.value + '.' + ext.value
-    }
-
-    // 完成 callback
-
-    function a() {}
-    let pd
-
-    const pre = () => {
-      imgdom.value.onload = handleLoad()
+      // 图片加载
+      if (dat.value.ext === undefined) {
+        imgdom.value.src = dat.value.track
+      } else {
+        imgdom.value.src = dat.value.track + '.' + dat.value.ext
+      }
+      let loadTag
+      imgdom.value.onload = handleLoad
+      imgdom.value.onerror = handleError
       function handleLoad(e) {
-        console.log('start', imgdom.value.complete)
-        pd = setInterval(() => {
-          console.log('process', imgdom.value.complete)
+        // console.log(imgdom.value)
+        // 有性能问题
+        loadTag = setInterval(() => {
           if (imgdom.value.complete) {
-            clearInterval(pd)
+            clearInterval(loadTag)
             loading.value = false
-            console.log('ok')
           }
-          // console.log(imgdom.value.complete)
         }, 50)
       }
 
-      imgdom.value.onerror = handleError()
       function handleError(e) {
-        loading.value = true
-        console.log('error')
-        clearInterval(pd)
+        // 加载错误处理
+        console.log(
+          '[itemCard] image load error -> ' + track.value + '.' + ext.value
+        )
+        clearInterval(loadTag)
       }
     }
-    onMounted(pre)
-
     onMounted(internalInitPic)
     return {
       imgdom,
       loading,
     }
   },
+  methods: {
+    onRun() {
+      // 统一交由上层处理
+      this.$emit('run', this.dat)
+    },
+  },
 })
 </script>
 
 <style>
+/* 使用卡片背景样式 大小必须为 180x240 */
+.item-card-background {
+  background: url('card-bg.png') no-repeat !important;
+}
+/* element + 的 骨架屏存在问题，迫不得已把 div 移出骨架屏 */
+.default-card-content {
+  position: absolute;
+  top: 0px;
+  left: 40px;
+}
+
 .item-card .el-skeleton.is-animated .el-skeleton__item {
   /* background: linear-gradient(90deg, #f2f2f2 25%, #e6e6e6 37%, #f2f2f2 63%); */
   background: linear-gradient(90deg, #f2f2f2 25%, #e6e6e6 37%, #f2f2f2 63%);
@@ -142,6 +189,8 @@ export default defineComponent({
   color: aliceblue;
 
   text-align: center;
+
+  position: relative;
 }
 
 .item-card-img {
@@ -151,7 +200,7 @@ export default defineComponent({
 }
 
 .item-card-title {
-  margin-top: 15px;
+  margin-top: 13px;
   font-size: 18px;
   font-weight: 500;
 }
