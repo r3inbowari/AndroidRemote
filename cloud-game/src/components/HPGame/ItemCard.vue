@@ -143,15 +143,9 @@ export default defineComponent({
 </script>
 
 <style>
-/* 使用卡片背景样式 大小必须为 180x240 */
+/* 使用卡片背景样式 大小必须为 180x260 */
 .item-card-background {
   background: url('card-bg.png') no-repeat !important;
-}
-/* element + 的 骨架屏存在问题，迫不得已把 div 移出骨架屏 */
-.default-card-content {
-  position: absolute;
-  top: 0px;
-  left: 40px;
 }
 
 .item-card .el-skeleton.is-animated .el-skeleton__item {
@@ -182,9 +176,9 @@ export default defineComponent({
 }
 
 .item-card {
-  background-color: rgb(20, 20, 20);
+  background-color: rgb(28, 32, 34);
   width: 180px;
-  height: 240px;
+  height: 260px;
   border-radius: 6px;
   color: aliceblue;
 
@@ -193,10 +187,18 @@ export default defineComponent({
   position: relative;
 }
 
+/* element + 的 骨架屏存在问题，迫不得已把 div 移出骨架屏 */
+.default-card-content {
+  position: absolute;
+  padding: 30px;
+}
+
 .item-card-img {
-  width: 100px;
-  height: 100px;
-  margin-top: 35px;
+  /* width: 100px;
+  height: 100px; */
+
+  width: 100%;
+  height: auto;
 }
 
 .item-card-title {
