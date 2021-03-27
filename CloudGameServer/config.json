@@ -7,5 +7,7 @@
   "broker_username": "r3inb",
   "broker_password": "159463",
   "broker_client_id": "acm0-bjd2-fdi1-am81",
-  "broker_scheme": "tcp"
+  "broker_scheme": "tcp",
+  "mdb_url": "r3in.top:27017",
+  "mdb_name": "cloud"
 }

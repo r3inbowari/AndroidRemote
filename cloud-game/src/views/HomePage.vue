@@ -40,7 +40,7 @@ import MiniLink from '../components/MiniLink.vue'
 import Backtop from '../components/Backtop.vue'
 import LoginDialog from '../components/Login/Login.vue'
 import HPGame from '../components/HPGame/HPGame.vue'
-import { HELLO } from '../api/nav'
+import { HELLOQ } from '../api/nav'
 
 import { useStore } from 'vuex'
 import { key } from '../store'
@@ -76,9 +76,9 @@ export default class HomePage extends Vue {
   }
 
   created() {
-    // HELLO(1).then((res) => {
-    //   console.log(res)
-    // })
+    HELLOQ('AJJ').then((res) => {
+      console.log(res)
+    })
   }
 
   picsObj = {

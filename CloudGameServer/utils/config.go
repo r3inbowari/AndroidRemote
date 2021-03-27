@@ -24,6 +24,8 @@ type LocalConfig struct {
 	BrokerPassword *string   `json:"broker_password"`  // ps
 	BrokerScheme   *string   `json:"broker_scheme"`    // sc
 	BrokerClientID *string   `json:"broker_client_id"` // id
+	MdbUrl         string    `json:"mdb_url"`
+	MdbName        string    `json:"mdb_name"`
 }
 
 var config = new(LocalConfig)

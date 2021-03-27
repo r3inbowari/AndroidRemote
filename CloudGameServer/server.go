@@ -1,31 +1,75 @@
 package CloudGameServer
 
 import (
+	"CloudGameServer/domain/user"
 	bilicoin "CloudGameServer/utils"
-	"github.com/gorilla/mux"
-	"github.com/wuwenbao/gcors"
-	"log"
+	"fmt"
+	"github.com/gin-gonic/gin"
 	"net/http"
+	"strings"
 )
+
+var s *gin.Engine
 
 func BCApplication() {
 	bilicoin.Info("Cloud Game Server running")
 	bilicoin.Info("[BCS] Listened on " + bilicoin.GetConfig().APIAddr)
-	r := mux.NewRouter()
 
-	r.HandleFunc("/hello", Handle)
+	s = gin.Default()
+	s.Use(CorsSimple())
+	s.Use(gin.Recovery())
+	user.MappingUser(s)
 
-	// allow CORS
-	cors := gcors.New(
-		r,
-		gcors.WithOrigin("*"),
-		gcors.WithMethods("POST, GET, PUT, DELETE, OPTIONS"),
-		gcors.WithHeaders("Authorization"),
-	)
-	log.Fatal(http.ListenAndServe(bilicoin.GetConfig().APIAddr, cors))
-
+	go s.Run(":5005")
 }
 
-func Handle(w http.ResponseWriter, r *http.Request) {
-	bilicoin.ResponseCommon(w, "try succeed", "ok", 1, http.StatusOK, 0)
+func CorsComplex() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		method := c.Request.Method
+		origin := c.Request.Header.Get("Origin")
+		var headerKeys []string
+		for k, _ := range c.Request.Header {
+			headerKeys = append(headerKeys, k)
+		}
+		headerStr := strings.Join(headerKeys, ", ")
+		if headerStr != "" {
+			headerStr = fmt.Sprintf("access-control-allow-origin, access-control-allow-headers, %s", headerStr)
+		} else {
+			headerStr = "access-control-allow-origin, access-control-allow-headers"
+		}
+		if origin != "" {
+			c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+			c.Header("Access-Control-Allow-Origin", "*")
+			c.Header("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE,UPDATE")
+			c.Header("Access-Control-Allow-Headers", "Authorization, Content-Length, X-CSRF-Token, Token,session,X_Requested_With,Accept, Origin, Host, Connection, Accept-Encoding, Accept-Language,DNT, X-CustomHeader, Keep-Alive, User-Agent, X-Requested-With, If-Modified-Since, Cache-Control, Content-Type, Pragma")
+			c.Header("Access-Control-Expose-Headers", "Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers,Cache-Control,Content-Language,Content-Type,Expires,Last-Modified,Pragma,FooBar")
+			c.Header("Access-Control-Max-Age", "172800")
+			c.Header("Access-Control-Allow-Credentials", "false")
+			c.Set("content-type", "application/json")
+		}
+		if method == "OPTIONS" {
+			c.JSON(http.StatusOK, "Options Request!")
+		}
+		c.Next()
+	}
+}
+
+func CorsSimple() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		// origin filter
+		origin := c.Request.Header.Get("origin")
+		if len(origin) == 0 {
+			origin = c.Request.Header.Get("Origin")
+		}
+		c.Writer.Header().Set("Access-Control-Allow-Origin", origin)
+		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "OPTIONS, GET, POST")
+		c.Writer.Header().Set("Content-Type", "application/json; charset=utf-8")
+		if c.Request.Method == "OPTIONS" {
+			c.AbortWithStatus(204)
+			return
+		}
+		c.Next()
+	}
 }
