@@ -1,6 +1,8 @@
 package bilicoin
 
 import (
+	"crypto/md5"
+	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -227,4 +229,13 @@ func ResponseCommon(w http.ResponseWriter, data interface{}, msg string, total i
 func CreateUUID() string {
 	u1 := uuid.NewV4()
 	return u1.String()
+}
+
+/**
+ * md5生成
+ */
+func CreateMD5(str string) string {
+	h := md5.New()
+	h.Write([]byte(str))
+	return hex.EncodeToString(h.Sum(nil))
 }

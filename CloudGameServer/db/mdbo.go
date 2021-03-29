@@ -8,14 +8,14 @@ import (
 
 var db *mgo.Database
 
-func InitMongo() {
-	session := InitMdbSession()
-	db = session.DB(bilicoin.GetConfig().MdbName)
-}
+//func InitMongo() {
+//	session := InitMdbSession()
+//	db = session.DB(bilicoin.GetConfig().MdbName)
+//}
 
-func MDB() *mgo.Database {
-	return db
-}
+//func MDB() *mgo.Database {
+//	return db
+//}
 
 func InitMdbSession() *mgo.Session {
 	session, err := mgo.Dial(bilicoin.GetConfig().MdbUrl)

@@ -8,6 +8,9 @@
   "broker_password": "159463",
   "broker_client_id": "acm0-bjd2-fdi1-am81",
   "broker_scheme": "tcp",
-  "mdb_url": "r3in.top:27017",
-  "mdb_name": "cloud"
+  "mdb_url": "mongodb://r3in.top:27017",
+  "mdb_name": "cloud",
+  "mdb_username": "admin",
+  "mdb_password": "15946395951",
+  "jwt_secret": "15598870762"
 }
