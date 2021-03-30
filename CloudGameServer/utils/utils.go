@@ -9,6 +9,7 @@ import (
 	qrcodeTerminal "github.com/Baozisoftware/qrcode-terminal-go"
 	"github.com/robertkrimen/otto"
 	"github.com/satori/go.uuid"
+	"io"
 	"io/ioutil"
 	"math"
 	"math/rand"
@@ -238,4 +239,20 @@ func CreateMD5(str string) string {
 	h := md5.New()
 	h.Write([]byte(str))
 	return hex.EncodeToString(h.Sum(nil))
+}
+
+/**
+ * 序列化json
+ */
+func JsonBind(ptr interface{}, rq *http.Request) error {
+	if rq.Body != nil {
+		defer rq.Body.Close()
+		err := json.NewDecoder(rq.Body).Decode(ptr)
+		if err != nil && err != io.EOF {
+			return err
+		}
+		return nil
+	} else {
+		return errors.New("empty request body")
+	}
 }

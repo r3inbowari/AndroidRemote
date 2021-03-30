@@ -76,7 +76,7 @@ export default class HomePage extends Vue {
   }
 
   created() {
-    HELLOQ('AJJ').then((res) => {
+    HELLOQ('15598870762').then((res) => {
       console.log(res)
     })
   }

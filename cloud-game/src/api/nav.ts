@@ -16,5 +16,5 @@ export const HELLO = function (e: string) {
 
 // get hello
 export const HELLOQ = function (e: string) {
-  return req(POST, '/reg', { user: e })
+  return req(POST, '/reg', { mobile: e, password: e })
 }

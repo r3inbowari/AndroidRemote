@@ -10,9 +10,13 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readconcern"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
+	"log"
 	"reflect"
 	"time"
 )
+
+// 没有
+// opts aggr
 
 type MongoExp struct {
 	Ctx    context.Context
@@ -31,7 +35,7 @@ func (db *MongoExp) SetOpts(opts *options.ClientOptions) {
 func (db *MongoExp) Connect() error {
 	db.Ctx, db.Cancel = context.WithTimeout(context.Background(), 10*time.Second)
 	var err error
-	if db.Client, err = mongo.Connect(db.Ctx, db.Opts); err != nil {
+	if db.Client, err = mongo.Connect(context.TODO(), db.Opts); err != nil {
 		bilicoin.Info("mongodb connect failed")
 	}
 	return err
@@ -39,7 +43,7 @@ func (db *MongoExp) Connect() error {
 
 func (db *MongoExp) Ping() error {
 	var err error
-	if err = db.Client.Ping(db.Ctx, readpref.Primary()); err != nil {
+	if err = db.Client.Ping(context.TODO(), readpref.Primary()); err != nil {
 		bilicoin.Info("mongodb ping unavailable")
 	} else {
 		bilicoin.Info("mongodb connect succeed")
@@ -49,7 +53,7 @@ func (db *MongoExp) Ping() error {
 
 func (db *MongoExp) disconnect() error {
 	var err error
-	if err = db.Client.Disconnect(db.Ctx); err != nil {
+	if err = db.Client.Disconnect(context.TODO()); err != nil {
 		bilicoin.Warn("mongodb disconnect failed")
 		return err
 	}
@@ -103,7 +107,7 @@ func (db *MongoExp) InsertOne(idoc interface{}, opts ...*options.InsertOneOption
 	if doc, err = bson.Marshal(idoc); err != nil {
 		return err
 	}
-	_, err = db.C(colName).InsertOne(db.Ctx, doc, opts...)
+	_, err = db.C(colName).InsertOne(context.TODO(), doc, opts...)
 	return err
 }
 
@@ -122,12 +126,14 @@ func (db *MongoExp) InsertMany(idocs []interface{}, opts ...*options.InsertManyO
 			return errors.New("marshal failed because some wrong caused by idocs")
 		}
 	}
-	_, err = db.C(colName).InsertMany(db.Ctx, docs, opts...)
+	_, err = db.C(colName).InsertMany(context.TODO(), docs, opts...)
 	return err
 }
 
-func (db *MongoExp) FindAll(c string, result interface{}, condition interface{}) error {
-	cursor, err := db.C(c).Find(db.Ctx, condition)
+func (db *MongoExp) FindAll(condition interface{}, result interface{}) error {
+	// type exp panic !!
+	cn := reflect.TypeOf(result).Elem().Elem().Name()
+	cursor, err := db.C(cn).Find(context.TODO(), condition)
 	if err != nil {
 		return err
 	}
@@ -144,8 +150,18 @@ func Hex(o interface{}) string {
 func (db *MongoExp) UpdateOne(filter primitive.ObjectID, content interface{}) error {
 	name := reflect.TypeOf(content).Elem().Name()
 	bs, _ := bson.Marshal(&content)
-	_, err := db.C(name).ReplaceOne(db.Ctx,
+	_, err := db.C(name).ReplaceOne(context.TODO(),
 		bson.M{"_id": filter},
 		bs)
+	return err
+}
+
+func (db *MongoExp) DeleteOne(content interface{}) error {
+	name := reflect.TypeOf(content).Elem().Name()
+	id := reflect.ValueOf(content).Elem().Field(0).Interface()
+	_, err := db.C(name).DeleteOne(context.TODO(), bson.M{"_id": id})
+	if err != nil {
+		log.Fatal(err)
+	}
 	return err
 }

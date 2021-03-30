@@ -31,7 +31,7 @@ func dbt() *db.MongoExp {
 func TestFindAll(t *testing.T) {
 	md := dbt()
 	var user []user2.User
-	md.FindAll("User", &user, bson.M{})
+	md.FindAll(bson.M{}, &user)
 	println(len(user))
 }
 
@@ -39,7 +39,7 @@ func TestAdd(t *testing.T) {
 	db.InitMongo()
 
 	var user = user2.User{
-		Username: "aaa111111111",
+		Username: "暗示",
 		Mobile:   "aaa",
 		Avatar:   "aaa",
 		Password: "aaa",
@@ -52,10 +52,20 @@ func TestAdd(t *testing.T) {
 
 func TestUpdate(t *testing.T) {
 	db.InitMongo()
-	id, _ := primitive.ObjectIDFromHex("605f5e6c4cf3b7023774538b")
+	id, _ := primitive.ObjectIDFromHex("606319c86b8aaf08c27ac79c")
 	var user = user2.User{
 		Id:     id,
-		Avatar: "hello1",
+		Avatar: "hello",
 	}
 	_ = user.Update()
+}
+
+func TestDel(t *testing.T) {
+	db.InitMongo()
+	id, _ := primitive.ObjectIDFromHex("606319c86b8aaf08c27ac79c")
+	var user = user2.User{
+		Id: id,
+	}
+	err := user.Delete()
+	println(err)
 }

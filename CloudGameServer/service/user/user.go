@@ -6,18 +6,27 @@ import (
 	"github.com/asaskevich/govalidator"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/sirupsen/logrus"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"time"
 )
 
 type User struct {
 	Id       primitive.ObjectID `bson:"_id" json:"_id"`
-	Username string             `json:"username" valid:"required,length(3|16)"`
-	Mobile   string             `json:"mobile"`
+	Uid      string             `json:"uid"`
+	Username string             `json:"username" valid:"length(3|16)"`
+	Mobile   string             `json:"mobile" valid:"required,numeric,length(11|11)"`
 	Avatar   string             `json:"avatar"`
-	Password string             `json:"password,omitempty" valid:"ascii,length(3|16)"`
+	Password string             `json:"password,omitempty" valid:"required,ascii,length(5|16)"`
 	Status   int                `json:"status"`
+	Role     int                `json:"role,omitempty"`
 }
+
+//type UInfo struct {
+//	Mobile   string `json:"mobile" valid:"alphanum,length(5|18)"`
+//	Password string `json:"password" valid:"ascii,length(3|16)"`
+//	// CSRFImpl
+//}
 
 func (u *User) Save() error {
 	u.Id = primitive.NewObjectID()
@@ -28,26 +37,30 @@ func (u *User) Update() error {
 	return db.MDB().UpdateOne(u.Id, u)
 }
 
-// 查找用户
-//func (u *User) FoundUser() bool {
-//	t := User{}
-//	err := db.MDB().C("User").Find(bson.M{"mobile": u.Mobile}).One(&t)
-//	if err != nil && err.Error() == "not found" {
-//		return false
-//	}
-//	return true
-//}
+func (u *User) Delete() error {
+	return db.MDB().DeleteOne(u)
+}
 
-// 格式校验
+// exist
+func (u *User) IsExist() bool {
+	var users []User
+	err := db.MDB().FindAll(bson.M{"mobile": u.Mobile}, &users)
+	if users == nil || err != nil && err.Error() == "not found" {
+		return false
+	}
+	return true
+}
+
+// validate
 func (u *User) Validate() error {
 	_, err := govalidator.ValidateStruct(u)
 	return err
 }
 
-// token 检查
+// check token
 func CheckToken(token string) bool {
 	result, err := jwt.Parse(token, func(*jwt.Token) (interface{}, error) {
-		return bilicoin.GetConfig().JwtSecret, nil
+		return bilicoin.GetConfig().GetJwtSecret(), nil
 	})
 	if err != nil {
 		if err.Error() == "Token is expired" && result != nil {
@@ -60,20 +73,28 @@ func CheckToken(token string) bool {
 	return true
 }
 
-// 创建token
-func (u *User) CreateToken(uid string) string {
+// create token
+func (u *User) CreateToken() string {
 	claims := &jwt.StandardClaims{
 		NotBefore: time.Now().Unix(),
-		ExpiresAt: time.Now().Add(time.Hour * 24).Unix(),
+		ExpiresAt: time.Now().Add(time.Hour * bilicoin.GetConfig().GetJwtTimeout()).Unix(),
 		Issuer:    "r3inb",
-		Id:        uid,
+		Id:        u.Uid,
 	}
-	bilicoin.Info("create token "+uid, logrus.Fields{"uid": uid})
+	bilicoin.Info("create token", logrus.Fields{"uid": u.Uid})
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	ss, err := token.SignedString(bilicoin.GetConfig().JwtSecret)
+	ss, err := token.SignedString(bilicoin.GetConfig().GetJwtSecret())
 	if err != nil {
-		println(err)
 		return ""
 	}
 	return ss
+}
+
+func (u *User) CreateUser() *User {
+	u.Uid = bilicoin.CreateMD5(u.Mobile)
+	u.Username = u.Mobile
+	u.Password = bilicoin.CreateMD5(u.Password)
+	u.Status = 0
+	u.Role = 0
+	return u
 }

@@ -29,11 +29,13 @@ type LocalConfig struct {
 	MdbUsername    string    `json:"mdb_username"`
 	MdbPassword    string    `json:"mdb_password"`
 	JwtSecret      *string   `json:"jwt_secret"`
+	JwtTimeout     int       `json:"jwt_timeout"`
 }
 
 var config = new(LocalConfig)
 var configPath = "config.json"
 
+// config simple cache
 func GetConfig() *LocalConfig {
 	if config.CacheTime.Before(time.Now()) {
 		if err := LoadConfig(configPath, config); err != nil {
@@ -127,4 +129,21 @@ func StripComments(data []byte) ([]byte, error) {
 		}
 	}
 	return bytes.Join(filtered, []byte("\n")), nil
+}
+
+func (lc *LocalConfig) GetJwtSecret() []byte {
+	if lc.JwtSecret == nil {
+		panic("not found param jwt secret")
+	}
+	return []byte(*lc.JwtSecret)
+}
+
+func (lc *LocalConfig) GetJwtTimeout() time.Duration {
+	if lc.JwtTimeout > 10000 {
+		panic("error param value jwt timeout")
+	}
+	if lc.JwtTimeout == 0 {
+		return time.Duration(24)
+	}
+	return time.Duration(lc.JwtTimeout)
 }
