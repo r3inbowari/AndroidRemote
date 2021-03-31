@@ -33,3 +33,14 @@ func TestExist(t *testing.T) {
 	}
 	println(user1.IsExist())
 }
+
+	func TestLogin(t *testing.T) {
+	db.InitMongo()
+
+	var user = user.User{
+		Mobile:   "15598870762",
+		Password: "15598870762",
+	}
+
+	user.Login()
+}

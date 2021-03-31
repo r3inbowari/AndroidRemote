@@ -31,7 +31,7 @@ func HandlerReg(context *gin.Context) {
 		return
 	}
 
-	if err = user.CreateUser().Save(); err != nil {
+	if err = ui.CreateUser().Save(); err != nil {
 		context.JSON(http.StatusInternalServerError, service.FailedResponse(err.Error()))
 		return
 	}

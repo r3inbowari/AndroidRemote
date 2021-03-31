@@ -3,6 +3,7 @@ package user
 import (
 	"CloudGameServer/db"
 	bilicoin "CloudGameServer/utils"
+	"errors"
 	"github.com/asaskevich/govalidator"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/sirupsen/logrus"
@@ -97,4 +98,27 @@ func (u *User) CreateUser() *User {
 	u.Status = 0
 	u.Role = 0
 	return u
+}
+
+func (u *User) Login() (string, error) {
+	if u.Mobile == "" || u.Password == "" {
+		return "", errors.New("format error")
+	}
+
+	ud := User{}
+	if err := db.MDB().FindOne(bson.M{"mobile": u.Mobile}, &ud); err != nil {
+		return "", err
+	}
+
+	if ud.Uid == "" {
+		return "", errors.New("not found")
+	}
+
+	as :=bilicoin.CreateMD5(u.Password)
+	if as != ud.Password {
+		// ban list
+		return "", errors.New("error")
+	}
+
+	return u.CreateToken(), nil
 }

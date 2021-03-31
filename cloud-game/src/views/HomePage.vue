@@ -76,9 +76,9 @@ export default class HomePage extends Vue {
   }
 
   created() {
-    HELLOQ('15598870762').then((res) => {
-      console.log(res)
-    })
+    // HELLOQ('15598870762').then((res) => {
+    //   console.log(res)
+    // })
   }
 
   picsObj = {

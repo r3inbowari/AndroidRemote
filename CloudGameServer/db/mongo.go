@@ -143,6 +143,12 @@ func (db *MongoExp) FindAll(condition interface{}, result interface{}) error {
 	return nil
 }
 
+func (db *MongoExp) FindOne(condition interface{}, result interface{}) error {
+	name := reflect.TypeOf(result).Elem().Name()
+	res := db.C(name).FindOne(context.TODO(), condition)
+	return res.Decode(result)
+}
+
 func Hex(o interface{}) string {
 	return o.(primitive.ObjectID).Hex()
 }
