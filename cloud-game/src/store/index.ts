@@ -15,6 +15,7 @@ import { createStore, StoreOptions, Store } from 'vuex'
 export interface State {
   count: number
   avatar: String
+  token: String
 }
 
 // define injection key
@@ -24,11 +25,16 @@ export const store = createStore<State>({
   state: {
     count: 1,
     avatar: 'null',
+    token: '',
   },
   mutations: {
     increment(state) {
       // mutate state
       state.count++
+    },
+    setToken(state, t) {
+      state.token = t
+      console.log(state.token)
     },
   },
 })

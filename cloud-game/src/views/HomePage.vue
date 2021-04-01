@@ -40,7 +40,7 @@ import MiniLink from '../components/MiniLink.vue'
 import Backtop from '../components/Backtop.vue'
 import LoginDialog from '../components/Login/Login.vue'
 import HPGame from '../components/HPGame/HPGame.vue'
-import { HELLOQ } from '../api/nav'
+import { userLogin } from '../api/user'
 
 import { useStore } from 'vuex'
 import { key } from '../store'
@@ -75,11 +75,7 @@ export default class HomePage extends Vue {
     this.count++
   }
 
-  created() {
-    // HELLOQ('15598870762').then((res) => {
-    //   console.log(res)
-    // })
-  }
+  created() {}
 
   picsObj = {
     count: 2,
@@ -102,8 +98,9 @@ export default class HomePage extends Vue {
     // const store = useStore(key)
     // store.commit('increment')
     // console.log(store.state.count)
-  }
 
+    // this.Login()
+  }
   Scroll() {
     if (window.scrollY > 280) {
       this.headerHideActive = true

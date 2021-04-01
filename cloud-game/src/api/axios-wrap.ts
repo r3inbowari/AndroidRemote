@@ -1,10 +1,23 @@
 import axios from 'axios'
 // post format
 // import qs from 'qs'
-// remove qs
+// remove qs due to the backend server using gin
 
+// version param
+const VERSION =
+  import.meta.env['VITE_SERVER_API_VERSION'] === undefined
+    ? ''
+    : '/' + import.meta.env['VITE_SERVER_API_VERSION']
+
+// from env base host setting
+const BAER_URL =
+  import.meta.env['VITE_AXIOS_BASE_URL'] === undefined
+    ? 'http://192.168.5.67:8080/'
+    : import.meta.env['VITE_AXIOS_BASE_URL']?.toString()
+
+// axios instance create
 var instance = axios.create({
-  baseURL: import.meta.env['VITE_AXIOS_BASE_URL']?.toString(), //接口统一域名
+  baseURL: BAER_URL, //接口统一域名
   timeout: 6000, //设置超时
   withCredentials: false,
 })
@@ -15,7 +28,7 @@ instance.interceptors.request.use(
     return config
   },
   function (error) {
-    // 对请求错误做些什么
+    // do someting
 
     return Promise.reject(error)
   }
@@ -27,20 +40,20 @@ instance.interceptors.response.use(
     return response.data
   },
   function (error) {
-    // 对响应错误做点什么
-    console.log('拦截器报错')
+    // do someting
+    console.log('拦截器报错了')
     return Promise.reject(error)
   }
 )
 
 /**
- * export default function
+ * export function req
  * @param {String} method  请求的方法：get、post、delete、put
  * @param {String} url     请求的url:
  * @param {Object} data    请求的参数
  * @returns {Promise}     返回一个promise对象
  */
-export default function (method: string, url: string, data: object) {
+export function req(method: string, url: string, data: object): Promise<any> {
   method = method.toLowerCase()
   if (method == 'post') {
     // return instance.post(url, qs.stringify(data))
@@ -54,6 +67,32 @@ export default function (method: string, url: string, data: object) {
     // return instance.put(url, qs.stringify(data))
   } else {
     console.error('known method' + method)
-    return false
+    throw Error('known method')
+  }
+}
+
+/**
+ * export function req using version control
+ * @param {String} method  请求的方法：get、post、delete、put
+ * @param {String} url     请求的url:
+ * @param {Object} data    请求的参数
+ * @returns {Promise}     返回一个promise对象
+ */
+export function reqV(method: string, url: string, data: object): Promise<any> {
+  url = VERSION + url
+  method = method.toLowerCase()
+  if (method == 'post') {
+    // return instance.post(url, qs.stringify(data))
+    return instance.post(url, data)
+  } else if (method == 'get') {
+    return instance.get(url, { params: data })
+  } else if (method == 'delete') {
+    return instance.delete(url, { params: data })
+  } else if (method == 'put') {
+    return instance.put(url, data)
+    // return instance.put(url, qs.stringify(data))
+  } else {
+    console.error('known method' + method)
+    throw Error('known method')
   }
 }

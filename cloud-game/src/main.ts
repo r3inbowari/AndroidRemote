@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-// 路由
+// router-next
 import { router } from './router'
 // vuex
 import { store, key } from './store'
@@ -8,12 +8,27 @@ import { store, key } from './store'
 import ElementPlus from 'element-plus'
 import 'element-plus/lib/theme-chalk/index.css'
 
-// import global css
+// import global-css
 import './css/glob.css'
 import './css/btn.css'
 
-// ali iconfont
+// import ali-iconfont
 import './assets/icon/iconfont.css'
 
-const app = createApp(App).use(router).use(store, key).use(ElementPlus)
+// import vue-cookies
+import { VueCookieNext } from 'vue-cookie-next'
+
+const app = createApp(App)
+  .use(router)
+  .use(store, key)
+  .use(ElementPlus)
+  .use(VueCookieNext) // options api mount
 app.mount('#app')
+
+// app.$cook = 'Vue3';
+
+// set default config
+// VueCookieNext.config({ expire: '7d' })
+// set global cookie
+// VueCookieNext.setCookie('theme', 'default')
+// VueCookieNext.setCookie('hover-time', { expire: '1s' })

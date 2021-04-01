@@ -7,9 +7,10 @@ import (
 )
 
 func MappingUser(s *gin.Engine) {
-	s.GET("/hello", func(context *gin.Context) {
+	s.GET("v1/hello", func(context *gin.Context) {
 		context.JSON(http.StatusOK, gin.H{"version": "v0.1.2"})
 	})
 
-	s.POST("/reg", user.HandlerReg)
+	s.POST("v1/reg", user.HandlerReg)
+	s.POST("v1/login", user.HandlerLogin) // bearer token
 }

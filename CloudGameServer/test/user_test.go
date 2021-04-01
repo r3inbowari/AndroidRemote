@@ -4,6 +4,7 @@ import (
 	"CloudGameServer/db"
 	"CloudGameServer/service/user"
 	bilicoin "CloudGameServer/utils"
+	"fmt"
 	"testing"
 )
 
@@ -34,13 +35,15 @@ func TestExist(t *testing.T) {
 	println(user1.IsExist())
 }
 
-	func TestLogin(t *testing.T) {
+func TestLogin(t *testing.T) {
 	db.InitMongo()
 
 	var user = user.User{
 		Mobile:   "15598870762",
 		Password: "15598870762",
 	}
-
-	user.Login()
+	token, err := user.Login()
+	//d := fmt.Sprintf("%s", unsafe.Pointer(token))
+	fmt.Println(err)
+	println(token)
 }

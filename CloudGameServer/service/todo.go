@@ -1,6 +1,9 @@
 package service
 
-import "time"
+import (
+	bilicoin "CloudGameServer/utils"
+	"time"
+)
 
 type ResponseMessage struct {
 	Code int         `json:"code"`
@@ -9,18 +12,26 @@ type ResponseMessage struct {
 	Ts   int64       `json:"ts"`
 }
 
-func SucceedResponse(data interface{}) ResponseMessage {
+func SucceedResponse(data interface{}, code ...int) ResponseMessage {
+	var code1 = bilicoin.Normal
+	if len(code) > 0 {
+		code1 = code[0]
+	}
 	return ResponseMessage{
-		Code: 200,
+		Code: code1,
 		Msg:  "ok",
 		Data: data,
 		Ts:   time.Now().Unix(),
 	}
 }
 
-func FailedResponse(msg string) ResponseMessage {
+func FailedResponse(msg string, code ...int) ResponseMessage {
+	var code1 = bilicoin.InternalServerError
+	if len(code) > 0 {
+		code1 = code[0]
+	}
 	return ResponseMessage{
-		Code: 101,
+		Code: code1,
 		Msg:  msg,
 		Data: nil,
 		Ts:   time.Now().Unix(),

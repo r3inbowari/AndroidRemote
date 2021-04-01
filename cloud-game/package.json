@@ -12,6 +12,7 @@
     "qs": "^6.10.1",
     "vue": "^3.0.7",
     "vue-class-component": "^8.0.0-rc.1",
+    "vue-cookie-next": "^1.0.3",
     "vue-router": "^4.0.5",
     "vuex": "^4.0.0"
   },

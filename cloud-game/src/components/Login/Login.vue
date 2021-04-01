@@ -34,7 +34,7 @@
           </div>
 
           <div class="login-submit">
-            <el-button @click="onClick" type="success">登录</el-button>
+            <el-button @click="loginClk" type="success">登录</el-button>
           </div>
 
           <div class="third-login">
@@ -64,54 +64,117 @@ import { Vue, Options } from 'vue-class-component'
 import img1 from '../../assets/login-bg.png'
 import imgUrl0 from '/src/assets/login-bg.png'
 
-@Options({
-  components: {},
+import { defineComponent, ref, onMounted, toRefs } from 'vue'
+
+import { userLogin } from '../../api/user'
+import { useStore } from 'vuex'
+import { key } from '../../store'
+
+import { VueCookieNext } from 'vue-cookie-next'
+
+// import { initImage } from './item.ts'
+
+/**
+ * 登录组件
+ * @props
+ **/
+export default defineComponent({
   data() {
     return {
       logoUrl: imgUrl0,
-      loginData: {
-        phone: '',
-        passwd: '',
-      },
+      // loginData: {
+      //   phone: '',
+      //   passwd: '',
+      // },
       show: true,
       show1: false,
+      switch: false,
     }
   },
 
-  props: {
-    // switch: {
-    //   type: Boolean,
-    //   default: false,
-    // },
+  props: {},
+
+  setup(props, { attrs, slots, emit }) {
+    // console.log('12')
+    // console.log(this.$cookie.isCookieAvailable('token'))
+    // const loginFunc = async () => {
+    //   repositories.value = await fetchUserRepositories(props.user)
+    // }
+
+    // get store
+
+    console.log(proxy)
+    const store = useStore(key)
+
+    function loginClk() {
+      // const store = useStore(key)
+      if (VueCookieNext.isCookieAvailable('token')) {
+        store.commit('setToken', VueCookieNext.getCookie('token'))
+      } else {
+        userLogin('15598870762', '15598870762').then((res) => {
+          if (res.code === 2005) {
+            console.log('login succeed')
+            VueCookieNext.setCookie('token', res.data, { expire: '7d' })
+            // const store = useStore(key)
+            store.commit('setToken', res.data)
+          }
+        })
+      }
+    }
+
+    return {
+      loginClk,
+      store,
+      loginData,
+    }
+  },
+  mounted() {
+    // const store = useStore(key)
+    // store.commit('setToken', this.$cookie.getCookie('token'))
+  },
+  methods: {
+    onClick() {
+      console.log('clk')
+      this.show = false
+      setTimeout(() => {
+        this.show1 = true
+      }, 300)
+
+      this.Login()
+      // const store = useStore(key)
+      // store.commit('setToken', this.$cookie.getCookie('token'))
+      setTimeout(() => {
+        this.show1 = false
+        this.show = true
+      }, 4000)
+    },
+    // 登录窗口被关闭时
+    handleClose() {
+      this.switch = false
+    },
+
+    needLogin() {
+      this.switch = true
+    },
+    Login() {
+      // local login
+      let that = this
+      if (this.$cookie.isCookieAvailable('token')) {
+        console.log('asd')
+      } else {
+        userLogin('15598870762', '15598870762').then((res) => {
+          console.log(res.code)
+          if (res.code === 2005) {
+            console.log('login succeed')
+            that.$cookie.setCookie('token', res.data, { expire: '7d' })
+            const store = useStore(key)
+            store.commit('setToken', res.data)
+          }
+        })
+      }
+    },
   },
 })
-export default class Login extends Vue {
-  switch = false
-  created() {}
-
-  onClick() {
-    console.log('clk')
-    this.show = false
-    setTimeout(() => {
-      this.show1 = true
-    }, 300)
-
-    setTimeout(() => {
-      this.show1 = false
-      this.show = true
-    }, 4000)
-  }
-
-  // 登录窗口被关闭时
-  handleClose() {
-    this.switch = false
-  }
-
-  needLogin() {
-    this.switch = true
-  }
-  mounted() {}
-}
 </script>
 
 <style>

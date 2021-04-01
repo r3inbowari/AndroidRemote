@@ -1,4 +1,4 @@
-import req from './axios-wrap' // 接口文件
+import { req, reqV } from './axios-wrap' // interface
 
 const GET: string = 'get'
 const POST: string = 'post'
@@ -12,9 +12,4 @@ const DEL: string = 'delete'
 // get hello
 export const HELLO = function (e: string) {
   return req(GET, '/hello', { qwe: e })
-}
-
-// get hello
-export const HELLOQ = function (e: string) {
-  return req(POST, '/reg', { mobile: e, password: e })
 }

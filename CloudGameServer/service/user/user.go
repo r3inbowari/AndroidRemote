@@ -75,20 +75,20 @@ func CheckToken(token string) bool {
 }
 
 // create token
-func (u *User) CreateToken() string {
+func (u *User) CreateToken() (string, error) {
 	claims := &jwt.StandardClaims{
 		NotBefore: time.Now().Unix(),
 		ExpiresAt: time.Now().Add(time.Hour * bilicoin.GetConfig().GetJwtTimeout()).Unix(),
 		Issuer:    "r3inb",
 		Id:        u.Uid,
 	}
-	bilicoin.Info("create token", logrus.Fields{"uid": u.Uid})
+	bilicoin.Info("[JWT] create token", logrus.Fields{"uid": u.Uid})
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	ss, err := token.SignedString(bilicoin.GetConfig().GetJwtSecret())
 	if err != nil {
-		return ""
+		return "", err
 	}
-	return ss
+	return ss, nil
 }
 
 func (u *User) CreateUser() *User {
@@ -100,6 +100,7 @@ func (u *User) CreateUser() *User {
 	return u
 }
 
+// simple login
 func (u *User) Login() (string, error) {
 	if u.Mobile == "" || u.Password == "" {
 		return "", errors.New("format error")
@@ -107,18 +108,22 @@ func (u *User) Login() (string, error) {
 
 	ud := User{}
 	if err := db.MDB().FindOne(bson.M{"mobile": u.Mobile}, &ud); err != nil {
-		return "", err
+		return "", errors.New("not found")
 	}
 
 	if ud.Uid == "" {
 		return "", errors.New("not found")
 	}
 
-	as :=bilicoin.CreateMD5(u.Password)
+	as := bilicoin.CreateMD5(u.Password)
 	if as != ud.Password {
 		// ban list
-		return "", errors.New("error")
+		return "", errors.New("error user or passwd")
 	}
 
-	return u.CreateToken(), nil
+	if a, err := u.CreateToken(); err != nil {
+		return "", errors.New("create error")
+	} else {
+		return a, nil
+	}
 }
