@@ -12,12 +12,18 @@
         <div v-if="show">
           <div class="car-login">
             <div class="login-form">
-              <el-form ref="loginData" :model="loginData" label-width="80px">
+              <el-form
+                :model="loginData"
+                ref="loginRef"
+                :rules="loginRules"
+                label-width="80px"
+              >
                 <el-form-item>
                   <el-input
                     prefix-icon="el-icon-mobile-phone"
-                    v-model="loginData.phone"
+                    v-model="loginData.mobile"
                     placeholder="手机号"
+                    maxlength="11"
                   ></el-input>
                 </el-form-item>
 
@@ -25,7 +31,8 @@
                   <el-input
                     prefix-icon="el-icon-lock"
                     placeholder="密码"
-                    v-model="loginData.passwd"
+                    v-model="loginData.password"
+                    maxlength="18"
                     show-password
                   ></el-input>
                 </el-form-item>
@@ -64,7 +71,7 @@ import { Vue, Options } from 'vue-class-component'
 import img1 from '../../assets/login-bg.png'
 import imgUrl0 from '/src/assets/login-bg.png'
 
-import { defineComponent, ref, onMounted, toRefs } from 'vue'
+import { defineComponent, ref, onMounted, toRefs, reactive, watch } from 'vue'
 
 import { userLogin } from '../../api/user'
 import { useStore } from 'vuex'
@@ -83,8 +90,8 @@ export default defineComponent({
     return {
       logoUrl: imgUrl0,
       // loginData: {
-      //   phone: '',
-      //   passwd: '',
+      //   mobile: '',
+      //   password: '',
       // },
       show: true,
       show1: false,
@@ -103,10 +110,48 @@ export default defineComponent({
 
     // get store
 
-    console.log(proxy)
     const store = useStore(key)
 
+    const loginData = reactive({
+      mobile: '12',
+      password: '',
+    })
+
+    const loginRef = ref(null)
+
+    console.log(loginRef.value)
+
+    // watch(loginRef, (element, prevElement) => {
+    //   console.log(element)
+    //   console.log('as')
+    //   // loginRef.value = element
+    //   console.log(element instanceof HTMLCanvasElement)
+    //   if (element instanceof HTMLCanvasElement) {
+    //     console.log('ass')
+    //     loginRef.value = element
+    //     if (onMountCallback && prevElement === null) onMountCallback(loginRef)
+    //   } else {
+    //     loginRef.value = null
+    //   }
+    // })
+
+    const loginRules = reactive({
+      mobile: [
+        { required: true, message: '请输入活动名称', trigger: 'blur' },
+        { min: 3, max: 12, message: '长度在 3 到 5 个字符', trigger: 'blur' },
+      ],
+    })
+
     function loginClk() {
+      loginRef.value.validate((valid) => {
+        if (valid) {
+          alert('submit!')
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+      console.log(loginData)
       // const store = useStore(key)
       if (VueCookieNext.isCookieAvailable('token')) {
         store.commit('setToken', VueCookieNext.getCookie('token'))
@@ -126,6 +171,8 @@ export default defineComponent({
       loginClk,
       store,
       loginData,
+      loginRules,
+      loginRef,
     }
   },
   mounted() {
