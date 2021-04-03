@@ -15,7 +15,7 @@
               <el-form
                 :model="loginData"
                 ref="loginRef"
-                :rules="loginRules"
+                :rules="loginRules.mobile"
                 label-width="80px"
               >
                 <el-form-item>
@@ -143,14 +143,15 @@ export default defineComponent({
     })
 
     function loginClk() {
-      loginRef.value.validate((valid) => {
-        if (valid) {
-          alert('submit!')
-        } else {
-          console.log('error submit!!')
-          return false
-        }
-      })
+      // loginRef.value.validate((valid) => {
+      //   if (valid) {
+      //     alert('submit!')
+      //   } else {
+      //     console.log('error submit!!')
+      //     return false
+      //   }
+      // })
+      loginRef.value.validate
       console.log(loginData)
       // const store = useStore(key)
       if (VueCookieNext.isCookieAvailable('token')) {
