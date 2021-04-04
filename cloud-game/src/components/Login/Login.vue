@@ -15,10 +15,10 @@
               <el-form
                 :model="loginData"
                 ref="loginRef"
-                :rules="loginRules.mobile"
+                :rules="loginRules"
                 label-width="80px"
               >
-                <el-form-item>
+                <el-form-item prop="mobile">
                   <el-input
                     prefix-icon="el-icon-mobile-phone"
                     v-model="loginData.mobile"
