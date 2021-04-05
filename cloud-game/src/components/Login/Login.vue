@@ -137,8 +137,8 @@ export default defineComponent({
 
     const loginRules = reactive({
       mobile: [
-        { required: true, message: '请输入活动名称', trigger: 'blur' },
-        { min: 3, max: 12, message: '长度在 3 到 5 个字符', trigger: 'blur' },
+        { required: true, message: '请输入手机号', trigger: 'blur' },
+        { min: 13, max: 13, message: '长度为13字符', trigger: 'blur' },
       ],
     })
 
