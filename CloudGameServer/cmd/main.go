@@ -19,6 +19,6 @@ func main() {
 
 	CloudGameServer.BCApplication()
 
-	time.Sleep(time.Hour)
+	time.Sleep(time.Hour * 24)
 
 }

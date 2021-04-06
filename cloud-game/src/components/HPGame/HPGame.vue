@@ -22,7 +22,7 @@
             margin-right: 10px;
           "
         ></div>
-        <div class="type-title">二次元游戏</div>
+        <div class="type-title">???游戏</div>
       </div>
       <hr color="#00A1D5" />
       <el-row type="flex" class="row-bg">

@@ -1,5 +1,5 @@
 <template>
-  <el-dialog v-model="switch" width="400px" :before-close="handleClose">
+  <el-dialog v-model="sw" width="400px" :before-close="handleClose">
     <div class="login-dialog-content">
       <div class="login-logo">
         <img id="logo-bg" :src="logoUrl" alt="logo" />
@@ -27,7 +27,7 @@
                   ></el-input>
                 </el-form-item>
 
-                <el-form-item>
+                <el-form-item prop="password">
                   <el-input
                     prefix-icon="el-icon-lock"
                     placeholder="密码"
@@ -52,7 +52,7 @@
           </div>
         </div>
       </transition>
-      <div v-if="show1" v-loading="true" style="height: 100px"></div>
+      <div v-if="showLoading" v-loading="true" style="height: 100px"></div>
       <div class="login-footer">
         <a href="">找回密码</a>
         <span class="login-foot-span"></span>
@@ -79,6 +79,9 @@ import { key } from '../../store'
 
 import { VueCookieNext } from 'vue-cookie-next'
 
+// el-message import  
+import { ElMessage } from 'element-plus'
+
 // import { initImage } from './item.ts'
 
 /**
@@ -93,15 +96,22 @@ export default defineComponent({
       //   mobile: '',
       //   password: '',
       // },
-      show: true,
-      show1: false,
-      switch: false,
+      // main form show param
+      // show: true,
+      // // loading tag param
+      // show1: false,
+      // // dialog switch
+      // switch: false,
     }
   },
 
   props: {},
 
   setup(props, { attrs, slots, emit }) {
+
+    const show = ref(true)
+    const showLoading = ref(false)
+    const sw = ref(false)
     // console.log('12')
     // console.log(this.$cookie.isCookieAvailable('token'))
     // const loginFunc = async () => {
@@ -113,13 +123,15 @@ export default defineComponent({
     const store = useStore(key)
 
     const loginData = reactive({
-      mobile: '12',
+      mobile: '',
       password: '',
     })
 
     const loginRef = ref(null)
-
-    console.log(loginRef.value)
+    // in this time, the template div is not mounted to the vdom,
+    // we can not read the ref on this process
+    // the ref will bu attach on mounted() (auto)
+    // console.log(loginRef.value)
 
     // watch(loginRef, (element, prevElement) => {
     //   console.log(element)
@@ -137,9 +149,12 @@ export default defineComponent({
 
     const loginRules = reactive({
       mobile: [
-        { required: true, message: '请输入手机号', trigger: 'blur' },
-        { min: 13, max: 13, message: '长度为13字符', trigger: 'blur' },
+        { required: true, message: '请输入手机号', trigger: 'change' }
+        // { min: 11, max: 11, message: '手机号长度为11字符', trigger: 'blur' },
       ],
+      password: [
+         { required: true, message: '请输入密码', trigger: 'change' }
+      ]
     })
 
     function loginClk() {
@@ -151,21 +166,54 @@ export default defineComponent({
       //     return false
       //   }
       // })
-      loginRef.value.validate
-      console.log(loginData)
-      // const store = useStore(key)
-      if (VueCookieNext.isCookieAvailable('token')) {
-        store.commit('setToken', VueCookieNext.getCookie('token'))
-      } else {
-        userLogin('15598870762', '15598870762').then((res) => {
-          if (res.code === 2005) {
-            console.log('login succeed')
-            VueCookieNext.setCookie('token', res.data, { expire: '7d' })
-            // const store = useStore(key)
-            store.commit('setToken', res.data)
+
+      // catch validate promise ?
+      // error: validate() is is promise function. 
+      // test 15598870762
+      loginRef.value.validate((valid) => {
+          if (valid) {
+            // open loading status
+            // console.log('login process');
+            // console.log(loginData);
+            
+            // validated and login req
+            userLogin(loginData.mobile, loginData.password)
+            .then((res) => {
+              if (res.code === 2005) {
+                console.log('login succeed')
+                VueCookieNext.setCookie('token', res.data, { expire: '7d' })
+                // const store = useStore(key)
+                store.commit('setToken', res.data)
+              }
+            })
+            .catch(e => {
+              console.log(e);
+            })
+          } else {
+            ElMessage.error('参数错误');
+            return false;
           }
-        })
-      }
+      })
+      // console.log('logindata', loginData)
+      // const store = useStore(key)
+      
+
+      // validate login by server
+      // if (VueCookieNext.isCookieAvailable('token')) {
+      //   store.commit('setToken', VueCookieNext.getCookie('token'))
+      // } else {
+      //   userLogin('15598870762', '15598870762').then((res) => {
+      //     if (res.code === 2005) {
+      //       console.log('login succeed')
+      //       VueCookieNext.setCookie('token', res.data, { expire: '7d' })
+      //       // const store = useStore(key)
+      //       store.commit('setToken', res.data)
+      //     }
+      //   }).catch(e => {
+      //     console.log(e);
+          
+      //   })
+      // }
     }
 
     return {
@@ -174,6 +222,9 @@ export default defineComponent({
       loginData,
       loginRules,
       loginRef,
+      showLoading,
+      show,
+      sw
     }
   },
   mounted() {
@@ -185,24 +236,24 @@ export default defineComponent({
       console.log('clk')
       this.show = false
       setTimeout(() => {
-        this.show1 = true
+        this.showLoading = true
       }, 300)
 
       this.Login()
       // const store = useStore(key)
       // store.commit('setToken', this.$cookie.getCookie('token'))
       setTimeout(() => {
-        this.show1 = false
+        this.showLoading = false
         this.show = true
       }, 4000)
     },
     // 登录窗口被关闭时
     handleClose() {
-      this.switch = false
+      this.sw = false
     },
 
     needLogin() {
-      this.switch = true
+      this.sw = true
     },
     Login() {
       // local login
