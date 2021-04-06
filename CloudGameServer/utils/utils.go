@@ -256,3 +256,7 @@ func JsonBind(ptr interface{}, rq *http.Request) error {
 		return errors.New("empty request body")
 	}
 }
+
+func ParseToken(s string) string {
+	return s[7:]
+}

@@ -14,3 +14,8 @@ export const userRegister = function (mobile: string, password: string) {
 export const userLogin = function (mobile: string, password: string) {
   return reqV(POST, '/login', { mobile: mobile, password: password })
 }
+
+// get user info
+export const userInfo = function () {
+  return reqV(GET, '/info', {})
+}

@@ -3,6 +3,8 @@ import axios from 'axios'
 // import qs from 'qs'
 // remove qs due to the backend server using gin
 
+import { getToken } from '../utils'
+
 // version param
 const VERSION =
   import.meta.env['VITE_SERVER_API_VERSION'] === undefined
@@ -25,6 +27,12 @@ var instance = axios.create({
 // request interceptors
 instance.interceptors.request.use(
   function (config) {
+    let token = getToken();
+    if (token) {
+      config.headers["Authorization"] = "Bearer " + token;
+    } else {
+      console.log('token is not exist');
+    }
     return config
   },
   function (error) {

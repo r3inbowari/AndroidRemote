@@ -16,6 +16,8 @@ import { useStore } from 'vuex'
 
 import { VueCookieNext } from 'vue-cookie-next'
 
+import { userInfo } from './api/user'
+
 export default defineComponent({
   name: 'App',
   components: {},
@@ -36,6 +38,13 @@ export default defineComponent({
       if (VueCookieNext.isCookieAvailable('token')) {
         let t = VueCookieNext.getCookie('token')
         store.commit('setToken', t)
+
+        // pull user info online, no using localstorage
+        userInfo().then(res => {
+          console.log(res)
+        }).catch((e) => {
+          console.log(e)
+        })
       }
     }
 

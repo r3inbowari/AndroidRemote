@@ -2,6 +2,7 @@ package CloudGameServer
 
 import (
 	"CloudGameServer/domain/user"
+	user2 "CloudGameServer/service/user"
 	bilicoin "CloudGameServer/utils"
 	"fmt"
 	"github.com/gin-gonic/gin"
@@ -17,6 +18,7 @@ func BCApplication() {
 
 	s = gin.Default()
 	s.Use(CorsSimple())
+	s.Use(UserAuth())
 	s.Use(gin.Recovery())
 	user.MappingUser(s)
 
@@ -71,5 +73,30 @@ func CorsSimple() gin.HandlerFunc {
 			return
 		}
 		c.Next()
+	}
+}
+
+// 一个简单的验证中间件
+func UserAuth() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		if c.FullPath() == "/v1/login" || c.FullPath() == "/v1/reg" {
+			println("login")
+			c.Next()
+			return
+		} else {
+			// token get
+			auth := c.GetHeader("Authorization")
+			if auth == "" {
+				c.AbortWithStatus(http.StatusUnauthorized)
+				return
+			}
+			token := bilicoin.ParseToken(auth)
+			if user2.CheckToken(token) {
+				c.Next()
+			} else {
+				c.AbortWithStatus(http.StatusUnauthorized)
+			}
+			return
+		}
 	}
 }

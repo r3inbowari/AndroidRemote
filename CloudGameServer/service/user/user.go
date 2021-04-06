@@ -121,9 +121,27 @@ func (u *User) Login() (string, error) {
 		return "", errors.New("error user or passwd")
 	}
 
-	if a, err := u.CreateToken(); err != nil {
+	if a, err := ud.CreateToken(); err != nil {
 		return "", errors.New("create error")
 	} else {
 		return a, nil
 	}
+}
+
+// token 获取用户 id
+func GetInfoByToken(token string) (*User, error) {
+	println(token)
+	result, err := jwt.Parse(token, func(*jwt.Token) (interface{}, error) {
+		return bilicoin.GetConfig().GetJwtSecret(), nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	al := result.Claims.(jwt.MapClaims)
+	ud := User{}
+	if err = db.MDB().FindOne(bson.M{"uid": al["jti"]}, &ud); err != nil {
+		return nil, err
+	}
+	ud.Password = ""
+	return &ud, nil
 }

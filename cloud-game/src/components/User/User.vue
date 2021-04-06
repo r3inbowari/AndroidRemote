@@ -17,7 +17,6 @@
 
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
-import { HELLO } from '../../api/nav'
 import LoginDialog from '../Login/Login.vue'
 
 import { key } from '../../store'
