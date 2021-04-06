@@ -20,16 +20,24 @@ import { Vue, Options } from 'vue-class-component'
 import { HELLO } from '../../api/nav'
 import LoginDialog from '../Login/Login.vue'
 
+import { key } from '../../store'
+import { useStore } from 'vuex'
+
 @Options({
   components: {
     LoginDialog,
   },
 })
 export default class MiniUser extends Vue {
+
+  store = useStore(key)
+
   created() {}
 
   onClickAvatar() {
-    this.$refs['nop'].needLogin()
+    if(this.store.state.token === '') {
+      this.$refs['nop'].needLogin()
+    }
   }
 
   errorHandler(e) {}

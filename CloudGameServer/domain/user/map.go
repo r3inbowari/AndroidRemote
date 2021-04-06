@@ -13,4 +13,7 @@ func MappingUser(s *gin.Engine) {
 
 	s.POST("v1/reg", user.HandlerReg)
 	s.POST("v1/login", user.HandlerLogin) // bearer token
+
+	s.GET("v1/info", user.HandlerInfo)
+
 }

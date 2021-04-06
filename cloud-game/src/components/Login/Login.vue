@@ -79,8 +79,10 @@ import { key } from '../../store'
 
 import { VueCookieNext } from 'vue-cookie-next'
 
-// el-message import  
+// el-message import
 import { ElMessage } from 'element-plus'
+
+import { ElNotification } from 'element-plus'
 
 // import { initImage } from './item.ts'
 
@@ -91,6 +93,7 @@ import { ElMessage } from 'element-plus'
 export default defineComponent({
   data() {
     return {
+      // login logo
       logoUrl: imgUrl0,
       // loginData: {
       //   mobile: '',
@@ -108,7 +111,6 @@ export default defineComponent({
   props: {},
 
   setup(props, { attrs, slots, emit }) {
-
     const show = ref(true)
     const showLoading = ref(false)
     const sw = ref(false)
@@ -118,8 +120,7 @@ export default defineComponent({
     //   repositories.value = await fetchUserRepositories(props.user)
     // }
 
-    // get store
-
+    // get store using inject store key
     const store = useStore(key)
 
     const loginData = reactive({
@@ -149,12 +150,10 @@ export default defineComponent({
 
     const loginRules = reactive({
       mobile: [
-        { required: true, message: '请输入手机号', trigger: 'change' }
+        { required: true, message: '请输入手机号', trigger: 'change' },
         // { min: 11, max: 11, message: '手机号长度为11字符', trigger: 'blur' },
       ],
-      password: [
-         { required: true, message: '请输入密码', trigger: 'change' }
-      ]
+      password: [{ required: true, message: '请输入密码', trigger: 'change' }],
     })
 
     function loginClk() {
@@ -168,35 +167,60 @@ export default defineComponent({
       // })
 
       // catch validate promise ?
-      // error: validate() is is promise function. 
+      // error: validate() is is promise function.
       // test 15598870762
       loginRef.value.validate((valid) => {
-          if (valid) {
-            // open loading status
-            // console.log('login process');
-            // console.log(loginData);
-            
-            // validated and login req
-            userLogin(loginData.mobile, loginData.password)
+        if (valid) {
+          // open loading status
+          showLoading.value = true
+          show.value = false
+
+          // console.log('login process');
+          // console.log(loginData);
+
+          // validated and login req
+          userLogin(loginData.mobile, loginData.password)
             .then((res) => {
               if (res.code === 2005) {
-                console.log('login succeed')
+                ElNotification({
+                  title: '成功',
+                  message: '登陆成功 用户: ' + loginData.mobile,
+                  type: 'success',
+                })
+
                 VueCookieNext.setCookie('token', res.data, { expire: '7d' })
-                // const store = useStore(key)
                 store.commit('setToken', res.data)
+              } else {
+                ElNotification({
+                  title: '错误',
+                  message: '账号或密码错误，请重试(' + res.code + ')',
+                  type: 'error',
+                })
               }
+              show.value = true
+              showLoading.value = false
+              sw.value = false
             })
-            .catch(e => {
-              console.log(e);
+            .catch((e) => {
+              ElNotification({
+                title: '错误',
+                message: '账号或密码错误，请重试(' + e.response.data.code + ')',
+                type: 'error',
+              })
+              show.value = true
+              showLoading.value = false
             })
-          } else {
-            ElMessage.error('参数错误');
-            return false;
-          }
+        } else {
+          ElNotification({
+            title: '错误',
+            message: '参数错误(2901)',
+            type: 'error',
+          })
+          return false
+        }
       })
       // console.log('logindata', loginData)
       // const store = useStore(key)
-      
 
       // validate login by server
       // if (VueCookieNext.isCookieAvailable('token')) {
@@ -211,7 +235,7 @@ export default defineComponent({
       //     }
       //   }).catch(e => {
       //     console.log(e);
-          
+
       //   })
       // }
     }
@@ -224,7 +248,7 @@ export default defineComponent({
       loginRef,
       showLoading,
       show,
-      sw
+      sw,
     }
   },
   mounted() {

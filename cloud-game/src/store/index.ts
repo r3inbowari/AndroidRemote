@@ -34,7 +34,7 @@ export const store = createStore<State>({
     },
     setToken(state, t) {
       state.token = t
-      console.log(state.token)
+      console.log('[store] setToken ' + state.token)
     },
   },
 })

@@ -7,9 +7,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted } from 'vue'
 import { printEnv } from './utils'
 // import HomePage from './components/HelloWorld.vue'
+
+import { key } from './store'
+import { useStore } from 'vuex'
+
+import { VueCookieNext } from 'vue-cookie-next'
 
 export default defineComponent({
   name: 'App',
@@ -22,6 +27,19 @@ export default defineComponent({
   },
   setup() {
     printEnv()
+
+    const store = useStore(key)
+
+    // load user info using localstorage or cookies
+    function initUserInfo() {
+      // 直接加载本地cookies map
+      if (VueCookieNext.isCookieAvailable('token')) {
+        let t = VueCookieNext.getCookie('token')
+        store.commit('setToken', t)
+      }
+    }
+
+    onMounted(initUserInfo)
   },
 })
 </script>

@@ -49,8 +49,12 @@ func HandlerLogin(context *gin.Context) {
 	}
 	var token string
 	if token, err = ui.Login(); err != nil {
-		context.JSON(http.StatusInternalServerError, service.FailedResponse(err.Error(), bilicoin.UserTokenCreateError))
+		context.JSON(http.StatusOK, service.FailedResponse(err.Error(), bilicoin.UserTokenCreateError))
 		return
 	}
 	context.JSON(http.StatusOK, service.SucceedResponse(token, bilicoin.UserLoginSucceed))
+}
+
+func HandlerInfo(context *gin.Context) {
+	
 }
