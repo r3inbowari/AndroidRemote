@@ -34,6 +34,7 @@
     </div>
   </div>
   <LoginDialog ref="nop2"></LoginDialog>
+  <WaitCard ref="woc1"></WaitCard>
 </template>
 
 <script lang="ts">
@@ -41,16 +42,19 @@ import { defineComponent, onMounted } from 'vue'
 import { printEnv } from './utils'
 import ItemCard from './ItemCard.vue'
 
-// 第二次引用 login 
+// 第二次引用 login
 import LoginDialog from '../Login/Login.vue'
+
+// waitGroup
+import WaitCard from '../WaitCard.vue'
 
 // import HomePage from './components/HelloWorld.vue'
 
 import { VueCookieNext } from 'vue-cookie-next'
 
 export default defineComponent({
-  name: 'App',
-  components: { ItemCard, LoginDialog },
+  name: 'HPG',
+  components: { ItemCard, LoginDialog, WaitCard },
   data() {
     return {
       yuanshen: '',
@@ -77,11 +81,10 @@ export default defineComponent({
       background1: 0,
     }
   },
-  setup() {
-
-  },
+  setup() {},
 
   mounted() {
+    // 首次判定
     const that = this
     window.onresize = () => {
       return (() => {
@@ -90,17 +93,19 @@ export default defineComponent({
       })()
     }
     this.fix(this.screenWidth)
+
+    // 等待队列卡片 test
+    this.$refs['woc1'].openWait()
   },
   methods: {
     runApp(gameData) {
       let t = VueCookieNext.isCookieAvailable('token')
       // console.log(gameData)
       if (t) {
-        console.log('ok');
+        console.log('ok')
         // queue task
-
       } else {
-          this.$refs['nop2'].needLogin()
+        this.$refs['nop2'].needLogin()
       }
     },
     fix(val) {
@@ -129,6 +134,7 @@ export default defineComponent({
     },
   },
   watch: {
+    // 宽度监听
     screenWidth(val) {
       this.screenWidth = val
       // console.log('this.screenWidth', this.screenWidth)
