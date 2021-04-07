@@ -137,7 +137,7 @@ export default defineComponent({
   methods: {
     onRun() {
       // 统一交由上层处理
-      console.log('123213132')
+      console.log('[card] emit item', this.dat)
       this.$emit('run', this.dat)
     },
   },

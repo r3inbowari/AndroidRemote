@@ -5,6 +5,7 @@ import vue from '@vitejs/plugin-vue'
 import viteCompression from 'vite-plugin-compression'
 
 // https://vitejs.dev/config/
+// a costom vite compression
 export default defineConfig({
   plugins: [vue(), viteCompression()],
 })

@@ -41,7 +41,10 @@ export default defineComponent({
 
         // pull user info online, no using localstorage
         userInfo().then(res => {
-          console.log(res)
+          // console.log(res)
+          // save foreach
+          // undefined avatar param
+          store.commit('setAvatar', res.data.avatar)
         }).catch((e) => {
           console.log(e)
         })

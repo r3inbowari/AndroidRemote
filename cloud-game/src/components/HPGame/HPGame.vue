@@ -33,6 +33,7 @@
       <!-- <ItemCard class="display-item" :dat="gameDatas[0]" @run="onb"> </ItemCard> -->
     </div>
   </div>
+  <LoginDialog ref="nop2"></LoginDialog>
 </template>
 
 <script lang="ts">
@@ -40,11 +41,16 @@ import { defineComponent, onMounted } from 'vue'
 import { printEnv } from './utils'
 import ItemCard from './ItemCard.vue'
 
+// 第二次引用 login 
+import LoginDialog from '../Login/Login.vue'
+
 // import HomePage from './components/HelloWorld.vue'
+
+import { VueCookieNext } from 'vue-cookie-next'
 
 export default defineComponent({
   name: 'App',
-  components: { ItemCard },
+  components: { ItemCard, LoginDialog },
   data() {
     return {
       yuanshen: '',
@@ -71,7 +77,9 @@ export default defineComponent({
       background1: 0,
     }
   },
-  setup() {},
+  setup() {
+
+  },
 
   mounted() {
     const that = this
@@ -85,7 +93,15 @@ export default defineComponent({
   },
   methods: {
     runApp(gameData) {
-      console.log(gameData.aid)
+      let t = VueCookieNext.isCookieAvailable('token')
+      // console.log(gameData)
+      if (t) {
+        console.log('ok');
+        // queue task
+
+      } else {
+          this.$refs['nop2'].needLogin()
+      }
     },
     fix(val) {
       if (val < 3000 && val > 1820) {

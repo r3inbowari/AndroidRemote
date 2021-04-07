@@ -36,5 +36,9 @@ export const store = createStore<State>({
       state.token = t
       console.log('[store] setToken ' + state.token)
     },
+    setAvatar(state, t) {
+      state.avatar = t
+      console.log('[store] setAvatar ' + state.avatar)
+    }
   },
 })
