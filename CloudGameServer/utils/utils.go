@@ -258,5 +258,8 @@ func JsonBind(ptr interface{}, rq *http.Request) error {
 }
 
 func ParseToken(s string) string {
-	return s[7:]
+	if len(s) > 7 {
+		return s[7:]
+	}
+	return ""
 }

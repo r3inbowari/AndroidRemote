@@ -55,11 +55,10 @@ func HandlerLogin(context *gin.Context) {
 	context.JSON(http.StatusOK, service.SucceedResponse(token, bilicoin.UserLoginSucceed))
 }
 
+// unsafe operation
 func HandlerInfo(context *gin.Context) {
 	bearer := context.GetHeader("Authorization")
 	token := bilicoin.ParseToken(bearer)
-
-	// var err error
 	userInfo, err := GetInfoByToken(token)
 	if err != nil {
 		context.JSON(http.StatusOK, service.FailedResponse(err.Error(), bilicoin.InternalServerError))

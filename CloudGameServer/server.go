@@ -2,6 +2,7 @@ package CloudGameServer
 
 import (
 	"CloudGameServer/domain/user"
+	"CloudGameServer/service"
 	user2 "CloudGameServer/service/user"
 	bilicoin "CloudGameServer/utils"
 	"fmt"
@@ -87,14 +88,16 @@ func UserAuth() gin.HandlerFunc {
 			// token get
 			auth := c.GetHeader("Authorization")
 			if auth == "" {
-				c.AbortWithStatus(http.StatusUnauthorized)
+				c.JSON(http.StatusUnauthorized, service.FailedResponse(", unauthorized", bilicoin.UserUnauthorized))
+				c.Abort()
 				return
 			}
 			token := bilicoin.ParseToken(auth)
 			if user2.CheckToken(token) {
 				c.Next()
 			} else {
-				c.AbortWithStatus(http.StatusUnauthorized)
+				c.JSON(http.StatusUnauthorized, service.FailedResponse(", unauthorized", bilicoin.UserUnauthorized))
+				c.Abort()
 			}
 			return
 		}

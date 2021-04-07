@@ -130,7 +130,6 @@ func (u *User) Login() (string, error) {
 
 // token 获取用户 id
 func GetInfoByToken(token string) (*User, error) {
-	println(token)
 	result, err := jwt.Parse(token, func(*jwt.Token) (interface{}, error) {
 		return bilicoin.GetConfig().GetJwtSecret(), nil
 	})

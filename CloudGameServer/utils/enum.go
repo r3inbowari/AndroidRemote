@@ -16,7 +16,7 @@ const (
 	UserExistError
 	UserLoginValidateError
 	UserTokenCreateError
-
+	UserUnauthorized
 	// android
 
 	// admin
