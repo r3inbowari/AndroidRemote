@@ -56,7 +56,7 @@ export default defineComponent({
     function initMsgWebsocket() {
       const currentInstance = getCurrentInstance();
       // currentInstance?.appContext.config.globalProperties.$socket.send('ping');
-      setTimeout(() => {
+      setInterval(() => {
         currentInstance?.appContext.config.globalProperties.$socket.send('ping');
       }, 4000);
       console.log('12',currentInstance);
@@ -64,7 +64,7 @@ export default defineComponent({
       (currentInstance?.appContext.config.globalProperties.sockets).onmessage = (res: {
         data: string
       }) => {
-        console.log(res.data)
+        console.log(res.data+1)
       }
     }
 
