@@ -51,7 +51,12 @@ export default defineComponent({
       }
     }
 
+    function initMsgWebsocket() {
+      
+    }
+
     onMounted(initUserInfo)
+    onMounted(initMsgWebsocket)
   },
 })
 </script>

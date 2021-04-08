@@ -9,18 +9,22 @@
       :close-on-click-modal="false"
     >
       <template #title>
-        <span class="dialog-title"> 启动中 </span>
+        <span class="dialog-title"> 游戏启动中 </span>
       </template>
       <div class="dialog-content">
-        <div><span></span></div>
-        <div><span>服务器拥挤, 正在排队</span></div>
-        <div>
-          <span>前方还有 {{ personQueueSum }} 人, 请耐心等待</span>
+        <div class="dialog-content-tip">
+          <div><span></span></div>
+          <div v-if="processValue === 0">
+            <div><span>服务器拥挤, 正在排队</span></div>
+            <div>
+              <span>前方还有 {{ personQueueSum }} 人, 请耐心等待</span>
+            </div>
+          </div>
+          <div v-if="processValue === 1"><span>游戏环境准备中</span></div>
+          <div v-if="processValue === 2"><span>正在下载游戏依赖环境</span></div>
+          <div v-if="processValue === 3"><span>游戏环境搭建中</span></div>
+          <div v-if="processValue === 4"><span>正在做最后的准备, 请稍后</span></div>
         </div>
-        <div><span>游戏搭载中</span></div>
-        <div><span>正在下载游戏依赖环境...</span></div>
-        <div><span>游戏环境搭建中...</span></div>
-        <div><span>正在做最后的准备, 请稍后...</span></div>
       </div>
       <template #footer>
         <span class="dialog-footer">
@@ -33,7 +37,7 @@
 </template>
 
 <script>
-import { defineComponent, onMounted, ref } from 'vue'
+import { defineComponent, onMounted, reactive, ref } from 'vue'
 
 export default defineComponent({
   name: 'App',
@@ -52,6 +56,9 @@ export default defineComponent({
 
     // 游戏启动角度
     const openPercentage = ref(0)
+
+    // 启动 tag 序号
+    const processValue = ref(0)
 
     // 卡片close处理
     function handleClose() {
@@ -76,6 +83,7 @@ export default defineComponent({
       waitCardVisible,
       openPercentage,
       personQueueSum,
+      processValue
     }
   },
   methods: {
@@ -100,7 +108,10 @@ export default defineComponent({
 
 /* 标题颜色 */
 .wait-queue-card .dialog-title {
-  color: aliceblue;
+  color: rgb(235, 239, 243);
+  font-weight: 700;
+  line-height: 20px;
+  font-size: 18px;
 }
 
 .wait-queue-card .el-dialog__footer {
@@ -125,5 +136,11 @@ export default defineComponent({
 /* 进度条 top margin */
 .wait-queue-card .el-progress {
   margin-top: 20px;
+}
+
+.dialog-content-tip {
+  color: rgb(156, 230, 20);
+  font-weight: 600;
+  line-height: 20px;
 }
 </style>

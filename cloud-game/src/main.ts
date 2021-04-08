@@ -18,12 +18,25 @@ import './assets/icon/iconfont.css'
 // import vue-cookies
 import { VueCookieNext } from 'vue-cookie-next'
 
+// import vue-native-websocket-next
+import VueNativeSock from 'vue-native-websocket-vue3'
+// import store ext to vuesock
+// import store from './store'
+
 const app = createApp(App)
-  .use(router)
+app.use(router)
   .use(store, key)
   .use(ElementPlus)
   .use(VueCookieNext) // options api mount
+  .use(VueNativeSock, "ws://localhost:2333/ping", {
+    store: store
+  })
+ 
 app.mount('#app')
+// 
+console.log(app);
+export default app
+
 
 // app.$cook = 'Vue3';
 
