@@ -28,14 +28,12 @@ app.use(router)
   .use(store, key)
   .use(ElementPlus)
   .use(VueCookieNext) // options api mount
-  .use(VueNativeSock, "ws://localhost:2333/ping", {
-    store: store
-  })
+  .use(VueNativeSock, "ws://localhost:2333/ping")
  
 app.mount('#app')
 // 
 console.log(app);
-export default app
+// export default app
 
 
 // app.$cook = 'Vue3';

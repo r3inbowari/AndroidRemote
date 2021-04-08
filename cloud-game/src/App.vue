@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from 'vue'
+import { defineComponent, onMounted, getCurrentInstance } from 'vue'
 import { printEnv } from './utils'
 // import HomePage from './components/HelloWorld.vue'
 
@@ -40,19 +40,32 @@ export default defineComponent({
         store.commit('setToken', t)
 
         // pull user info online, no using localstorage
-        userInfo().then(res => {
-          // console.log(res)
-          // save foreach
-          // undefined avatar param
-          store.commit('setAvatar', res.data.avatar)
-        }).catch((e) => {
-          console.log(e)
-        })
+        userInfo()
+          .then((res) => {
+            // console.log(res)
+            // save foreach
+            // undefined avatar param
+            store.commit('setAvatar', res.data.avatar)
+          })
+          .catch((e) => {
+            console.log(e)
+          })
       }
     }
 
     function initMsgWebsocket() {
+      const currentInstance = getCurrentInstance();
+      // currentInstance?.appContext.config.globalProperties.$socket.send('ping');
+      setTimeout(() => {
+        currentInstance?.appContext.config.globalProperties.$socket.send('ping');
+      }, 4000);
+      console.log('12',currentInstance);
       
+      (currentInstance?.appContext.config.globalProperties.sockets).onmessage = (res: {
+        data: string
+      }) => {
+        console.log(res.data)
+      }
     }
 
     onMounted(initUserInfo)
