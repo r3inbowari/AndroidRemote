@@ -32,3 +32,16 @@ export function getToken(): String {
   let t = VueCookieNext.getCookie('token')
   return t
 }
+
+// setTimeout 轮询
+export function startTimer(duration: number, func: Function) {
+  if (duration == -1) {
+    return
+  }
+  
+  duration = func()
+
+  const timer = setTimeout(() => {
+    startTimer(duration, func);
+  }, duration);
+}
