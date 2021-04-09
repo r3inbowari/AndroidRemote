@@ -49,7 +49,7 @@ instance.interceptors.response.use(
   },
   function (error) {
     // do someting
-    console.log('拦截器报错了')
+    console.log('[axios] response reject')
     return Promise.reject(error)
   }
 )

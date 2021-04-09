@@ -28,13 +28,17 @@ app.use(router)
   .use(store, key)
   .use(ElementPlus)
   .use(VueCookieNext) // options api mount
-  .use(VueNativeSock, "ws://localhost:2333/ping")
+  .use(VueNativeSock, "ws://localhost:2333/ping", {
+    reconnection: true,   // 自动重连
+    reconnectionAttempts: 20, // 重连次数
+    reconnectionDelay: 10 * 1000, // 重连间隔
+    connectManually: true, // 启动手动连接模式
+  })
  
 app.mount('#app')
 // 
-console.log(app);
+// console.log(app);
 // export default app
-
 
 // app.$cook = 'Vue3';
 

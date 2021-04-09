@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, getCurrentInstance } from 'vue'
+import { defineComponent, onMounted, getCurrentInstance, ref } from 'vue'
 import { printEnv } from './utils'
 // import HomePage from './components/HelloWorld.vue'
 
@@ -17,6 +17,8 @@ import { useStore } from 'vuex'
 import { VueCookieNext } from 'vue-cookie-next'
 
 import { userInfo } from './api/user'
+
+import { IWebSocket } from './ws'
 
 export default defineComponent({
   name: 'App',
@@ -52,23 +54,19 @@ export default defineComponent({
           })
       }
     }
-
+  
+    // app root instance
+    // this ws class has some error not be handled
+    // but it can use 
+    const currentInstance = getCurrentInstance()
+    // ws instance
+    let ws = new IWebSocket(currentInstance, null)
     function initMsgWebsocket() {
-      const currentInstance = getCurrentInstance();
-      // currentInstance?.appContext.config.globalProperties.$socket.send('ping');
-      setInterval(() => {
-        currentInstance?.appContext.config.globalProperties.$socket.send('ping');
-      }, 4000);
-      console.log('12',currentInstance);
-      
-      (currentInstance?.appContext.config.globalProperties.sockets).onmessage = (res: {
-        data: string
-      }) => {
-        console.log(res.data+1)
-      }
+      ws.initMsgWebsocket()
     }
 
     onMounted(initUserInfo)
+    // init ws
     onMounted(initMsgWebsocket)
   },
 })

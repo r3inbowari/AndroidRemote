@@ -1,9 +1,12 @@
 // import { State } from '@vue/runtime-core'
-import { InjectionKey } from 'vue'
+// @ts-ignore
+import { InjectionKey, App } from 'vue'
+
 import { createStore, StoreOptions, Store } from 'vuex'
 
 // import app from "../main"
 import { getCurrentInstance } from 'vue'
+import app from '../main'
 
 // declare module '@vue/runtime-core' {
 // 	// define your typings for the store state
@@ -62,6 +65,7 @@ export const store = createStore<State>({
       state.count++
     },
     setToken(state, t) {
+      
       state.token = t
       console.log('[store] setToken ' + state.token)
     },
@@ -71,14 +75,14 @@ export const store = createStore<State>({
     },
 
 
-    // // 连接打开
+    // 连接打开
     // SOCKET_ONOPEN(state, event) {
-    //   const app = getCurrentInstance()
+    //   // const app = getCurrentInstance()
 
     //   console.log('open', app);
       
 
-    //  //  app?.appContext.config.globalProperties.$socket = event.currentTarget;
+    //  // app?.appContext.config.globalProperties.$socket = event.currentTarget;
     //   state.socket.isConnected = true;
     //   // 连接成功时启动定时发送心跳消息，避免被服务器断开连接
     //   state.socket.heartBeatTimer = setInterval(() => {
@@ -115,5 +119,7 @@ export const store = createStore<State>({
     // SOCKET_RECONNECT_ERROR(state) {
     //   state.socket.reconnectError = true;
     // }
+
+
   },
 })
