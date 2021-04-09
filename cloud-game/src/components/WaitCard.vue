@@ -20,10 +20,12 @@
               <span>前方还有 {{ personQueueSum }} 人, 请耐心等待</span>
             </div>
           </div>
-          <div v-if="processValue === 1"><span>游戏环境准备中</span></div>
+          <div v-if="processValue === 1"><span>正在请求服务器资源</span></div>
           <div v-if="processValue === 2"><span>正在下载游戏依赖环境</span></div>
           <div v-if="processValue === 3"><span>游戏环境搭建中</span></div>
-          <div v-if="processValue === 4"><span>正在做最后的准备, 请稍后</span></div>
+          <div v-if="processValue === 4">
+            <span>正在做最后的准备, 请稍后</span>
+          </div>
         </div>
       </div>
       <template #footer>
@@ -38,6 +40,9 @@
 
 <script>
 import { defineComponent, onMounted, reactive, ref } from 'vue'
+
+import { key } from '../store'
+import { useStore } from 'vuex'
 
 export default defineComponent({
   name: 'App',
@@ -66,6 +71,8 @@ export default defineComponent({
       waitCardVisible.value = false
     }
 
+    const store = useStore(key)
+
     // 加载过程模拟
     function handleRun() {
       let tag = setInterval(() => {
@@ -74,6 +81,10 @@ export default defineComponent({
           clearInterval(tag)
         }
       }, 30)
+
+      setTimeout(() => {
+        store.state.ws.send({ msg: 'hello' })
+      }, 4000)
     }
 
     onMounted(handleRun)
@@ -83,12 +94,11 @@ export default defineComponent({
       waitCardVisible,
       openPercentage,
       personQueueSum,
-      processValue
+      processValue,
     }
   },
   methods: {
     openWait() {
-      console.log('hello')
       this.waitCardVisible = true
     },
     onRunOpen() {},

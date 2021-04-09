@@ -3,10 +3,14 @@ import { ComponentInternalInstance } from 'vue'
 export class IWebSocket {
 	// timer tag
 	wsHeartbeatTag: number = 0
+	// interval heartbeat
+	ttlHeartbeat: number = 60 * 1000
 	// root instance
 	componentInstance: ComponentInternalInstance | null = null
 	// hostname
 	mHost: string | null = null
+
+	pingMsg: string = 'ping'
 
 	constructor(currentInstance: ComponentInternalInstance | null, host: string | null) {
 		// check instance
@@ -28,9 +32,9 @@ export class IWebSocket {
 		// connect manually
 		// @callback onerror may be call
 		if (this.mHost === null) {
-			this.componentInstance?.appContext.config.globalProperties.$connect();
+			this.componentInstance?.appContext.config.globalProperties.$connect()
 		} else {
-			this.componentInstance?.appContext.config.globalProperties.$connect(this.mHost);
+			this.componentInstance?.appContext.config.globalProperties.$connect(this.mHost)
 		}
 
 		// 消息接收
@@ -38,7 +42,7 @@ export class IWebSocket {
 			data: string
 		}) => {
 			// msg case
-			console.log('[ws] ' + res.data + 1)
+			console.log('[ws] ' + res.data)
 		}
 
 		// error handler
@@ -48,30 +52,43 @@ export class IWebSocket {
 
 		// connection open
 		(this.componentInstance?.appContext.config.globalProperties.sockets).onopen = () => {
-			console.log('[ws] open')
-			this.WsHeartbeat(3 * 1000)
+			console.log('[ws] websocket connected')
+			this.wsHeartbeat(this.ttlHeartbeat)
 		}
 
 		// connection close
 		(this.componentInstance?.appContext.config.globalProperties.sockets).onclose = () => {
 			console.log('[ws] close')
-			console.log('[ws] clear interval ', this.wsHeartbeatTag);
+			console.log('[ws] clear interval ', this.wsHeartbeatTag)
 			clearInterval(this.wsHeartbeatTag)
+			this.wsHeartbeatTag = 0
 		}
 	}
 
-	WsHeartbeat(heardbeatInterval: number) {
+	// heartbear function
+	wsHeartbeat(heardbeatInterval: number) {
 		this.wsHeartbeatTag = setInterval(() => {
 			if (
 				this.componentInstance?.appContext.config.globalProperties.$socket
 					.readyState === 1
 			) {
 				this.componentInstance?.appContext.config.globalProperties.$socket.send(
-					'ping'
+					this.pingMsg
 				)
 			} else {
 				console.log('[ws] socket not created')
 			}
 		}, heardbeatInterval)
+	}
+
+	// send
+	send(payload: object) {
+		let jsonPayload = JSON.stringify(payload)
+		if (this.componentInstance?.appContext.config.globalProperties.$socket
+			.readyState === 1) {
+			this.componentInstance?.appContext.config.globalProperties.$socket.send(
+				jsonPayload
+			)
+		}
 	}
 }

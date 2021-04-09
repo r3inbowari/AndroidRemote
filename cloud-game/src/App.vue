@@ -20,6 +20,7 @@ import { userInfo } from './api/user'
 
 import { IWebSocket } from './ws'
 
+
 export default defineComponent({
   name: 'App',
   components: {},
@@ -58,13 +59,14 @@ export default defineComponent({
     // app root instance
     // this ws class has some error not be handled
     // but it can use 
+    // only one connection limited
     const currentInstance = getCurrentInstance()
     // ws instance
     let ws = new IWebSocket(currentInstance, null)
+    store.commit('setWs', ws)
     function initMsgWebsocket() {
       ws.initMsgWebsocket()
     }
-
     onMounted(initUserInfo)
     // init ws
     onMounted(initMsgWebsocket)
