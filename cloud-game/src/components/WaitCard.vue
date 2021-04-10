@@ -15,22 +15,25 @@
         <div class="dialog-content-tip">
           <div><span></span></div>
           <div v-if="processValue === 0">
-            <div><span>服务器拥挤, 正在排队</span></div>
+            <div><span>服务器拥挤, 正在排队 {{ loadingDotStr }}</span></div>
             <div>
               <span>前方还有 {{ personQueueSum }} 人, 请耐心等待</span>
             </div>
           </div>
-          <div v-if="processValue === 1"><span>正在请求服务器资源</span></div>
-          <div v-if="processValue === 2"><span>正在下载游戏依赖环境</span></div>
-          <div v-if="processValue === 3"><span>游戏环境搭建中</span></div>
+          <div v-if="processValue === 1"><span>正在请求服务器资源 {{ loadingDotStr }}</span></div>
+          <div v-if="processValue === 2"><span>正在下载游戏依赖环境 {{ loadingDotStr }}</span></div>
+          <div v-if="processValue === 3"><span>游戏环境搭建中 {{ loadingDotStr }}</span></div>
           <div v-if="processValue === 4">
-            <span>正在做最后的准备, 请稍后</span>
+            <span>正在做最后的准备, 请稍后 {{ loadingDotStr }}</span>
+          </div>
+          <div v-if="processValue === 5">
+            <span>即将启动 {{ loadingDotStr }}</span>
           </div>
         </div>
       </div>
       <template #footer>
         <span class="dialog-footer">
-          <button @click="onRunOpen" class="action-btn">打开游戏</button>
+          <button @click="onRunOpen" class="action-btn">取消</button>
         </span>
         <el-progress :percentage="openPercentage"> </el-progress>
       </template>
@@ -43,6 +46,7 @@ import { defineComponent, onMounted, reactive, ref } from 'vue'
 
 import { key } from '../store'
 import { useStore } from 'vuex'
+import { startTimer } from '../utils'
 
 export default defineComponent({
   name: 'App',
@@ -75,12 +79,57 @@ export default defineComponent({
 
     // 加载过程模拟
     function handleRun() {
-      let tag = setInterval(() => {
+      let timeout = 30
+
+      // let tag = setInterval(() => {
+      //   openPercentage.value++
+      //   if (openPercentage.value === 100) {
+      //     clearInterval(tag)
+      //   }
+      // }, 30)
+
+      let cnt = 100
+      startTimer(cnt, () => {
+        console.log(cnt);
+        cnt ++ 
         openPercentage.value++
-        if (openPercentage.value === 100) {
-          clearInterval(tag)
+        dotdotdot()
+        if (openPercentage.value === 20) {
+          processValue.value = 1
         }
-      }, 30)
+
+        if (openPercentage.value === 40) {
+          processValue.value = 2
+        }
+
+        if (openPercentage.value === 60) {
+          processValue.value = 3
+        }
+
+        if (openPercentage.value === 80) {
+          processValue.value = 4
+        }
+
+         if (openPercentage.value === 90) {
+          processValue.value = 5
+        }
+
+        if (openPercentage.value === 100) {
+          return -1
+        } else {
+          return cnt
+        }
+      })
+
+      function dotdotdot() {
+        if (loadingDotStr.value === ".") {
+            loadingDotStr.value = ".."
+          } else if (loadingDotStr.value === "..") {
+            loadingDotStr.value = "..."
+          } else if (loadingDotStr.value === "...") {
+            loadingDotStr.value = "."
+          }
+      }
 
       setTimeout(() => {
         store.state.ws.send({ msg: 'hello' })
@@ -95,6 +144,7 @@ export default defineComponent({
       openPercentage,
       personQueueSum,
       processValue,
+      loadingDotStr
     }
   },
   methods: {
