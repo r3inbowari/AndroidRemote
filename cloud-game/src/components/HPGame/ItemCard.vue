@@ -133,7 +133,8 @@ export default defineComponent({
       loading,
     }
   },
-  // emits: ['runapp'],
+  emits: ['run'],
+  // emits: ['in-focus', 'submit']
   methods: {
     onRun() {
       // 统一交由上层处理

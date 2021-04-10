@@ -20,7 +20,6 @@ import { userInfo } from './api/user'
 
 import { IWebSocket } from './ws'
 
-
 export default defineComponent({
   name: 'App',
   components: {},
@@ -50,15 +49,15 @@ export default defineComponent({
             // undefined avatar param
             store.commit('setAvatar', res.data.avatar)
           })
-          .catch((e) => {
-            console.log(e)
+          .catch(() => {
+            console.log('[app] get info failed. see ↓')
           })
       }
     }
-  
+
     // app root instance
     // this ws class has some error not be handled
-    // but it can use 
+    // but it can use
     // only one connection limited
     const currentInstance = getCurrentInstance()
     // ws instance

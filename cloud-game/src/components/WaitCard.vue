@@ -15,14 +15,22 @@
         <div class="dialog-content-tip">
           <div><span></span></div>
           <div v-if="processValue === 0">
-            <div><span>服务器拥挤, 正在排队 {{ loadingDotStr }}</span></div>
+            <div>
+              <span>服务器拥挤, 正在排队 {{ loadingDotStr }}</span>
+            </div>
             <div>
               <span>前方还有 {{ personQueueSum }} 人, 请耐心等待</span>
             </div>
           </div>
-          <div v-if="processValue === 1"><span>正在请求服务器资源 {{ loadingDotStr }}</span></div>
-          <div v-if="processValue === 2"><span>正在下载游戏依赖环境 {{ loadingDotStr }}</span></div>
-          <div v-if="processValue === 3"><span>游戏环境搭建中 {{ loadingDotStr }}</span></div>
+          <div v-if="processValue === 1">
+            <span>正在请求服务器资源 {{ loadingDotStr }}</span>
+          </div>
+          <div v-if="processValue === 2">
+            <span>正在下载游戏依赖环境 {{ loadingDotStr }}</span>
+          </div>
+          <div v-if="processValue === 3">
+            <span>游戏环境搭建中 {{ loadingDotStr }}</span>
+          </div>
           <div v-if="processValue === 4">
             <span>正在做最后的准备, 请稍后 {{ loadingDotStr }}</span>
           </div>
@@ -33,7 +41,7 @@
       </div>
       <template #footer>
         <span class="dialog-footer">
-          <button @click="onRunOpen" class="action-btn">取消</button>
+          <button @click="onRunClose" class="action-btn">取消</button>
         </span>
         <el-progress :percentage="openPercentage"> </el-progress>
       </template>
@@ -43,6 +51,7 @@
 
 <script>
 import { defineComponent, onMounted, reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 import { key } from '../store'
 import { useStore } from 'vuex'
@@ -54,6 +63,8 @@ export default defineComponent({
     return {}
   },
   setup(props) {
+    const router = useRouter()
+
     // 前方等待人数
     const personQueueSum = ref(0)
 
@@ -75,6 +86,8 @@ export default defineComponent({
       waitCardVisible.value = false
     }
 
+    const raceClk = ref(false)
+
     const store = useStore(key)
 
     // 加载过程模拟
@@ -88,12 +101,19 @@ export default defineComponent({
       //   }
       // }, 30)
 
-      let cnt = 100
+      let cnt = 10
       startTimer(cnt, () => {
-        console.log(cnt);
-        cnt ++ 
+        // console.log(cnt)
+        cnt++
         openPercentage.value++
         dotdotdot()
+        // console.log(raceClk.value)
+        if (raceClk.value) {
+          waitCardVisible.value = false
+          openPercentage.value = 0
+          raceClk.value = false
+          return -1
+        }
         if (openPercentage.value === 20) {
           processValue.value = 1
         }
@@ -110,11 +130,14 @@ export default defineComponent({
           processValue.value = 4
         }
 
-         if (openPercentage.value === 90) {
+        if (openPercentage.value === 90) {
           processValue.value = 5
         }
 
         if (openPercentage.value === 100) {
+          router.replace({
+            name: 'Play',
+          })
           return -1
         } else {
           return cnt
@@ -122,13 +145,13 @@ export default defineComponent({
       })
 
       function dotdotdot() {
-        if (loadingDotStr.value === ".") {
-            loadingDotStr.value = ".."
-          } else if (loadingDotStr.value === "..") {
-            loadingDotStr.value = "..."
-          } else if (loadingDotStr.value === "...") {
-            loadingDotStr.value = "."
-          }
+        if (loadingDotStr.value === '.') {
+          loadingDotStr.value = '..'
+        } else if (loadingDotStr.value === '..') {
+          loadingDotStr.value = '...'
+        } else if (loadingDotStr.value === '...') {
+          loadingDotStr.value = '.'
+        }
       }
 
       setTimeout(() => {
@@ -136,7 +159,12 @@ export default defineComponent({
       }, 4000)
     }
 
-    onMounted(handleRun)
+    // onMounted(handleRun)
+
+    function onRunClose() {
+      console.log('[wait] close waiting window')
+      raceClk.value = true
+    }
 
     return {
       handleClose,
@@ -144,14 +172,16 @@ export default defineComponent({
       openPercentage,
       personQueueSum,
       processValue,
-      loadingDotStr
+      loadingDotStr,
+      onRunClose,
+      handleRun,
     }
   },
   methods: {
     openWait() {
       this.waitCardVisible = true
+      this.handleRun()
     },
-    onRunOpen() {},
   },
 })
 </script>

@@ -7,8 +7,14 @@ export const routerMap = [
     component: importView('HomePage'),
   },
   {
+    name: 'Home',
     path: '/home',
     component: importView('HomePage'),
+  },
+  {
+    name: 'Play',
+    path: '/play',
+    component: importView('GP'),
   },
 ]
 

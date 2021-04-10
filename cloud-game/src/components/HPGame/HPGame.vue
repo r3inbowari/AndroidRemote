@@ -93,17 +93,15 @@ export default defineComponent({
       })()
     }
     this.fix(this.screenWidth)
-
-    // 等待队列卡片 test
-    this.$refs['woc1'].openWait()
   },
   methods: {
     runApp(gameData) {
       let t = VueCookieNext.isCookieAvailable('token')
       // console.log(gameData)
       if (t) {
-        console.log('ok')
         // queue task
+        // 等待队列卡片 test
+        this.$refs['woc1'].openWait()
       } else {
         this.$refs['nop2'].needLogin()
       }
