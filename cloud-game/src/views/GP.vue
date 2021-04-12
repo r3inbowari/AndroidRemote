@@ -134,6 +134,16 @@ export default defineComponent({
     // @warning this operation must run after got the canvas context
     onMounted(updateCanvasSize)
 
+    // define the request body of touch order
+    // @param contact multi-touch contact
+    // @param x
+    // @param y
+    // @param ts timestamp
+    // @param type touch type (enum tap/swipe/release)
+    const EVENT_TAP = 0
+    const EVENT_SWIPE = 1
+    const EVENT_RELEASE = 2
+
     function onMove() {
       // console.log('move')
     }
@@ -154,6 +164,16 @@ export default defineComponent({
         e.layerX * transforRatio,
         e.layerY * transforRatio
       )
+
+      let reqBody = {
+        x: parseInt(e.layerX * transforRatio),
+        y: parseInt(e.layerY * transforRatio),
+        contact: 0,
+        type: EVENT_TAP,
+        ts: Date.parse(new Date()) / 1000,
+      }
+
+      console.log(reqBody)
     }
 
     // coord transfor from canvasCoord to real-imageCoord

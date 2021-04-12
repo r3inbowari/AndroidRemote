@@ -8,11 +8,13 @@ type Server struct {
 
 func (s Server) TouchReq(request *TouchRequest, server Touch_TouchReqServer) error {
 	if request.Message == "attach touch" {
+		println("start touch")
+		time.Sleep(time.Second * 10)
 		// ctx := server.Context()
 		server.Send(&TouchReply{
 			Type:          0,
-			X:             110,
-			Y:             110,
+			X:             300,
+			Y:             300,
 			Contact:       0,
 			Ts:            10,
 		})

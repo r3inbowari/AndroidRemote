@@ -86,6 +86,20 @@ func (ws *WebsocketServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// 进入时应该时等待的状态
 
 	// 等待后端串流
+
+
+
+
+	// 处理过程如下
+	// 1. 前端页面向WCG发送资源请求
+	// 2. WCG将数据通过MQ发布
+	// 3. CG_STREAMER通过MQ订阅主题
+	// 4. WCG记录WS队列状态,并且进行排队
+	// 5. STREAMER在收到请求资源时, 会有一个消费掉这个请求
+	// 6. 并且开启ws通道, 把通道的连接通过Q返回给WCG
+	// 7. WCG将数据返回到WS通道中
+
+
 }
 
 func (ws *WebsocketServer) connHandle(conn *websocket.Conn) {
