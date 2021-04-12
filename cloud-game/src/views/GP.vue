@@ -10,8 +10,8 @@
           @mouseup="onUp"
           @mousedown="onDown"
           class="play-canvas"
-          :width="canvasWidth"
           :height="canvasHeight"
+          :width="canvasWidth"
           >12</canvas
         >
       </div>
@@ -24,7 +24,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, getCurrentInstance, ref } from 'vue'
+import {
+  defineComponent,
+  onMounted,
+  getCurrentInstance,
+  ref,
+  reactive,
+} from 'vue'
 import { useRouter } from 'vue-router'
 
 import { key } from './store'
@@ -60,12 +66,24 @@ export default defineComponent({
       console.log('as')
     }
 
+    let context = null
+    let URL = null
+
     onMounted(() => {
-      const context = refCanvas.value.getContext('2d')
+      context = refCanvas.value.getContext('2d')
       // const context = refCanvas.value.getContext('2d')
-      console.log(context)
+      console.log('[minicap] getContext', context)
       // context.canvas.addEventListener('mousedown', doMouseDown, false)
       // context.canvas.addEventListener('mousemove', doMouseDown, false)
+
+      // blob base url
+      URL = window.URL || window.webkitURL
+      // context.scale(1 / 2, 1 / 2)
+      context.moveTo(100, 100) //设置起点状态
+      context.lineTo(700, 700) //设置末端状态
+      context.lineWidth = 5 //设置线宽状态
+      context.strokeStyle = '#222' //设置线的颜色状态
+      context.stroke() //进行绘制
     })
 
     function onMove() {
@@ -102,17 +120,10 @@ export default defineComponent({
       }
     }
 
-    let recCnt = 0
     // data recv
     function websocketonmessage(data) {
-      // global_callback(JSON.parse(e.data))
-      // recCnt++
-      // console.log(recCnt)
-      const context = refCanvas.value.getContext('2d')
       let blob = new Blob([data.data], { type: 'image/jpeg' })
-      let URL = window.URL || window.webkitURL
       let img = new Image()
-      console.log(data)
       img.onload = function () {
         context.drawImage(img, 0, 0)
 
@@ -121,11 +132,8 @@ export default defineComponent({
         // u = null
         // blob = null
       }
-
       let u = URL.createObjectURL(blob)
       img.src = u
-
-      // console.log(context)
     }
 
     //数据发送
@@ -135,11 +143,11 @@ export default defineComponent({
 
     //关闭
     function websocketclose(e) {
-      console.log('connection closed (' + e.code + ')')
+      console.log('[minicap] connection closed (' + e.code + ')')
     }
 
     function websocketOpen(e) {
-      console.log('连接成功')
+      console.log('[minicap] connected')
     }
 
     function getWebIP() {
@@ -182,11 +190,19 @@ export default defineComponent({
 
 /* inner content define */
 .play-inner-content {
-  padding: 10px;
+  padding: 0;
 }
 
 .play-inner-content canvas {
   background-color: wheat;
-  /* height: 100px; */
+}
+
+/* canvas 水平居中, 垂直居中暂未制作 */
+.play-canvas {
+  position: fixed;
+  height: 100%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
 }
 </style>
