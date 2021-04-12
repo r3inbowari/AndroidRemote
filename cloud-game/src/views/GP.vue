@@ -30,6 +30,7 @@ import {
   getCurrentInstance,
   ref,
   reactive,
+  watch,
 } from 'vue'
 import { useRouter } from 'vue-router'
 
@@ -56,19 +57,62 @@ export default defineComponent({
       exitGame(router)
     }
 
-    // canvas 实际的分辨率
+    // canvas 导入图片的实际分辨率
     const canvasWidth = ref(1280)
     const canvasHeight = ref(720)
     // canvas 的引用
     const refCanvas = ref(null)
+    // transfor ratio (canvasCoord 2 real-imageCanvas)
+    let transforRatio = 1
 
-    function doMouseDown() {
-      console.log('as')
+    // cant use watch before the refCanvas create
+    // watch(
+    //   () => refCanvas.value.clientHeight,
+    //   (oldValue, newValue) => {
+    //     console.log(newValue)
+    //   }
+    // )
+
+    // div 宽高获取测试
+    // function getWH() {
+    //   console.log(refCanvas.value.clientHeight)
+    //   console.log(refCanvas.value.clientWidth)
+    // }
+    // onMounted(getWH)
+    // console.log(window)
+
+    // define canvas size(height and width of the canvas layer)
+    // @param maxCanvasHeight
+    // @param maxCanvasWidth
+    const maxCanvasHeight = ref(0)
+    const maxCanvasWidth = ref(0)
+
+    // canvas size function
+    // and calc the transfor ratio
+    // from canvasCoord 2 real-imageCanvas
+    // @warning the css of canvas' height and width must be scaled equally
+    // use canvasCoord convert way: ratio * canvasCoord
+    function updateCanvasSize() {
+      maxCanvasHeight.value = refCanvas.value.clientHeight
+      maxCanvasWidth.value = refCanvas.value.clientWidth
+      console.log(
+        '[minicap] resize -> %d, %d',
+        maxCanvasHeight.value,
+        maxCanvasWidth.value
+      )
+      // calc ratio
+      transforRatio = canvasHeight.value / maxCanvasHeight.value
+      console.log('[minicap] cuurrent transfor ratio: %f', transforRatio)
+    }
+
+    // add onresize callback function
+    // @warning dont overwrite this callback on other place
+    window.onresize = () => {
+      updateCanvasSize()
     }
 
     let context = null
     let URL = null
-
     onMounted(() => {
       context = refCanvas.value.getContext('2d')
       // const context = refCanvas.value.getContext('2d')
@@ -79,22 +123,41 @@ export default defineComponent({
       // blob base url
       URL = window.URL || window.webkitURL
       // context.scale(1 / 2, 1 / 2)
-      context.moveTo(100, 100) //设置起点状态
-      context.lineTo(700, 700) //设置末端状态
-      context.lineWidth = 5 //设置线宽状态
-      context.strokeStyle = '#222' //设置线的颜色状态
-      context.stroke() //进行绘制
+      // context.moveTo(100, 100) //设置起点状态
+      // context.lineTo(700, 700) //设置末端状态
+      // context.lineWidth = 5 //设置线宽状态
+      // context.strokeStyle = '#222' //设置线的颜色状态
+      // context.stroke() //进行绘制
     })
 
+    // exec the first resize
+    // @warning this operation must run after got the canvas context
+    onMounted(updateCanvasSize)
+
     function onMove() {
-      console.log('move')
+      // console.log('move')
     }
-    function onUp() {
-      console.log('up')
+    function onUp(e) {
+      console.log(
+        '[minicap] up -> %d, %d -> %d, %d',
+        e.layerX,
+        e.layerY,
+        e.layerX * transforRatio,
+        e.layerY * transforRatio
+      )
     }
-    function onDown() {
-      console.log('down')
+    function onDown(e) {
+      console.log(
+        '[minicap] down -> %d, %d -> %d, %d',
+        e.layerX,
+        e.layerY,
+        e.layerX * transforRatio,
+        e.layerY * transforRatio
+      )
     }
+
+    // coord transfor from canvasCoord to real-imageCoord
+    function coordTransfor(canvasCoordX, canvasCoordY) {}
 
     let websock = null
     let global_callback = null
