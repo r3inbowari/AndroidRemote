@@ -50,9 +50,10 @@ export default defineComponent({
       exitGame(router)
     }
 
+    // canvas 实际的分辨率
     const canvasWidth = ref(1280)
     const canvasHeight = ref(720)
-
+    // canvas 的引用
     const refCanvas = ref(null)
 
     function doMouseDown() {
@@ -61,6 +62,7 @@ export default defineComponent({
 
     onMounted(() => {
       const context = refCanvas.value.getContext('2d')
+      // const context = refCanvas.value.getContext('2d')
       console.log(context)
       // context.canvas.addEventListener('mousedown', doMouseDown, false)
       // context.canvas.addEventListener('mousemove', doMouseDown, false)
@@ -75,6 +77,79 @@ export default defineComponent({
     function onDown() {
       console.log('down')
     }
+
+    let websock = null
+    let global_callback = null
+
+    function initWs(wsuri) {
+      //ws地址
+      // var wsuri = 'ws://' + getWebIP() + ':' + serverPort
+      // var wsuri = 'ws://127.0.0.1:8080/ws'
+      websock = new WebSocket(wsuri)
+      websock.onmessage = function (e) {
+        websocketonmessage(e)
+      }
+      websock.onclose = function (e) {
+        websocketclose(e)
+      }
+      websock.onopen = function () {
+        websocketOpen()
+      }
+
+      //连接发生错误的回调方法
+      websock.onerror = function () {
+        console.log('WebSocket连接发生错误')
+      }
+    }
+
+    let recCnt = 0
+    // data recv
+    function websocketonmessage(data) {
+      // global_callback(JSON.parse(e.data))
+      // recCnt++
+      // console.log(recCnt)
+      const context = refCanvas.value.getContext('2d')
+      let blob = new Blob([data.data], { type: 'image/jpeg' })
+      let URL = window.URL || window.webkitURL
+      let img = new Image()
+      console.log(data)
+      img.onload = function () {
+        context.drawImage(img, 0, 0)
+
+        // img.onload = null
+        // img = null
+        // u = null
+        // blob = null
+      }
+
+      let u = URL.createObjectURL(blob)
+      img.src = u
+
+      // console.log(context)
+    }
+
+    //数据发送
+    function websocketsend(agentData) {
+      websock.send(JSON.stringify(agentData))
+    }
+
+    //关闭
+    function websocketclose(e) {
+      console.log('connection closed (' + e.code + ')')
+    }
+
+    function websocketOpen(e) {
+      console.log('连接成功')
+    }
+
+    function getWebIP() {
+      var curIP = window.location.hostname
+      return curIP
+    }
+
+    onMounted(() => {
+      initWs('ws://127.0.0.1:8080/ws')
+    })
 
     return {
       exitGameAsync,
