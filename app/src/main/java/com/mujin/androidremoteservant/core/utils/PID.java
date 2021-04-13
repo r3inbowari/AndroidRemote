@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class PID {
 
+    // 检查并尝试结束 process
     public static void checkAndKillProcess(Context context, String killName) {
         int pid = PID.getPID(context, killName);
         if (pid != -1) {
@@ -13,7 +14,7 @@ public class PID {
         }
     }
 
-
+    // 将程序与pid记录到db中
     public static void Attach(Context context, String name, Integer pid) {
         SQLiteDatabase db = AssetsDBHelper.getDB(context).getWritableDatabase();
         String sql = "replace into " + AssetsDBHelper.TABLE_PIDs + " (Id, PID) values ('" + name + "', " + pid + ")";
@@ -21,6 +22,7 @@ public class PID {
         db.close();
     }
 
+    // 通过name获取pid
     public static int getPID(Context context, String name) {
         SQLiteDatabase db = AssetsDBHelper.getDB(context).getWritableDatabase();
         String sql = "select * from " + AssetsDBHelper.TABLE_PIDs;

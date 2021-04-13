@@ -1,0 +1,36 @@
+
+//    private ChatGrpc.ChatStub chatStub = null;
+
+// chat存根和chat的回调
+        // 注意chat为双向stream流
+//        chatStub = ChatGrpc.newStub(gRPCChannelPool.get().getChannel("chat"));
+//        StreamObserver<ChatResponse> requestStreamObserver = new StreamObserver<ChatResponse>() {
+//
+//            @Override
+//            public void onNext(ChatResponse value) {
+//                // 接收到数据时
+//                System.out.println("s");
+//            }
+//
+//            @Override
+//            public void onError(Throwable t) {
+//                // 处理错误
+//                t.printStackTrace();
+//            }
+//
+//            @Override
+//            public void onCompleted() {
+//                // 过程结束
+//            }
+//        };
+
+//        ChatRequest request = ChatRequest.newBuilder().setInput("结束对222话\n").build();
+//        StreamObserver<ChatRequest> result = chatStub.bidStream(requestStreamObserver);
+//        result.onNext(request);
+//        result.onCompleted();
+
+
+
+
+
+

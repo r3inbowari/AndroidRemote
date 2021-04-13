@@ -11,6 +11,7 @@ import io.grpc.stub.StreamObserver;
 
 import static com.mujin.androidremoteservant.grpc.gRPCUtils.LTAG;
 
+//  模板
 public abstract class SimpleStreamObserver<T> implements StreamObserver<T> {
     private static Handler handler = new Handler(Looper.getMainLooper());
 
