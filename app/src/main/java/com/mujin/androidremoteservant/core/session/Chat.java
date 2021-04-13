@@ -1,7 +1,9 @@
 package com.mujin.androidremoteservant.core.session;
 
+import android.nfc.Tag;
 import android.util.Log;
 
+import com.mujin.androidremoteservant.core.stf.cap.MiniCap;
 import com.mujin.androidremoteservant.grpc.gRPCChannelPool;
 import com.r3inb.pb.ChatGrpc;
 import com.r3inb.pb.ChatRequest;
@@ -28,6 +30,8 @@ public class Chat {
         return chatInstance;
     }
 
+    private final String TAG = "Chat";
+
     // connect
     // 连接和处理
     public void connectAndProcess() {
@@ -36,8 +40,18 @@ public class Chat {
 
             @Override
             public void onNext(ChatResponse value) {
-                // 接收到数据时
+                // received data
                 System.out.println(value.getOutput());
+                switch (value.getType()) {
+                    case ChatTypeEnum.REQ_START_SENDER:
+                        MiniCap.getInstance().openSend();
+                        break;
+                    case ChatTypeEnum.REQ_PAUSE_SENDER:
+                        MiniCap.getInstance().pauseSend();
+                        break;
+                    default:
+                        Log.i(TAG, "unsupported method");
+                }
             }
 
             @Override
@@ -58,9 +72,12 @@ public class Chat {
 
     // 消息发送
     // @warning throw RuntimeException
-    public boolean sendMsg(String payload) throws RuntimeException {
+    public boolean sendMsg(int type, String payload) throws RuntimeException {
         try {
-            ChatRequest request = ChatRequest.newBuilder().setInput(payload).build();
+            ChatRequest request = ChatRequest.newBuilder()
+                    .setInput(payload)
+                    .setType(type)
+                    .build();
             result.onNext(request);
             return true;
         } catch (RuntimeException e) {
@@ -81,11 +98,11 @@ public class Chat {
     public void howtouse() {
         Chat chat = new Chat();
         chat.connectAndProcess();
-        chat.sendMsg("hello");
+        chat.sendMsg(ChatTypeEnum.NOR, "hello");
         chat.disconnect();
-        chat.sendMsg("cant");
+        chat.sendMsg(ChatTypeEnum.NOR, "can not");
         chat.connectAndProcess();
-        chat.sendMsg("hello2");
+        chat.sendMsg(ChatTypeEnum.NOR, "hello");
     }
 
     /**
@@ -96,3 +113,4 @@ public class Chat {
 
     }
 }
+

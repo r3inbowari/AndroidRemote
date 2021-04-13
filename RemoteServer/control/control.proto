@@ -14,10 +14,12 @@ service Chat {
 
 // 请求数据 Request格式定义
 message ChatRequest {
-  string input = 1;
+  int32 type = 1;
+  string input = 2;
 }
 
 // 响应数据Response格式定义
 message ChatResponse {
-  string output = 1;
+  int32 type = 1;
+  string output = 2;
 }

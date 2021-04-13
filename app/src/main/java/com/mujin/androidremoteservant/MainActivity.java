@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.mujin.androidremoteservant.core.session.DeviceProvider;
+import com.mujin.androidremoteservant.core.stf.cap.MiniCap;
 import com.mujin.androidremoteservant.core.stf.touch.MiniTouch;
 import com.mujin.androidremoteservant.core.utils.Device;
 
@@ -29,8 +31,6 @@ public class MainActivity extends AppCompatActivity {
             applicationEntry(this);
         }).start();
 
-        Device device = new Device(this);
-        System.out.println(device.getAndroidId());
-        System.out.println(device.getAvailMem());
+        // System.out.println(DeviceProvider.getDeviceInfo(this));
     }
 }

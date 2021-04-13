@@ -4,6 +4,8 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.google.protobuf.ByteString;
 import com.mujin.androidremoteservant.core.utils.ScreenMetrics;
 import com.mujin.androidremoteservant.core.utils.Utils;
@@ -41,6 +43,9 @@ public class MiniCap extends AbstractMiniCap {
 
     private StreamObserver<JPEGRequest> requestJPEG;
 
+    // send runFlag (atomic)
+    private boolean senderRunFlag = false;
+
     MiniCap() {
         super("minicap");
         // taskQueue = new ArrayBlockingQueue<>(100);
@@ -71,13 +76,37 @@ public class MiniCap extends AbstractMiniCap {
 
     private JPEGRequest jpegRequest;
 
+    Thread senderThread = null;
+
+    // pause sender thread
+    public void pauseSend() {
+        this.senderRunFlag = false;
+        // don't pause the thread here, the thread will sleep on next loop process
+    }
+
+    // notify the sender thread
+    public void openSend() {
+        this.senderRunFlag = true;
+        synchronized (senderThread) {
+            senderThread.notify();
+        }
+    }
+
     public void startSender() {
         System.out.println("------------------- Sender Probe Start -------------------");
-        new Thread(() -> {
+        senderThread = new Thread(() -> {
             int count = 0;
 
             try {
                 while (true) {
+                    // sender thread wait
+                    // sender thread will notified by user through the rpc network
+                    if (!senderRunFlag) {
+                        synchronized (senderThread) {
+                            senderThread.wait();
+                        }
+                    }
+
                     Frame frame = frameAlloc.take();
                     count++;
 
@@ -102,7 +131,8 @@ public class MiniCap extends AbstractMiniCap {
                 e.printStackTrace();
             }
 
-        }).start();
+        });
+        senderThread.start();
     }
 
     @Override
