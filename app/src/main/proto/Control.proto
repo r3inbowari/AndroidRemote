@@ -16,6 +16,7 @@ service Chat {
 message ChatRequest {
   int32 type = 1;
   string input = 2;
+  string id = 3;
 }
 
 // 响应数据Response格式定义

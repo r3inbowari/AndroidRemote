@@ -9,7 +9,7 @@ public class ChatTypeEnum {
     public static final int ASK = 5;
     public static final int SNY = 6;
     public static final int REQ = 7;
-    public static final int Opr = 8;
+    public static final int OPR = 8;
 
 
     public static final int REQ_START_SENDER = 1000;

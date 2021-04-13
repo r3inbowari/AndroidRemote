@@ -72,11 +72,12 @@ public class Chat {
 
     // 消息发送
     // @warning throw RuntimeException
-    public boolean sendMsg(int type, String payload) throws RuntimeException {
+    public boolean sendMsg(int type, String payload, String id) throws RuntimeException {
         try {
             ChatRequest request = ChatRequest.newBuilder()
                     .setInput(payload)
                     .setType(type)
+                    .setId(id)
                     .build();
             result.onNext(request);
             return true;
@@ -98,11 +99,11 @@ public class Chat {
     public void howtouse() {
         Chat chat = new Chat();
         chat.connectAndProcess();
-        chat.sendMsg(ChatTypeEnum.NOR, "hello");
+        chat.sendMsg(ChatTypeEnum.NOR, "hello", "123");
         chat.disconnect();
-        chat.sendMsg(ChatTypeEnum.NOR, "can not");
+        chat.sendMsg(ChatTypeEnum.NOR, "can not", "123");
         chat.connectAndProcess();
-        chat.sendMsg(ChatTypeEnum.NOR, "hello");
+        chat.sendMsg(ChatTypeEnum.NOR, "hello", "123");
     }
 
     /**

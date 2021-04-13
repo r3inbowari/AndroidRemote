@@ -2,8 +2,10 @@ package com.mujin.androidremoteservant.core;
 
 import android.app.Activity;
 import android.os.Build;
+import android.util.Log;
 
 import com.mujin.androidremoteservant.core.session.Chat;
+import com.mujin.androidremoteservant.core.session.ChatHeartbeat;
 import com.mujin.androidremoteservant.core.session.ChatTypeEnum;
 import com.mujin.androidremoteservant.core.session.DeviceInfo;
 import com.mujin.androidremoteservant.core.session.DeviceProvider;
@@ -12,6 +14,7 @@ import com.mujin.androidremoteservant.core.stf.cap.CapProbe;
 import com.mujin.androidremoteservant.core.stf.cap.MiniCap;
 import com.mujin.androidremoteservant.core.stf.touch.MiniTouch;
 import com.mujin.androidremoteservant.core.utils.AssetsOperation;
+import com.mujin.androidremoteservant.core.utils.Device;
 import com.mujin.androidremoteservant.core.utils.PID;
 import com.mujin.androidremoteservant.core.utils.ScreenMetrics;
 import com.mujin.androidremoteservant.core.utils.Utils;
@@ -22,6 +25,9 @@ import java.io.IOException;
 import static com.mujin.androidremoteservant.core.utils.Utils.*;
 
 public class SystemInit {
+    public static String DID = "null";
+    public static final String TAG = "SysINIT";
+
     public static void prepareRuntimeNDKEnv(Activity context) {
         // root 权限获取
         rootGrant(context.getPackageCodePath());
@@ -64,6 +70,11 @@ public class SystemInit {
         // 这里进行一次 autojs 中的滑动测试
         ProcessShell ps = new ProcessShell(true);
         ps.Swipe(100, 200, 400, 500);
+
+        // 获取通信用的id
+        Device device = new Device(context);
+        DID = device.getAndroidId();
+        Log.i(TAG, "AndroidID -> " + DID);
     }
 
     // 程序入口
@@ -102,7 +113,7 @@ public class SystemInit {
 
         // chat connect
         Chat.getInstance().connectAndProcess();
-        // reg
-        Chat.getInstance().sendMsg(ChatTypeEnum.REG, DeviceProvider.getDeviceInfo(context));
+        // reg interval, renewal function
+        new Thread(new ChatHeartbeat(context)).start();
     }
 }
