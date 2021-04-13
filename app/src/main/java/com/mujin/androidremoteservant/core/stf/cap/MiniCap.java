@@ -72,7 +72,7 @@ public class MiniCap extends AbstractMiniCap {
     private JPEGRequest jpegRequest;
 
     public void startSender() {
-        System.out.println("-------------------------------------------- Sender Probe Start --------------------------------------------");
+        System.out.println("------------------- Sender Probe Start -------------------");
         new Thread(() -> {
             int count = 0;
 

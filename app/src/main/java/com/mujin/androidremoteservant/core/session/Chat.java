@@ -20,6 +20,14 @@ public class Chat {
     private ChatGrpc.ChatStub chatStub = null;
     private StreamObserver<ChatRequest> result = null;
 
+    private static Chat chatInstance = null;
+
+    public static Chat getInstance() {
+        if (chatInstance == null)
+            chatInstance = new Chat();
+        return chatInstance;
+    }
+
     // connect
     // 连接和处理
     public void connectAndProcess() {
@@ -29,7 +37,7 @@ public class Chat {
             @Override
             public void onNext(ChatResponse value) {
                 // 接收到数据时
-                System.out.println("s");
+                System.out.println(value.getOutput());
             }
 
             @Override
@@ -56,6 +64,7 @@ public class Chat {
             result.onNext(request);
             return true;
         } catch (RuntimeException e) {
+            // e.printStackTrace();
             Log.i("SessionChat", "Send failed..");
             return false;
         }
@@ -77,5 +86,13 @@ public class Chat {
         chat.sendMsg("cant");
         chat.connectAndProcess();
         chat.sendMsg("hello2");
+    }
+
+    /**
+     * 注册本chat
+     * 当该chat被注册时，设备消息将会被添加到服务器中
+     */
+    public void reg() {
+
     }
 }

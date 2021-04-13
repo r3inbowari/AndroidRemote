@@ -39,8 +39,8 @@ func (c *chatClient) BidStream(ctx context.Context, opts ...grpc.CallOption) (Ch
 }
 
 type Chat_BidStreamClient interface {
-	Send(*Request) error
-	Recv() (*Response, error)
+	Send(*ChatRequest) error
+	Recv() (*ChatResponse, error)
 	grpc.ClientStream
 }
 
@@ -48,12 +48,12 @@ type chatBidStreamClient struct {
 	grpc.ClientStream
 }
 
-func (x *chatBidStreamClient) Send(m *Request) error {
+func (x *chatBidStreamClient) Send(m *ChatRequest) error {
 	return x.ClientStream.SendMsg(m)
 }
 
-func (x *chatBidStreamClient) Recv() (*Response, error) {
-	m := new(Response)
+func (x *chatBidStreamClient) Recv() (*ChatResponse, error) {
+	m := new(ChatResponse)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -93,8 +93,8 @@ func _Chat_BidStream_Handler(srv interface{}, stream grpc.ServerStream) error {
 }
 
 type Chat_BidStreamServer interface {
-	Send(*Response) error
-	Recv() (*Request, error)
+	Send(*ChatResponse) error
+	Recv() (*ChatRequest, error)
 	grpc.ServerStream
 }
 
@@ -102,12 +102,12 @@ type chatBidStreamServer struct {
 	grpc.ServerStream
 }
 
-func (x *chatBidStreamServer) Send(m *Response) error {
+func (x *chatBidStreamServer) Send(m *ChatResponse) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func (x *chatBidStreamServer) Recv() (*Request, error) {
-	m := new(Request)
+func (x *chatBidStreamServer) Recv() (*ChatRequest, error) {
+	m := new(ChatRequest)
 	if err := x.ServerStream.RecvMsg(m); err != nil {
 		return nil, err
 	}

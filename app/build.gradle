@@ -11,6 +11,7 @@ android {
 
     // libs include
     repositories {
+        maven { url "https://jitpack.io" }
         flatDir {
             dirs 'libs'
         }
@@ -24,6 +25,9 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // enable multi dex
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -42,7 +46,8 @@ android {
 protobuf {
     protoc { artifact = 'com.google.protobuf:protoc:3.12.0' }
     plugins {
-        grpc { artifact = 'io.grpc:protoc-gen-grpc-java:1.36.0' // CURRENT_GRPC_VERSION
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.36.0' // CURRENT_GRPC_VERSION
         }
     }
     generateProtoTasks {
@@ -52,7 +57,8 @@ protobuf {
             }
             task.plugins {
                 grpc { // Options added to --grpc_out
-                    option 'lite' }
+                    option 'lite'
+                }
             }
         }
     }
@@ -71,4 +77,12 @@ dependencies {
     implementation 'io.grpc:grpc-protobuf-lite:1.36.0'
     implementation 'io.grpc:grpc-stub:1.36.0'
     implementation 'javax.annotation:javax.annotation-api:1.2'
+
+    // fastjson
+    // https://mvnrepository.com/artifact/com.alibaba/fastjson
+    implementation group: 'com.alibaba', name: 'fastjson', version: '1.2.76'
+    compile 'com.github.czy1121:settingscompat:1.1.4'
+
+    // multidex
+    implementation 'androidx.multidex:multidex:2.0.1'
 }

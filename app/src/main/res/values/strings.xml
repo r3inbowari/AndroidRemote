@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AndroidRemoteServant</string>
+    <string name="no_read_phone_state_permissin">non_read_permission</string>
+    <string name="no_write_settings_permissin">non_write_permission</string>
 </resources>

@@ -3,6 +3,7 @@ package com.mujin.androidremoteservant.core;
 import android.app.Activity;
 import android.os.Build;
 
+import com.mujin.androidremoteservant.core.session.Chat;
 import com.mujin.androidremoteservant.core.shell.ProcessShell;
 import com.mujin.androidremoteservant.core.stf.cap.CapProbe;
 import com.mujin.androidremoteservant.core.stf.cap.MiniCap;
@@ -95,5 +96,9 @@ public class SystemInit {
             PID.Attach(context, "minicap", CapProbe.pid);
             PID.Attach(context, "minitouch", Integer.valueOf(MiniTouch.getInstance().getMiniTouchInfo().PID));
         }
+
+        // chat 接入
+        Chat.getInstance().connectAndProcess();
+        Chat.getInstance().sendMsg("hello");
     }
 }

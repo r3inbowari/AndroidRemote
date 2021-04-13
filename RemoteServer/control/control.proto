@@ -9,15 +9,15 @@ package control;
     输出是 Response 格式的数据流
 */
 service Chat {
-  rpc BidStream(stream Request) returns (stream Response) {}
+  rpc BidStream(stream ChatRequest) returns (stream ChatResponse) {}
 }
 
 // 请求数据 Request格式定义
-message Request {
+message ChatRequest {
   string input = 1;
 }
 
 // 响应数据Response格式定义
-message Response {
+message ChatResponse {
   string output = 1;
 }

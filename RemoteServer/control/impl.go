@@ -37,7 +37,7 @@ func (s *Streamer) BidStream(stream Chat_BidStreamServer) error {
 			switch 输入.Input {
 			case "结束对话\n":
 				log.Println("收到'结束对话'指令")
-				if err := stream.Send(&Response{Output: "收到结束指令"}); err != nil {
+				if err := stream.Send(&ChatResponse{Output: "收到结束指令"}); err != nil {
 					return err
 				}
 				// 收到结束指令时，通过 return nil 终止双向数据流
@@ -49,7 +49,7 @@ func (s *Streamer) BidStream(stream Chat_BidStreamServer) error {
 				go func() {
 					a := rand.Int()
 					for i := 0; i < 100; i++ {
-						if err := stream.Send(&Response{Output: "数据流 " + strconv.Itoa(a) + "#" + strconv.Itoa(i)}); err != nil {
+						if err := stream.Send(&ChatResponse{Output: "数据流 " + strconv.Itoa(a) + "#" + strconv.Itoa(i)}); err != nil {
 
 						}
 						time.Sleep(time.Second)
@@ -59,7 +59,7 @@ func (s *Streamer) BidStream(stream Chat_BidStreamServer) error {
 			default:
 				// 缺省情况下， 返回 '服务端返回: ' + 输入信息
 				log.Printf("[收到消息]: %s", 输入.Input)
-				if err := stream.Send(&Response{Output: "服务端返回: " + 输入.Input}); err != nil {
+				if err := stream.Send(&ChatResponse{Output: "服务端返回: " + 输入.Input}); err != nil {
 					return err
 				}
 			}
