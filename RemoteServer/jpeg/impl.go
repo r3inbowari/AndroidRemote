@@ -1,6 +1,7 @@
 package pics
 
 import (
+	bilicoin "RemoteServer/utils"
 	"RemoteServer/ws"
 	"io"
 	"log"
@@ -19,7 +20,7 @@ func (s *Server) SendJPEG(stream JPEG_SendJPEGServer) error {
 	for {
 		select {
 		case <-ctx.Done():
-			log.Println("收到客户端通过context发出的终止信号")
+			bilicoin.Info("[CHAT] a close signal send from client-side")
 			return ctx.Err()
 		default:
 			// 接收从客户端发来的消息

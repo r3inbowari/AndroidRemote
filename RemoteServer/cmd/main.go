@@ -14,7 +14,9 @@ func main() {
 
 	db.InitRDB()
 	queue.InitRMQ()
-	w := ws.NewWsServer()
-	go w.Start()
+	//w := ws.NewWsServer()
+	//go w.Start()
+
+	go ws.JPEGWebsocketServer()
 	rpc.StartRPC()
 }

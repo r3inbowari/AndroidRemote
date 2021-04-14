@@ -239,7 +239,7 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      initWs('ws://127.0.0.1:8080/ws')
+      initWs('ws://127.0.0.1:8080/screen')
     })
 
     return {

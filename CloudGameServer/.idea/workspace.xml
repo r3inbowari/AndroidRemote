@@ -5,10 +5,10 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../RemoteServer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../RemoteServer/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/cmd/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RemoteServer/control/impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/control/impl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RemoteServer/queue/rmq.go" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/queue/rmq.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RemoteServer/test/rmq_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/test/rmq_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/session/ChatHeartbeat.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/session/ChatHeartbeat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RemoteServer/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RemoteServer/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RemoteServer/jpeg/impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/jpeg/impl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/GP.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/GP.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
