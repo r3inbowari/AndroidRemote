@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.alibaba.fastjson.JSON;
 import com.mujin.androidremoteservant.core.utils.Device;
+import com.mujin.androidremoteservant.core.utils.WifiTool;
 
 public class DeviceProvider {
 
@@ -21,7 +22,8 @@ public class DeviceProvider {
                     .setDeviceIMEI(device.getIMEI())
                     .setDeviceRelease(Device.release)
                     .setDeviceSDK(Device.sdkInt)
-                    .setDeviceTotalMem(device.getTotalMem());
+                    .setDeviceTotalMem(device.getTotalMem())
+                    .setDeviceWifiAddress(WifiTool.getWifiAddress(context));
         } catch (Exception e) {
             System.out.println("found errors");
         }

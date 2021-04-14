@@ -14,6 +14,16 @@ public class DeviceInfo {
     private String deviceMAC = "";
     private long deviceTotalMem = 0;
     private long deviceAvailMem = 0;
+    private String deviceWifiAddress = "";
+
+    public String getDeviceWifiAddress() {
+        return deviceWifiAddress;
+    }
+
+    public DeviceInfo setDeviceWifiAddress(String deviceWifiAddress) {
+        this.deviceWifiAddress = deviceWifiAddress;
+        return this;
+    }
 
     private static DeviceInfo mInstance = null;
 

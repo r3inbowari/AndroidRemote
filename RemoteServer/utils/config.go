@@ -14,14 +14,18 @@ import (
  * local config struct
  */
 type LocalConfig struct {
-	Finger       string    `json:"finger"`         // canvas指纹
-	APIAddr      string    `json:"api_addr"`       // API服务ADDR
-	CacheTime    time.Time `json:"-"`              // 缓存时间
-	LoggerLevel  *string   `json:"log_level"`      // 日志等级
-	WsAddr       string    `json:"ws_addr"`        // Ws服务ADDR
-	RdbURL       string    `json:"rdb_url"`        // redis url
-	RdbPassword  string    `json:"rdb_password"`   // redis password
-	DeviceRegTTL int       `json:"device_reg_ttl"` // 设备注册的生存时间
+	Finger         string    `json:"finger"`           // canvas指纹
+	APIAddr        string    `json:"api_addr"`         // API服务ADDR
+	CacheTime      time.Time `json:"-"`                // 缓存时间
+	LoggerLevel    *string   `json:"log_level"`        // 日志等级
+	WsAddr         string    `json:"ws_addr"`          // Ws服务ADDR
+	RdbURL         string    `json:"rdb_url"`          // redis url
+	RdbPassword    string    `json:"rdb_password"`     // redis password
+	RdbIndex       int       `json:"rdb_index"`        // Rdb 数据库索引
+	DeviceRenewTTL int       `json:"device_renew_ttl"` // 设备续约时间
+	RmqURL         string    `json:"rmq_url"`          // RMQ url
+	RmqPassword    string    `json:"rmq_password"`     // RMQ password
+	RmqIndex       int       `json:"rmq_index"`        // RMQ 数据库索引
 }
 
 var config = new(LocalConfig)

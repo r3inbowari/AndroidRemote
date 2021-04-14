@@ -4,6 +4,8 @@ go 1.15
 
 require (
 	github.com/Baozisoftware/qrcode-terminal-go v0.0.0-20170407111555-c0650d8dff0f
+	github.com/adjust/rmq/v3 v3.0.0
+	github.com/go-redis/redis/v7 v7.2.0
 	github.com/go-redis/redis/v8 v8.8.0
 	github.com/golang/protobuf v1.4.3
 	github.com/gorilla/websocket v1.4.2

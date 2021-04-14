@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.util.Log;
 
 import static com.mujin.androidremoteservant.core.SystemInit.DID;
-import static com.mujin.androidremoteservant.core.session.DeviceProvider.getDeviceInfo;
 
 public class ChatHeartbeat implements Runnable {
 
@@ -20,9 +19,8 @@ public class ChatHeartbeat implements Runnable {
         Log.i(TAG, "heartbeat start");
         while (true) {
             try {
-                String bb = DeviceProvider.getDeviceInfo(context);
-                Chat.getInstance().sendMsg(ChatTypeEnum.REG, bb, DID);
-                Thread.sleep(120 * 1000);
+                Chat.getInstance().sendMsg(ChatTypeEnum.REG, DeviceProvider.getDeviceInfo(context), DID);
+                Thread.sleep(1 * 1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

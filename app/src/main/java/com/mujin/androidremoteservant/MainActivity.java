@@ -30,7 +30,5 @@ public class MainActivity extends AppCompatActivity {
         new Thread(() -> {
             applicationEntry(this);
         }).start();
-
-        // System.out.println(DeviceProvider.getDeviceInfo(this));
     }
 }
