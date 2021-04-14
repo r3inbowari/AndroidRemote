@@ -25,7 +25,7 @@ func (s *Streamer) BidStream(stream Chat_BidStreamServer) error {
 	for {
 		select {
 		case <-ctx.Done():
-			bilicoin.Info("[CHAT] a close signal send from client-side")
+			bilicoin.Info("[CHAT] a close signal send from client-side", logrus.Fields{"id": cs.Id})
 			// if pc here, the chat process will throw error and
 			// return defer func and then release session resource.
 			return ctx.Err()
@@ -42,10 +42,10 @@ func (cs *ChatSession) ChatProcess() {
 	for {
 		result, err := cs.Stream.Recv()
 		if err == io.EOF {
-			bilicoin.Info("[CHAT] stream EOF")
+			bilicoin.Info("[CHAT] stream EOF", logrus.Fields{"id": cs.Id})
 			return
 		} else if err != nil {
-			bilicoin.Info("[CHAT] stream error")
+			bilicoin.Info("[CHAT] stream error", logrus.Fields{"id": cs.Id})
 			return
 		}
 
@@ -53,8 +53,16 @@ func (cs *ChatSession) ChatProcess() {
 		case bilicoin.REG:
 			device.Renew(result.GetId(), result.GetInput())
 			bilicoin.Info("[CHAT] device service renewal", logrus.Fields{"id": result.GetId()})
+		case bilicoin.REQ_START_SENDER:
+			// start screen share
+			// @param output the response of the order
+			bilicoin.Info("[CHAT] device start screen share ok", logrus.Fields{"id": result.GetId()})
+		case bilicoin.REQ_PAUSE_SENDER:
+			// pause screen share
+			// @param output the response of the order
+			bilicoin.Info("[CHAT] device pause screen share ok", logrus.Fields{"id": result.GetId()})
 		default:
-			bilicoin.Fatal("[CHAT] error request")
+			bilicoin.Fatal("[CHAT] unsupported request")
 		}
 		if err := cs.Stream.Send(&ChatResponse{Output: "return: " + result.Input}); err != nil {
 			return
@@ -64,6 +72,7 @@ func (cs *ChatSession) ChatProcess() {
 
 var SessionsMap sync.Map
 
+// ChatSession RegSession 暂时不改了
 type ChatSession struct {
 	Id     string
 	Stream Chat_BidStreamServer
@@ -86,13 +95,22 @@ func (cs *ChatSession) CancelSession() {
 	SessionsMap.Delete(cs.Id)
 }
 
+func GetSession(id string) *ChatSession {
+	ret, ok := SessionsMap.Load(id)
+	if !ok {
+		return nil
+	}
+	cs := ret.(ChatSession)
+	return &cs
+}
+
 func RegProcess(stream Chat_BidStreamServer) string {
 	ctx := stream.Context()
 
 	for {
 		select {
 		case <-ctx.Done():
-			bilicoin.Info("[CHAT] a close signal send from client-side")
+			bilicoin.Info("[CHAT] a close signal send from client-side", logrus.Fields{"id": "undefined"})
 			return ""
 		default:
 			// recv msg from client
@@ -110,13 +128,13 @@ func RegProcess(stream Chat_BidStreamServer) string {
 				device.Renew(result.GetId(), result.GetInput())
 				bilicoin.Info("[CHAT] reg", logrus.Fields{"id": result.GetId()})
 			default:
-				bilicoin.Fatal("[CHAT] error request")
+				bilicoin.Fatal("[CHAT] unsupported request")
 			}
 
 			if err := stream.Send(&ChatResponse{Output: "return: " + result.Input}); err != nil {
 				return ""
 			}
-			bilicoin.Info("[Chat] reg done", logrus.Fields{"id": result.Id})
+			bilicoin.Info("[CHAT] reg done", logrus.Fields{"id": result.Id})
 
 			//go func() {
 			//	bilicoin.Warn("[TEST] go start")

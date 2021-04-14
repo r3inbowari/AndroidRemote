@@ -44,9 +44,11 @@ public class Chat {
                 System.out.println(value.getOutput());
                 switch (value.getType()) {
                     case ChatTypeEnum.REQ_START_SENDER:
+                        Log.i(TAG, "sender start method");
                         MiniCap.getInstance().openSend();
                         break;
                     case ChatTypeEnum.REQ_PAUSE_SENDER:
+                        Log.i(TAG, "sender pause method");
                         MiniCap.getInstance().pauseSend();
                         break;
                     default:

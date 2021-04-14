@@ -1,6 +1,7 @@
 package queue
 
 import (
+	"RemoteServer/control"
 	bilicoin "RemoteServer/utils"
 	"encoding/json"
 	"fmt"
@@ -44,7 +45,7 @@ func Cleaner() {
 			continue
 		}
 		if cnt > 0 {
-			bilicoin.Info("[RMQ] cleaned ", logrus.Fields{"count": cnt})
+			bilicoin.Info("[RMQ] cleaned", logrus.Fields{"count": int(cnt)})
 		}
 	}
 
@@ -71,7 +72,7 @@ func InitRMQ() {
 		os.Exit(14)
 	}
 
-	queue, err := connection.OpenQueue("things")
+	queue, err := connection.OpenQueue("order")
 	if err != nil {
 		bilicoin.Fatal("[RMQ] open queue failed", logrus.Fields{"err": err.Error()})
 		os.Exit(14)
@@ -134,8 +135,38 @@ func (consumer *Consumer) Consume(delivery rmq.Delivery) {
 
 	}
 
+	switch entity.Operation {
+	case bilicoin.REQ_START_SENDER:
+		// @param type REQ_START_SENDER 1000
+		ret := control.GetSession(entity.Id)
+		if ret == nil {
+			// not exist session
+			bilicoin.Fatal("[RMQ] an offline or undefined device was accessed", logrus.Fields{"id": entity.Id, "stub": entity.Stub, "op": entity.Operation})
+			break
+		}
+		// send order to device
+		if err := ret.Stream.Send(&control.ChatResponse{Output: "order", Type: int32(entity.Operation)}); err != nil {
+			bilicoin.Info("[RMQ] device accessed", logrus.Fields{"id": entity.Id, "stub": entity.Stub, "op": entity.Operation})
+		}
+	case bilicoin.REQ_PAUSE_SENDER:
+		// @param type REQ_PAUSE_SENDER 1001
+		ret := control.GetSession(entity.Id)
+		if ret == nil {
+			// not exist session
+			bilicoin.Fatal("[RMQ] an offline or undefined device was accessed", logrus.Fields{"id": entity.Id, "stub": entity.Stub, "op": entity.Operation})
+			break
+		}
+		// send order to device
+		if err := ret.Stream.Send(&control.ChatResponse{Output: "order", Type: int32(entity.Operation)}); err != nil {
+			bilicoin.Info("[RMQ] device accessed", logrus.Fields{"id": entity.Id, "stub": entity.Stub, "op": entity.Operation})
+		}
+	default:
+		bilicoin.Fatal("[RMQ] illegal or unsupported device accessed", logrus.Fields{"id": entity.Id, "stub": entity.Stub, "op": entity.Operation})
+	}
+
+	// must ack, so you can return on the top switch-case
 	if err := delivery.Ack(); err != nil {
-		bilicoin.Fatal("[RMQ] unknown error occurred during ack operation")
+		bilicoin.Fatal("[RMQ] unknown error occurred during ack operation", logrus.Fields{"id": entity.Id, "stub": entity.Stub, "op": entity.Operation})
 	}
 }
 
