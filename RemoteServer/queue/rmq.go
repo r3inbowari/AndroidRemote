@@ -145,7 +145,7 @@ func (consumer *Consumer) Consume(delivery rmq.Delivery) {
 			break
 		}
 		// send order to device
-		if err := ret.Stream.Send(&control.ChatResponse{Output: "order", Type: int32(entity.Operation)}); err != nil {
+		if err := ret.ChatStream.Send(&control.ChatResponse{Output: "order", Type: int32(entity.Operation)}); err != nil {
 			bilicoin.Info("[RMQ] device accessed", logrus.Fields{"id": entity.Id, "stub": entity.Stub, "op": entity.Operation})
 		}
 	case bilicoin.REQ_PAUSE_SENDER:
@@ -157,7 +157,7 @@ func (consumer *Consumer) Consume(delivery rmq.Delivery) {
 			break
 		}
 		// send order to device
-		if err := ret.Stream.Send(&control.ChatResponse{Output: "order", Type: int32(entity.Operation)}); err != nil {
+		if err := ret.ChatStream.Send(&control.ChatResponse{Output: "order", Type: int32(entity.Operation)}); err != nil {
 			bilicoin.Info("[RMQ] device accessed", logrus.Fields{"id": entity.Id, "stub": entity.Stub, "op": entity.Operation})
 		}
 	default:

@@ -43,7 +43,7 @@ public abstract class AbstractUDS {
             localSocket.shutdownOutput();
             localSocket.close();
             boolean a = localSocket.isConnected();
-            System.out.println("adsssssssssssssssssssssssssssssssssssssssssssssssssssss"+a);
+            System.out.println("adsssssssssssssssssssssssssssssssssssssssssssssssssssss" + a);
         }
     }
 

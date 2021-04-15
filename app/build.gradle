@@ -81,8 +81,10 @@ dependencies {
     // fastjson
     // https://mvnrepository.com/artifact/com.alibaba/fastjson
     implementation group: 'com.alibaba', name: 'fastjson', version: '1.2.76'
-    compile 'com.github.czy1121:settingscompat:1.1.4'
 
-    // multidex
+    // settings compat
+    implementation 'com.github.czy1121:settingscompat:1.1.4'
+
+    // multi dex
     implementation 'androidx.multidex:multidex:2.0.1'
 }

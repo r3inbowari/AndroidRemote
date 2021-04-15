@@ -9,6 +9,7 @@ import com.mujin.androidremoteservant.core.session.ChatHeartbeat;
 import com.mujin.androidremoteservant.core.session.ChatTypeEnum;
 import com.mujin.androidremoteservant.core.session.DeviceInfo;
 import com.mujin.androidremoteservant.core.session.DeviceProvider;
+import com.mujin.androidremoteservant.core.session.Jpeg;
 import com.mujin.androidremoteservant.core.shell.ProcessShell;
 import com.mujin.androidremoteservant.core.stf.cap.CapProbe;
 import com.mujin.androidremoteservant.core.stf.cap.MiniCap;
@@ -82,6 +83,9 @@ public class SystemInit {
         // gRPC pool 初始化
         gRPCChannelPool.init("192.168.5.67", 5005);
 
+        // 连接与注册 JPEG
+        Jpeg.getInstance().connectAndProcess().regJpeg(DID);
+
         // 后台相关进程的启动
         MiniTouch.getInstance().run();
         MiniCap.getInstance().run();
@@ -92,11 +96,16 @@ public class SystemInit {
         try {
             // TMP ANR
             Thread.sleep(1000);
+            // 连接到 mini touch uds
             MiniTouch.getInstance().connect();
+            // 本地 mini touch 接收线程
             MiniTouch.getInstance().getLocalReceiver().start();
+            // 本地 mini touch 发送线程
             MiniTouch.getInstance().getLocalSender().start();
 
+            // 连接到 mini cap uds
             MiniCap.getInstance().connect();
+            // 转发服务
             MiniCap.getInstance().getLocalReceiver().start();
             Thread.sleep(1000);
         } catch (InterruptedException | IOException e) {
@@ -105,7 +114,7 @@ public class SystemInit {
             e.printStackTrace();
         }
 
-        // 记录本次 PID
+        // 记录本次 PID 到 DB
         if (CapProbe.pid != 0 && MiniTouch.getInstance().getMiniTouchInfo() != null) {
             PID.Attach(context, "minicap", CapProbe.pid);
             PID.Attach(context, "minitouch", Integer.valueOf(MiniTouch.getInstance().getMiniTouchInfo().PID));

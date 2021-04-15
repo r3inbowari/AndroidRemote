@@ -33,6 +33,7 @@ public class gRPCChannelUtils {
 
     /**
      * 构建一条普通的Channel
+     * TODO 在此处使用拦截器进行调试
      *
      * @param host 主机服务地址
      * @param port 端口

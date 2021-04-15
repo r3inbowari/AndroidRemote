@@ -34,7 +34,7 @@ public class Chat {
 
     // connect
     // 连接和处理
-    public void connectAndProcess() {
+    public Chat connectAndProcess() {
         chatStub = ChatGrpc.newStub(gRPCChannelPool.get().getChannel("chat"));
         StreamObserver<ChatResponse> requestStreamObserver = new StreamObserver<ChatResponse>() {
 
@@ -68,8 +68,9 @@ public class Chat {
             }
         };
 
-        // 观察者attach
+        // 观察者 attach
         result = chatStub.bidStream(requestStreamObserver);
+        return this;
     }
 
     // 消息发送

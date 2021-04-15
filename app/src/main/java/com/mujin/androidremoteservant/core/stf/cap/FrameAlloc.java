@@ -18,7 +18,7 @@ public class FrameAlloc {
         Log.i(TAG, "--------------------- frame allocator ---------------------");
         this.framePool = new ArrayList<Frame>();
         taskQueue = new ArrayBlockingQueue<>(capacity);
-        for (int i = 0; i < capacity; i++) {
+        for (int i = 0; i < capacity + 1; i++) {
             this.framePool.add(new Frame(bufferCap));
         }
     }

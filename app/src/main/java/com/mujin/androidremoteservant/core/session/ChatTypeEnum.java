@@ -14,4 +14,6 @@ public class ChatTypeEnum {
 
     public static final int REQ_START_SENDER = 1000;
     public static final int REQ_PAUSE_SENDER = 1001;
+    public static final int REQ_SEND_JPEG = 1002;
+
 }

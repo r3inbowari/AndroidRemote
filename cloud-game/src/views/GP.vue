@@ -239,7 +239,9 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      initWs('ws://127.0.0.1:8080/screen')
+      initWs(
+        'ws://127.0.0.1:8080/screen?session=a8f5f167f44f4964e6c998dee827110c'
+      )
     })
 
     return {

@@ -10,8 +10,11 @@ service JPEG {
 
 message JPEGReply {
   int32 length = 1;
+  int32 type = 2;
 }
 
 message JPEGRequest {
   bytes data = 1;
+  string id = 2;
+  int32 type = 3;
 }

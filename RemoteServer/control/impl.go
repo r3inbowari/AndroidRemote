@@ -18,8 +18,8 @@ type Streamer struct {
 func (s *Streamer) BidStream(stream Chat_BidStreamServer) error {
 	ctx := stream.Context()
 
-	id := RegProcess(stream)
-	cs := RegSession(id, stream)
+	id := RegChatProcess(stream)
+	cs := RegChatSession(id, stream)
 	go cs.ChatProcess()
 
 	for {
@@ -36,11 +36,11 @@ func (s *Streamer) BidStream(stream Chat_BidStreamServer) error {
 func (cs *ChatSession) ChatProcess() {
 	defer func() {
 		// 清除 session
-		cs.CancelSession()
+		cs.CancelChatSession()
 		bilicoin.Info("[CHAT] session canceled", logrus.Fields{"id": cs.Id})
 	}()
 	for {
-		result, err := cs.Stream.Recv()
+		result, err := cs.ChatStream.Recv()
 		if err == io.EOF {
 			bilicoin.Info("[CHAT] stream EOF", logrus.Fields{"id": cs.Id})
 			return
@@ -64,39 +64,39 @@ func (cs *ChatSession) ChatProcess() {
 		default:
 			bilicoin.Fatal("[CHAT] unsupported request")
 		}
-		if err := cs.Stream.Send(&ChatResponse{Output: "return: " + result.Input}); err != nil {
+		if err := cs.ChatStream.Send(&ChatResponse{Output: "return: " + result.Input}); err != nil {
 			return
 		}
 	}
 }
 
-var SessionsMap sync.Map
+var ChatSessionsMap sync.Map
 
-// ChatSession RegSession 暂时不改了
+// ChatSession RegChatSession 暂时不改了
 type ChatSession struct {
-	Id     string
-	Stream Chat_BidStreamServer
+	Id         string
+	ChatStream Chat_BidStreamServer
 	// sync.RWMutex not need
 }
 
-func RegSession(id string, stream Chat_BidStreamServer) *ChatSession {
+func RegChatSession(id string, stream Chat_BidStreamServer) *ChatSession {
 	var cs ChatSession
-	cs.Stream = stream
+	cs.ChatStream = stream
 	cs.Id = id
-	SessionsMap.Store(id, cs)
+	ChatSessionsMap.Store(id, cs)
 	return &cs
 }
 
 func CancelSession(id string) {
-	SessionsMap.Delete(id)
+	ChatSessionsMap.Delete(id)
 }
 
-func (cs *ChatSession) CancelSession() {
-	SessionsMap.Delete(cs.Id)
+func (cs *ChatSession) CancelChatSession() {
+	ChatSessionsMap.Delete(cs.Id)
 }
 
 func GetSession(id string) *ChatSession {
-	ret, ok := SessionsMap.Load(id)
+	ret, ok := ChatSessionsMap.Load(id)
 	if !ok {
 		return nil
 	}
@@ -104,7 +104,7 @@ func GetSession(id string) *ChatSession {
 	return &cs
 }
 
-func RegProcess(stream Chat_BidStreamServer) string {
+func RegChatProcess(stream Chat_BidStreamServer) string {
 	ctx := stream.Context()
 
 	for {
@@ -138,11 +138,11 @@ func RegProcess(stream Chat_BidStreamServer) string {
 
 			//go func() {
 			//	bilicoin.Warn("[TEST] go start")
-			//	cs, err := SessionsMap.Load(result.Id)
+			//	cs, err := ChatSessionsMap.Load(result.Id)
 			//	if err {
 			//		bilicoin.Warn("[TEST] error")
 			//	}
-			//	a := cs.(ChatSession).Stream
+			//	a := cs.(ChatSession).ChatStream
 			//	for  {
 			//		if err := a.Send(&ChatResponse{Output: "return: " + result.Input}); err != nil {
 			//			bilicoin.Warn("[TEST] error")

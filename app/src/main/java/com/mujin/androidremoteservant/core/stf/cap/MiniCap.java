@@ -7,6 +7,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.google.protobuf.ByteString;
+import com.mujin.androidremoteservant.core.session.Jpeg;
 import com.mujin.androidremoteservant.core.utils.ScreenMetrics;
 import com.mujin.androidremoteservant.core.utils.Utils;
 import com.mujin.androidremoteservant.grpc.SimpleStreamObserver;
@@ -34,14 +35,14 @@ public class MiniCap extends AbstractMiniCap {
     private static MiniCap sInstance = null;
 
     // private final BlockingQueue<byte[]> taskQueue;
-
+    // 帧缓冲区阻塞队列
     private final FrameAlloc frameAlloc;
 
-    private JPEGGrpc.JPEGStub jpegStub;
+    // private JPEGGrpc.JPEGStub jpegStub;
 
     private final String TAG = "MiniCap";
 
-    private StreamObserver<JPEGRequest> requestJPEG;
+    // private StreamObserver<JPEGRequest> requestJPEG;
 
     // send runFlag (atomic)
     private boolean senderRunFlag = false;
@@ -52,26 +53,26 @@ public class MiniCap extends AbstractMiniCap {
         this.frameAlloc = new FrameAlloc(100, 1024 * 256);
 
         // 初始化 RPC 存根
-        this.jpegStub = JPEGGrpc.newStub(gRPCChannelPool.get().getChannel("jpeg"));
-
-        StreamObserver<JPEGReply> streamObserver = new StreamObserver<JPEGReply>() {
-            @Override
-            public void onNext(JPEGReply value) {
-                Log.i(TAG, "jpeg sender closed");
-            }
-
-            @Override
-            public void onError(Throwable t) {
-                t.printStackTrace();
-            }
-
-            @Override
-            public void onCompleted() {
-                System.out.println("aa");
-            }
-        };
-
-        requestJPEG = jpegStub.sendJPEG(streamObserver);
+//        this.jpegStub = JPEGGrpc.newStub(gRPCChannelPool.get().getChannel("jpeg"));
+//
+//        StreamObserver<JPEGReply> streamObserver = new StreamObserver<JPEGReply>() {
+//            @Override
+//            public void onNext(JPEGReply value) {
+//                Log.i(TAG, "jpeg sender closed");
+//            }
+//
+//            @Override
+//            public void onError(Throwable t) {
+//                t.printStackTrace();
+//            }
+//
+//            @Override
+//            public void onCompleted() {
+//                System.out.println("aa");
+//            }
+//        };
+//
+//        requestJPEG = jpegStub.sendJPEG(streamObserver);
     }
 
     private JPEGRequest jpegRequest;
@@ -114,8 +115,19 @@ public class MiniCap extends AbstractMiniCap {
 
                     // byte[] a = frame.getFrameBuffer();
                     // this.jpegStub = JPEGGrpc.newStub(gRPCChannelPool.get().getChannel("jpeg"));
-                    jpegRequest = JPEGRequest.newBuilder().setData(ByteString.copyFrom(frame.getFrameBuffer(), 0, frame.getLen())).build();
-                    requestJPEG.onNext(jpegRequest);
+                    // 数据转发
+//                    jpegRequest = JPEGRequest.newBuilder()
+//                            .setData(ByteString.copyFrom(frame.getFrameBuffer(), 0, frame.getLen()))
+//                            .build();
+//                    requestJPEG.onNext(jpegRequest);
+                    // 数据转发
+                    Jpeg.getInstance().sendFrame(
+                            ByteString.copyFrom(
+                                    frame.getFrameBuffer(),
+                                    0,
+                                    frame.getLen()
+                            )
+                    );
 
 //                    jpegStub.sendJPEG(jpegRequest, new SimpleStreamObserver<Reply>() {
 //                        @Override
