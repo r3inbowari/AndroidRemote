@@ -5,8 +5,19 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../RemoteServer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../RemoteServer/jpeg/evt.go" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/jpeg/evt.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RemoteServer/protoc.bat" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/protoc.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RemoteServer/rpc/reg.go" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/rpc/reg.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RemoteServer/touch/impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/event/impl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RemoteServer/touch/touch.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RemoteServer/touch/touch.proto" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/event/event.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RemoteServer/touch/touch_grpc.pb.go" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../RemoteServer/ws/websocket_jpeg.go" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/ws/websocket_jpeg.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/GP.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/GP.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RemoteServer/ws/ws_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/ws/ws_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/SystemInit.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/SystemInit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/session/Touch.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/session/Touch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/stf/cap/MiniCap.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/stf/cap/MiniCap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/proto/Touch.proto" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/proto/Event.proto" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

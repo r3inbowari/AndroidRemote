@@ -1,4 +1,4 @@
-package touch
+package event
 
 import (
 	bilicoin "RemoteServer/utils"
@@ -7,7 +7,7 @@ import (
 )
 
 type Server struct {
-	UnimplementedTouchServer
+	UnimplementedEventServer
 }
 
 // Event event struct
@@ -27,8 +27,8 @@ func (t *Event) exec() {
 
 type TapSession struct {
 	Id          string
-	TouchStream Touch_TouchReqServer
-	Ch2         chan *Event // 命令传输通道
+	TouchStream Event_EventReqServer
+	Ch2         chan *EventResponse // 命令传输通道
 	// 持有者 CAS..?
 }
 
@@ -38,21 +38,21 @@ func (cs *TapSession) CancelTapSession() {
 	TapSessionsMap.Delete(cs.Id)
 }
 
-func RegTapSession(id string, stream Touch_TouchReqServer) *TapSession {
+func RegTapSession(id string, stream Event_EventReqServer) *TapSession {
 	var cs TapSession
 	cs.TouchStream = stream
 	cs.Id = id
-	cs.Ch2 = make(chan *Event, 100) // cap = 100
+	cs.Ch2 = make(chan *EventResponse, 100) // cap = 100
 	TapSessionsMap.Store(id, cs)
 	return &cs
 }
 
-func (s Server) TouchReq(request *TouchRequest, stream Touch_TouchReqServer) error {
+func (s Server) EventReq(request *EventRequest, stream Event_EventReqServer) error {
 	var ts *TapSession = nil
 	defer func() {
 		// release session
 		ts.CancelTapSession()
-		bilicoin.Info("[TAP] session canceled", logrus.Fields{"id": request.GetId()})
+		bilicoin.Info("[EVT] session canceled", logrus.Fields{"id": request.GetId()})
 	}()
 
 	ctx := stream.Context()
@@ -60,32 +60,26 @@ func (s Server) TouchReq(request *TouchRequest, stream Touch_TouchReqServer) err
 	switch request.GetType() {
 	case bilicoin.REG:
 		// reg here
-		bilicoin.Info("[TAP] a touch device reg", logrus.Fields{"id": request.GetId()})
+		bilicoin.Info("[EVT] a event device reg", logrus.Fields{"id": request.GetId()})
 		ts = RegTapSession(request.GetId(), stream) // reg
 	default:
-		bilicoin.Fatal("[TAP] unsupported request")
+		bilicoin.Fatal("[EVT] unsupported request")
 	}
 
 	// ts make no sense
 	if ts == nil {
-		bilicoin.Fatal("[TAP] unsupported request")
+		bilicoin.Fatal("[EVT] unsupported request")
 		return ctx.Err()
 	}
 
 	for {
 		select {
 		case <-ctx.Done():
-			bilicoin.Info("[TAP] a close signal send from client-side", logrus.Fields{"id": request.GetId()})
+			bilicoin.Info("[EVT] a close signal send from client-side", logrus.Fields{"id": request.GetId()})
 			return ctx.Err()
 		case event := <-ts.Ch2:
-			bilicoin.Info("[TAP] send event", logrus.Fields{"id": event.Id, "x": event.X, "y": event.Y, "contact": event.Contact, "type": event.Type, "ts": event.Ts})
-			err := stream.Send(&TouchReply{
-				Type:    TouchReply_TouchType(event.Type),
-				X:       int32(event.X),
-				Y:       int32(event.Y),
-				Contact: int32(event.Contact),
-				Ts:      event.Ts,
-			})
+			bilicoin.Info("[EVT] send event", logrus.Fields{"id": request.GetId(), "x": event.X, "y": event.Y, "contact": event.Contact, "type": event.Type, "ts": event.Ts})
+			err := stream.Send(event)
 			if err != nil {
 				println(err.Error())
 				return err
@@ -93,8 +87,8 @@ func (s Server) TouchReq(request *TouchRequest, stream Touch_TouchReqServer) err
 		}
 	}
 
-	//if request.Message == "attach touch" {
-	//	println("start touch")
+	//if request.Message == "attach event" {
+	//	println("start event")
 	//	time.Sleep(time.Second * 10)
 	//	// ctx := server.Context()
 	//	server.Send(&TouchReply{

@@ -4,9 +4,9 @@ import android.util.Log;
 
 import com.mujin.androidremoteservant.core.stf.touch.MiniTouch;
 import com.mujin.androidremoteservant.grpc.gRPCChannelPool;
-import com.r3inb.pb.TouchGrpc;
-import com.r3inb.pb.TouchReply;
-import com.r3inb.pb.TouchRequest;
+import com.r3inb.pb.EventGrpc;
+import com.r3inb.pb.EventRequest;
+import com.r3inb.pb.EventResponse;
 
 import io.grpc.stub.StreamObserver;
 
@@ -18,7 +18,7 @@ import io.grpc.stub.StreamObserver;
 public class Touch {
 
     // touch 的存根
-    private TouchGrpc.TouchStub touchStub = null;
+    private EventGrpc.EventStub touchStub = null;
 
     private static Touch touchInstance = null;
 
@@ -32,22 +32,22 @@ public class Touch {
 
     public void sendAndProcess() {
         // touch事件流
-        touchStub = TouchGrpc.newStub(gRPCChannelPool.get().getChannel("touch"));
+        touchStub = EventGrpc.newStub(gRPCChannelPool.get().getChannel("touch"));
         // 准备就绪 发送 attach touch (REG) 请求
-        TouchRequest request1 = TouchRequest.newBuilder().setId(deviceID).setType(ChatTypeEnum.REG).build();
+        EventRequest request1 = EventRequest.newBuilder().setId(deviceID).setType(ChatTypeEnum.REG).build();
 
         // reply 流的处理
-        touchStub.touchReq(request1, new StreamObserver<TouchReply>() {
+        touchStub.eventReq(request1, new StreamObserver<EventResponse>() {
             @Override
-            public void onNext(TouchReply value) {
+            public void onNext(EventResponse value) {
                 // touch event 事件处理
                 try {
                     Log.i("test", value.getType().toString());
-                    if (value.getType().equals(TouchReply.TouchType.RELEASE)) {
+                    if (value.getType().equals(EventResponse.EventType.RELEASE)) {
                         MiniTouch.getInstance().getEventManager().release(value.getContact());
-                    } else if (value.getType().equals(TouchReply.TouchType.TAP)) {
+                    } else if (value.getType().equals(EventResponse.EventType.TAP)) {
                         MiniTouch.getInstance().getEventManager().tap(value.getContact(), value.getX(), value.getY());
-                    } else if (value.getType().equals(TouchReply.TouchType.SWIPE)) {
+                    } else if (value.getType().equals(EventResponse.EventType.SWIPE)) {
                         MiniTouch.getInstance().getEventManager().move(value.getContact(), value.getX(), value.getY());
                     }
                 } catch (InterruptedException e) {

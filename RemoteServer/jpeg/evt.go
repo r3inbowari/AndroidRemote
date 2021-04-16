@@ -1,7 +1,7 @@
 package pics
 
 import (
-	"RemoteServer/touch"
+	"RemoteServer/event"
 	"encoding/binary"
 )
 
@@ -11,15 +11,15 @@ import (
 // Y:       int(binary.BigEndian.Uint16(bs[9:11])),
 // Contact: int((bs[6] & 0xF0) >> 4),
 // Ts:      int64(binary.BigEndian.Uint64(bs[11:19])),
-func ParseEvent(bs []byte) *touch.Event {
+func ParseEvent(bs []byte) *event.EventResponse {
 	if len(bs) != 12 {
 		return nil
 	}
-	t := touch.Event{
-		Type:    int(bs[3] & 0x0F),
-		Contact: int((bs[3] & 0xF0) >> 4),
-		X:       int(binary.BigEndian.Uint16(bs[4:6])),
-		Y:       int(binary.BigEndian.Uint16(bs[6:8])),
+	t := event.EventResponse{
+		Type:    event.EventResponse_EventType(int(bs[3] & 0x0F)),
+		Contact: int32((bs[3] & 0xF0) >> 4),
+		X:       int32(binary.BigEndian.Uint16(bs[4:6])),
+		Y:       int32(binary.BigEndian.Uint16(bs[6:8])),
 		Ts:      int64(binary.BigEndian.Uint32(bs[8:])),
 	}
 	return &t

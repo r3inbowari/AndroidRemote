@@ -2,9 +2,9 @@ package rpc
 
 import (
 	"RemoteServer/control"
+	"RemoteServer/event"
 	"RemoteServer/hello"
 	pics "RemoteServer/jpeg"
-	"RemoteServer/touch"
 	bilicoin "RemoteServer/utils"
 	"google.golang.org/grpc"
 	"net"
@@ -13,7 +13,7 @@ import (
 func RegRPCServer(s *grpc.Server) {
 	hello.RegisterHelloServer(s, &hello.Server{})
 	pics.RegisterJPEGServer(s, &pics.Server{})
-	touch.RegisterTouchServer(s, &touch.Server{})
+	event.RegisterEventServer(s, &event.Server{})
 	control.RegisterChatServer(s, &control.Streamer{})
 }
 

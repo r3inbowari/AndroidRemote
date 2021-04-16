@@ -1,34 +1,15 @@
 package com.mujin.androidremoteservant.core.stf.cap;
 
-import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
-
-import androidx.annotation.NonNull;
 
 import com.google.protobuf.ByteString;
 import com.mujin.androidremoteservant.core.session.Jpeg;
 import com.mujin.androidremoteservant.core.utils.ScreenMetrics;
 import com.mujin.androidremoteservant.core.utils.Utils;
-import com.mujin.androidremoteservant.grpc.SimpleStreamObserver;
-import com.mujin.androidremoteservant.grpc.gRPCChannelPool;
-import com.r3inb.pb.ChatRequest;
-import com.r3inb.pb.HelloGrpc;
-import com.r3inb.pb.HelloReply;
-import com.r3inb.pb.JPEGGrpc;
-import com.r3inb.pb.JPEGReply;
 import com.r3inb.pb.JPEGRequest;
-import com.r3inb.pb.JPEGRequestOrBuilder;
-import com.r3inb.pb.Pics;
-import com.r3inb.pb.Reply;
 
 import java.io.DataOutputStream;
-import java.sql.Time;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.TimeUnit;
-
-import io.grpc.stub.StreamObserver;
 
 public class MiniCap extends AbstractMiniCap {
 

@@ -6,9 +6,6 @@ import android.util.Log;
 
 import com.mujin.androidremoteservant.core.session.Chat;
 import com.mujin.androidremoteservant.core.session.ChatHeartbeat;
-import com.mujin.androidremoteservant.core.session.ChatTypeEnum;
-import com.mujin.androidremoteservant.core.session.DeviceInfo;
-import com.mujin.androidremoteservant.core.session.DeviceProvider;
 import com.mujin.androidremoteservant.core.session.Jpeg;
 import com.mujin.androidremoteservant.core.session.Touch;
 import com.mujin.androidremoteservant.core.shell.ProcessShell;

@@ -1,8 +1,8 @@
 package ws
 
 import (
+	"RemoteServer/event"
 	pics "RemoteServer/jpeg"
-	"RemoteServer/touch"
 	bilicoin "RemoteServer/utils"
 	"fmt"
 	"github.com/gin-gonic/gin"
@@ -74,14 +74,14 @@ func screen(c *gin.Context) {
 		Conn:        ws,
 	}
 
-	// 获取 touch session
-	touchSession, ok := touch.TapSessionsMap.Load(deviceID)
+	// 获取 event session
+	touchSession, ok := event.TapSessionsMap.Load(deviceID)
 	if !ok {
 		bilicoin.Warn("[WS] illegal or a non-existent device accessed", logrus.Fields{"action": "ts", "addr": addr.String(), "sessionID": sessionID, "deviceID": deviceID})
 		return
 	}
 	// 事件控制器
-	tapController := touchSession.(touch.TapSession).Ch2
+	tapController := touchSession.(event.TapSession).Ch2
 
 	// 事件流处理
 	for {
@@ -91,7 +91,7 @@ func screen(c *gin.Context) {
 			return
 		}
 
-		// var t touch.Event
+		// var t event.Event
 
 		// unmarshal
 		// err = json.Unmarshal(message, &t)
@@ -99,11 +99,10 @@ func screen(c *gin.Context) {
 		t := pics.ParseEvent(message)
 
 		if err != nil {
-			bilicoin.Warn("[WS] a wrong touch event struct")
+			bilicoin.Warn("[WS] a wrong event event struct")
 			println(err.Error())
 			continue
 		}
-		t.Id = deviceID.(string)
 		tapController <- t
 	}
 
@@ -140,7 +139,7 @@ func screen(c *gin.Context) {
 }
 
 func UnmarshalBinaryEvent(msg []byte, v interface{}) {
-	rv := v.(*touch.Event)
+	rv := v.(*event.Event)
 	rv.Type = pics.GetType(msg)
 	rv.Contact = pics.GetContact(msg)
 	rv.X = pics.GetX(msg)

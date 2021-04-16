@@ -6,15 +6,15 @@ option java_outer_classname = "Tap";
 
 option java_multiple_files = true;
 
-package touch;
+package event;
 
-service Touch {
-  rpc TouchReq (TouchRequest) returns (stream TouchReply);
+service Event {
+  rpc EventReq (EventRequest) returns (stream EventResponse);
 }
 
-message TouchReply {
-  TouchType type = 1;
-  enum TouchType {
+message EventResponse {
+  EventType type = 1;
+  enum EventType {
     TAP = 0;
     SWIPE = 1;
     RELEASE = 2;
@@ -25,7 +25,8 @@ message TouchReply {
   int64 ts = 5;
 }
 
-message TouchRequest {
+// r
+message EventRequest {
   string id = 2;
   int32 type = 3;
 }

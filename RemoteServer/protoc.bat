@@ -9,7 +9,7 @@ protoc *.proto --go_out=.
 protoc.exe *.proto --go-grpc_out=.
 cd ..
 
-cd touch
+cd event
 protoc *.proto --go_out=.
 protoc.exe *.proto --go-grpc_out=.
 cd ..
