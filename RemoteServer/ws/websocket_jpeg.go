@@ -91,12 +91,8 @@ func screen(c *gin.Context) {
 			return
 		}
 
-		// var t event.Event
-
-		// unmarshal
-		// err = json.Unmarshal(message, &t)
-		// UnmarshalBinaryEvent(message, &t)
-		t := pics.ParseEvent(message)
+		// 格式化
+		t := event.ParseEvent(message)
 
 		if err != nil {
 			bilicoin.Warn("[WS] a wrong event event struct")
@@ -105,46 +101,6 @@ func screen(c *gin.Context) {
 		}
 		tapController <- t
 	}
-
-	//scr := screenSession.(pics.ScreenSession)
-	//for {
-	//	input, err := scr.ScreenStream.Recv()
-	//	if err == io.EOF {
-	//		log.Println("客户端发送的数据流结束")
-	//		return
-	//	}
-	//	if err != nil {
-	//		log.Println("接收数据出错:", err)
-	//		return
-	//	}
-	//	err = ws.WriteMessage(websocket.BinaryMessage, input.Data)
-	//	if err != nil {
-	//		log.Println("接收数据出错:", err)
-	//		return
-	//	}
-	//}
-	//for {
-	//	mt, message, err := ws.ReadMessage()
-	//	if err != nil {
-	//		break
-	//	}
-	//	if string(message) == "ping" {
-	//		message = []byte("pong")
-	//	}
-	//	err = ws.WriteMessage(mt, message)
-	//	if err != nil {
-	//		break
-	//	}
-	//}
-}
-
-func UnmarshalBinaryEvent(msg []byte, v interface{}) {
-	rv := v.(*event.Event)
-	rv.Type = pics.GetType(msg)
-	rv.Contact = pics.GetContact(msg)
-	rv.X = pics.GetX(msg)
-	rv.Y = pics.GetY(msg)
-	rv.Ts = pics.GetTs(msg)
 }
 
 func JPEGWebsocketServer() {

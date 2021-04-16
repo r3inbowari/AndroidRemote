@@ -37,6 +37,8 @@ func fieldParse(obj interface{}) string {
 		ret = strconv.Itoa(v)
 	case int64:
 		ret = strconv.FormatInt(v, 10)
+	case int32:
+		ret = strconv.FormatInt(int64(v), 10)
 	case nil:
 		ret = "null"
 	default:

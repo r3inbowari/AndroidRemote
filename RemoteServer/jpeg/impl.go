@@ -14,6 +14,39 @@ type Server struct {
 	UnimplementedJPEGServer
 }
 
+type ScreenConn struct {
+	Conn        *websocket.Conn
+	WsSessionID string
+	sync.Mutex
+}
+
+type ScreenSession struct {
+	Id           string
+	ScreenStream JPEG_SendJPEGServer
+	Ch2          chan *ScreenConn
+	sc           *ScreenConn // 线程被持有者 这里指的是 websocket 的 conn
+}
+
+var ScreenSessionsMap sync.Map
+
+// CancelScreenSession 清除 session
+func (cs *ScreenSession) CancelScreenSession() {
+	ScreenSessionsMap.Delete(cs.Id)
+}
+
+// RegScreenSession 注册 screen session
+func RegScreenSession(id string, stream JPEG_SendJPEGServer) *ScreenSession {
+	var cs ScreenSession
+	cs.ScreenStream = stream
+	cs.Id = id
+	cs.Ch2 = make(chan *ScreenConn)
+	cs.sc = &ScreenConn{}
+	ScreenSessionsMap.Store(id, cs)
+	return &cs
+}
+
+// SendJPEG 接口
+// @enter #0
 func (s *Server) SendJPEG(stream JPEG_SendJPEGServer) error {
 	ctx := stream.Context()
 
@@ -37,16 +70,10 @@ func (s *Server) SendJPEG(stream JPEG_SendJPEGServer) error {
 			bilicoin.Info("[JPEG] ws was successfully attached to the device", logrus.Fields{"addr": ss.sc.Conn.RemoteAddr().String(), "sessionID": ss.sc.WsSessionID, "deviceID": id, "wsPtr": fmt.Sprintf("%p", unsafe.Pointer(ss.sc.Conn))})
 		}
 	}
-	//exp.Mux.Lock()
-	//if exp.Conn != nil {
-	//	exp.Conn.WriteMessage(0x02, in.Data)
-	//}
-	//exp.Mux.Unlock()
-	//
-	// return &JPEGReply{Length: 12}, nil
 }
 
 // ScreenProcess 转移
+// @enter #2
 func (cs *ScreenSession) ScreenProcess() {
 	defer func() {
 		// 清除 session
@@ -88,35 +115,9 @@ func (cs *ScreenSession) ScreenProcess() {
 	}
 }
 
-var ScreenSessionsMap sync.Map
-
-type ScreenConn struct {
-	Conn        *websocket.Conn
-	WsSessionID string
-	sync.Mutex
-}
-
-type ScreenSession struct {
-	Id           string
-	ScreenStream JPEG_SendJPEGServer
-	Ch2          chan *ScreenConn
-	sc           *ScreenConn // 线程被持有者 这里指的是 websocket 的 conn
-}
-
-func (cs *ScreenSession) CancelScreenSession() {
-	ScreenSessionsMap.Delete(cs.Id)
-}
-
-func RegScreenSession(id string, stream JPEG_SendJPEGServer) *ScreenSession {
-	var cs ScreenSession
-	cs.ScreenStream = stream
-	cs.Id = id
-	cs.Ch2 = make(chan *ScreenConn)
-	cs.sc = &ScreenConn{}
-	ScreenSessionsMap.Store(id, cs)
-	return &cs
-}
-
+// RegScreenProcess 首次注册后 return
+// @enter #1
+// @return id
 func RegScreenProcess(stream JPEG_SendJPEGServer) string {
 	ctx := stream.Context()
 

@@ -13,8 +13,43 @@ type Streamer struct {
 	UnimplementedChatServer
 }
 
+// ChatSession RegChatSession 暂时不改了
+type ChatSession struct {
+	Id         string
+	ChatStream Chat_BidStreamServer
+	// sync.RWMutex not need
+}
+
+var ChatSessionsMap sync.Map
+
+func RegChatSession(id string, stream Chat_BidStreamServer) *ChatSession {
+	var cs ChatSession
+	cs.ChatStream = stream
+	cs.Id = id
+	ChatSessionsMap.Store(id, cs)
+	return &cs
+}
+
+func CancelSession(id string) {
+	ChatSessionsMap.Delete(id)
+}
+
+func (cs *ChatSession) CancelChatSession() {
+	ChatSessionsMap.Delete(cs.Id)
+}
+
+func GetSession(id string) *ChatSession {
+	ret, ok := ChatSessionsMap.Load(id)
+	if !ok {
+		return nil
+	}
+	cs := ret.(ChatSession)
+	return &cs
+}
+
 // BidStream 实现了 ChatServer 接口中定义的 BidStream 方法
 // 写信道传递的注册方式
+// @enter #0
 func (s *Streamer) BidStream(stream Chat_BidStreamServer) error {
 	ctx := stream.Context()
 
@@ -33,6 +68,8 @@ func (s *Streamer) BidStream(stream Chat_BidStreamServer) error {
 	}
 }
 
+// ChatProcess 注册
+// @enter #2
 func (cs *ChatSession) ChatProcess() {
 	defer func() {
 		// 清除 session
@@ -70,40 +107,8 @@ func (cs *ChatSession) ChatProcess() {
 	}
 }
 
-var ChatSessionsMap sync.Map
-
-// ChatSession RegChatSession 暂时不改了
-type ChatSession struct {
-	Id         string
-	ChatStream Chat_BidStreamServer
-	// sync.RWMutex not need
-}
-
-func RegChatSession(id string, stream Chat_BidStreamServer) *ChatSession {
-	var cs ChatSession
-	cs.ChatStream = stream
-	cs.Id = id
-	ChatSessionsMap.Store(id, cs)
-	return &cs
-}
-
-func CancelSession(id string) {
-	ChatSessionsMap.Delete(id)
-}
-
-func (cs *ChatSession) CancelChatSession() {
-	ChatSessionsMap.Delete(cs.Id)
-}
-
-func GetSession(id string) *ChatSession {
-	ret, ok := ChatSessionsMap.Load(id)
-	if !ok {
-		return nil
-	}
-	cs := ret.(ChatSession)
-	return &cs
-}
-
+// RegChatProcess 注册
+// @enter #1
 func RegChatProcess(stream Chat_BidStreamServer) string {
 	ctx := stream.Context()
 
@@ -136,22 +141,6 @@ func RegChatProcess(stream Chat_BidStreamServer) string {
 			}
 			bilicoin.Info("[CHAT] reg done", logrus.Fields{"id": result.Id})
 
-			//go func() {
-			//	bilicoin.Warn("[TEST] go start")
-			//	cs, err := ChatSessionsMap.Load(result.Id)
-			//	if err {
-			//		bilicoin.Warn("[TEST] error")
-			//	}
-			//	a := cs.(ChatSession).ChatStream
-			//	for  {
-			//		if err := a.Send(&ChatResponse{Output: "return: " + result.Input}); err != nil {
-			//			bilicoin.Warn("[TEST] error")
-			//			return
-			//		}
-			//		bilicoin.Warn("[TEST] send ok")
-			//		time.Sleep(time.Second * 1)
-			//	}
-			//}()
 			return result.Id
 		}
 	}

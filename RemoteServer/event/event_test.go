@@ -1,4 +1,4 @@
-package pics
+package event
 
 import (
 	"testing"
@@ -32,6 +32,4 @@ func TestEncode(t *testing.T) {
 	println(GetContact(raw))
 	println(GetType(raw))
 	println(GetSessionID(raw))
-
-
 }

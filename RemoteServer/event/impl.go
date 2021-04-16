@@ -2,27 +2,13 @@ package event
 
 import (
 	bilicoin "RemoteServer/utils"
+	"encoding/binary"
 	"github.com/sirupsen/logrus"
 	"sync"
 )
 
 type Server struct {
 	UnimplementedEventServer
-}
-
-// Event event struct
-type Event struct {
-	Id      string `json:"id"`
-	Type    int    `json:"type"`
-	X       int    `json:"x"`
-	Y       int    `json:"y"`
-	Contact int    `json:"contact"`
-	Ts      int64  `json:"ts"`
-}
-
-// Event 执行
-func (t *Event) exec() {
-
 }
 
 type TapSession struct {
@@ -33,6 +19,10 @@ type TapSession struct {
 }
 
 var TapSessionsMap sync.Map
+
+func (s Server) mustEmbedUnimplementedTouchServer() {
+	// panic("implement me")
+}
 
 func (cs *TapSession) CancelTapSession() {
 	TapSessionsMap.Delete(cs.Id)
@@ -78,7 +68,7 @@ func (s Server) EventReq(request *EventRequest, stream Event_EventReqServer) err
 			bilicoin.Info("[EVT] a close signal send from client-side", logrus.Fields{"id": request.GetId()})
 			return ctx.Err()
 		case event := <-ts.Ch2:
-			bilicoin.Info("[EVT] send event", logrus.Fields{"id": request.GetId(), "x": event.X, "y": event.Y, "contact": event.Contact, "type": event.Type, "ts": event.Ts})
+			bilicoin.Info("[EVT] send event", logrus.Fields{"id": request.GetId(), "x": event.X, "y": event.Y, "contact": event.Contact, "type": int32(event.Type), "ts": event.Ts})
 			err := stream.Send(event)
 			if err != nil {
 				println(err.Error())
@@ -86,28 +76,24 @@ func (s Server) EventReq(request *EventRequest, stream Event_EventReqServer) err
 			}
 		}
 	}
-
-	//if request.Message == "attach event" {
-	//	println("start event")
-	//	time.Sleep(time.Second * 10)
-	//	// ctx := server.Context()
-	//	server.Send(&TouchReply{
-	//		Type:    0,
-	//		X:       300,
-	//		Y:       300,
-	//		Contact: 0,
-	//		Ts:      10,
-	//	})
-	//
-	//	time.Sleep(time.Millisecond * 20)
-	//	server.Send(&TouchReply{
-	//		Type:    TouchReply_RELEASE,
-	//		Contact: 0,
-	//		Ts:      10,
-	//	})
-	//}
 }
 
-func (s Server) mustEmbedUnimplementedTouchServer() {
-	// panic("implement me")
+// ParseEvent
+// Type:    int(bs[6] & 0x0F),
+// X:       int(binary.BigEndian.Uint16(bs[7:9])),
+// Y:       int(binary.BigEndian.Uint16(bs[9:11])),
+// Contact: int((bs[6] & 0xF0) >> 4),
+// Ts:      int64(binary.BigEndian.Uint64(bs[11:19])),
+func ParseEvent(bs []byte) *EventResponse {
+	if len(bs) != 12 {
+		return nil
+	}
+	t := EventResponse{
+		Type:    EventResponse_EventType(bs[3] & 0x0F),
+		Contact: int32((bs[3] & 0xF0) >> 4),
+		X:       int32(binary.BigEndian.Uint16(bs[4:6])),
+		Y:       int32(binary.BigEndian.Uint16(bs[6:8])),
+		Ts:      int64(binary.BigEndian.Uint32(bs[8:])),
+	}
+	return &t
 }

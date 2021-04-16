@@ -4,20 +4,13 @@
     <list default="true" id="bf713413-0619-41a4-bb33-c69da8f8fe23" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../CloudGameServer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jpeg/evt.go" beforeDir="false" afterPath="$PROJECT_DIR$/jpeg/evt.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/protoc.bat" beforeDir="false" afterPath="$PROJECT_DIR$/protoc.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc/reg.go" beforeDir="false" afterPath="$PROJECT_DIR$/rpc/reg.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/touch/impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/event/impl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/touch/touch.pb.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/touch/touch.proto" beforeDir="false" afterPath="$PROJECT_DIR$/event/event.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/touch/touch_grpc.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/control/impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/control/impl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/event/impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/event/impl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jpeg/event_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/event/event_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jpeg/evt.go" beforeDir="false" afterPath="$PROJECT_DIR$/event/event_t.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jpeg/impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/jpeg/impl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils/log.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ws/websocket_jpeg.go" beforeDir="false" afterPath="$PROJECT_DIR$/ws/websocket_jpeg.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ws/ws_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/ws/ws_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/SystemInit.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/SystemInit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/session/Touch.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/session/Touch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/stf/cap/MiniCap.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/stf/cap/MiniCap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/proto/Touch.proto" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/proto/Event.proto" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,11 +60,12 @@
       <recent name="C:\Users\inven\Desktop\MujinProject\AndroidRemoteServant\RemoteServer\ws" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\inven\Desktop\MujinProject\AndroidRemoteServant\RemoteServer\event" />
       <recent name="C:\Users\inven\Desktop\MujinProject\AndroidRemoteServant\RemoteServer\control" />
       <recent name="C:\Users\inven\Desktop\MujinProject\AndroidRemoteServant\RemoteServer\test" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Build.go build RemoteServer/cmd">
+  <component name="RunManager" selected="Go Test.TestOpenSender in RemoteServer/test">
     <configuration name="go build RemoteServer/cmd" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="RemoteServer" />
       <working_directory value="$PROJECT_DIR$" />
@@ -131,8 +125,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Build.go build RemoteServer/cmd" />
         <item itemvalue="Go Test.TestOpenSender in RemoteServer/test" />
+        <item itemvalue="Go Build.go build RemoteServer/cmd" />
         <item itemvalue="Go Test.TestEncode in RemoteServer/jpeg" />
         <item itemvalue="Go Test.TestUM in RemoteServer/ws" />
         <item itemvalue="Go Test.TestProduct in RemoteServer/test" />
@@ -153,11 +147,6 @@
           <url>file://$PROJECT_DIR$/ws/ws_test.go</url>
           <line>11</line>
           <option name="timeStamp" value="16" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/jpeg/event_test.go</url>
-          <line>27</line>
-          <option name="timeStamp" value="21" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
