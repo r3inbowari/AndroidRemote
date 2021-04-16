@@ -48,3 +48,10 @@ const (
 	REQ_PAUSE_SENDER
 	REQ_SEND_JPEG
 )
+
+const (
+	// hardware
+	ASK_START_SENDER = iota + 2000
+	ASK_PAUSE_SENDER
+	ASK_SEND_JPEG
+)

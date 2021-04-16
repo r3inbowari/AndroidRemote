@@ -4,8 +4,12 @@
     <list default="true" id="bf713413-0619-41a4-bb33-c69da8f8fe23" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../CloudGameServer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/control/impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/control/impl.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jpeg/impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/jpeg/impl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ws/websocket_jpeg.go" beforeDir="false" afterPath="$PROJECT_DIR$/ws/websocket_jpeg.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/touch/impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/touch/impl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/touch/touch.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/touch/touch.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/touch/touch.proto" beforeDir="false" afterPath="$PROJECT_DIR$/touch/touch.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/enum.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils/enum.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,8 +124,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Go Test.TestOpenSender in RemoteServer/test" />
-        <item itemvalue="Go Build.go build RemoteServer/cmd" />
         <item itemvalue="Go Test.TestPauseSender in RemoteServer/test" />
+        <item itemvalue="Go Build.go build RemoteServer/cmd" />
         <item itemvalue="Go Test.TestPtr in RemoteServer/control" />
         <item itemvalue="Go Test.TestOpenSender in RemoteServer/test (1)" />
       </list>
@@ -141,6 +145,16 @@
           <url>file://$PROJECT_DIR$/utils/log.go</url>
           <line>29</line>
           <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/control/impl.go</url>
+          <line>66</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/test/rmq_test.go</url>
+          <line>43</line>
+          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

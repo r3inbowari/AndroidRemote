@@ -100,7 +100,7 @@ type ScreenSession struct {
 	Id           string
 	ScreenStream JPEG_SendJPEGServer
 	Ch2          chan *ScreenConn
-	sc           *ScreenConn // 线程被持有者
+	sc           *ScreenConn // 线程被持有者 这里指的是 websocket 的 conn
 }
 
 func (cs *ScreenSession) CancelScreenSession() {

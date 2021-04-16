@@ -53,18 +53,18 @@ func (cs *ChatSession) ChatProcess() {
 		case bilicoin.REG:
 			device.Renew(result.GetId(), result.GetInput())
 			bilicoin.Info("[CHAT] device service renewal", logrus.Fields{"id": result.GetId()})
-		case bilicoin.REQ_START_SENDER:
+		case bilicoin.ASK_START_SENDER:
 			// start screen share
 			// @param output the response of the order
 			bilicoin.Info("[CHAT] device start screen share ok", logrus.Fields{"id": result.GetId()})
-		case bilicoin.REQ_PAUSE_SENDER:
+		case bilicoin.ASK_PAUSE_SENDER:
 			// pause screen share
 			// @param output the response of the order
 			bilicoin.Info("[CHAT] device pause screen share ok", logrus.Fields{"id": result.GetId()})
 		default:
 			bilicoin.Fatal("[CHAT] unsupported request")
 		}
-		if err := cs.ChatStream.Send(&ChatResponse{Output: "return: " + result.Input}); err != nil {
+		if err := cs.ChatStream.Send(&ChatResponse{Output: "return: " + result.Input, Type: int32(bilicoin.ASK)}); err != nil {
 			return
 		}
 	}
@@ -131,7 +131,7 @@ func RegChatProcess(stream Chat_BidStreamServer) string {
 				bilicoin.Fatal("[CHAT] unsupported request")
 			}
 
-			if err := stream.Send(&ChatResponse{Output: "return: " + result.Input}); err != nil {
+			if err := stream.Send(&ChatResponse{Output: "return: " + result.Input, Type: int32(bilicoin.REG)}); err != nil {
 				return ""
 			}
 			bilicoin.Info("[CHAT] reg done", logrus.Fields{"id": result.Id})

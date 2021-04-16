@@ -20,6 +20,8 @@ message TouchReply {
   int64 ts = 5;
 }
 
+// r
 message TouchRequest {
-  string message = 1;
+  string id = 2;
+  int32 type = 3;
 }

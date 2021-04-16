@@ -10,6 +10,7 @@ import com.mujin.androidremoteservant.core.session.ChatTypeEnum;
 import com.mujin.androidremoteservant.core.session.DeviceInfo;
 import com.mujin.androidremoteservant.core.session.DeviceProvider;
 import com.mujin.androidremoteservant.core.session.Jpeg;
+import com.mujin.androidremoteservant.core.session.Touch;
 import com.mujin.androidremoteservant.core.shell.ProcessShell;
 import com.mujin.androidremoteservant.core.stf.cap.CapProbe;
 import com.mujin.androidremoteservant.core.stf.cap.MiniCap;
@@ -121,8 +122,11 @@ public class SystemInit {
         }
 
         // chat connect
-        Chat.getInstance().connectAndProcess();
+        Chat.getInstance().connectAndProcess().setDeviceID(DID);
         // reg interval, renewal function
         new Thread(new ChatHeartbeat(context)).start();
+
+        // touch connect
+        Touch.getInstance().sendAndProcess();
     }
 }

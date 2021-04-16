@@ -1,12 +1,14 @@
 package com.mujin.androidremoteservant.core.session;
 
-import android.nfc.Tag;
 import android.util.Log;
+
+import androidx.annotation.VisibleForTesting;
 
 import com.mujin.androidremoteservant.core.stf.cap.MiniCap;
 import com.mujin.androidremoteservant.grpc.gRPCChannelPool;
 import com.r3inb.pb.ChatGrpc;
 import com.r3inb.pb.ChatRequest;
+import com.r3inb.pb.ChatRequestOrBuilder;
 import com.r3inb.pb.ChatResponse;
 
 import io.grpc.stub.StreamObserver;
@@ -32,6 +34,10 @@ public class Chat {
 
     private final String TAG = "Chat";
 
+    private int heartbeatCnt = 0;
+
+    private String deviceID = "null"; // must do
+
     // connect
     // 连接和处理
     public Chat connectAndProcess() {
@@ -41,15 +47,25 @@ public class Chat {
             @Override
             public void onNext(ChatResponse value) {
                 // received data
-                System.out.println(value.getOutput());
+                // System.out.println(value.getOutput());
+                int ass = value.getType();
                 switch (value.getType()) {
                     case ChatTypeEnum.REQ_START_SENDER:
                         Log.i(TAG, "sender start method");
                         MiniCap.getInstance().openSend();
+                        sendMsg(ChatTypeEnum.ASK_START_SENDER, "null"); // ask
                         break;
                     case ChatTypeEnum.REQ_PAUSE_SENDER:
                         Log.i(TAG, "sender pause method");
                         MiniCap.getInstance().pauseSend();
+                        sendMsg(ChatTypeEnum.ASK_PAUSE_SENDER, "null"); // ask
+                        break;
+                    case ChatTypeEnum.ASK:
+                        Log.i(TAG, "heartbeat ask");
+                        heartbeatCnt++;
+                        break;
+                    case ChatTypeEnum.REG:
+                        Log.i(TAG, "device register ask");
                         break;
                     default:
                         Log.i(TAG, "unsupported method");
@@ -75,13 +91,15 @@ public class Chat {
 
     // 消息发送
     // @warning throw RuntimeException
-    public boolean sendMsg(int type, String payload, String id) throws RuntimeException {
+    public boolean sendMsg(int type, String payload) throws RuntimeException {
         try {
             ChatRequest request = ChatRequest.newBuilder()
                     .setInput(payload)
                     .setType(type)
-                    .setId(id)
+                    .setInput(payload)
+                    .setId(this.deviceID)
                     .build();
+
             result.onNext(request);
             return true;
         } catch (RuntimeException e) {
@@ -99,14 +117,15 @@ public class Chat {
     /**
      * @deprecated unit test
      */
+    @VisibleForTesting
     public void howtouse() {
         Chat chat = new Chat();
-        chat.connectAndProcess();
-        chat.sendMsg(ChatTypeEnum.NOR, "hello", "123");
+        chat.connectAndProcess().setDeviceID("1231231");
+        chat.sendMsg(ChatTypeEnum.NOR, "hello");
         chat.disconnect();
-        chat.sendMsg(ChatTypeEnum.NOR, "can not", "123");
+        chat.sendMsg(ChatTypeEnum.NOR, "can not");
         chat.connectAndProcess();
-        chat.sendMsg(ChatTypeEnum.NOR, "hello", "123");
+        chat.sendMsg(ChatTypeEnum.NOR, null);
     }
 
     /**
@@ -115,6 +134,15 @@ public class Chat {
      */
     public void reg() {
 
+    }
+
+    public int getHeartbeatCnt() {
+        return this.heartbeatCnt;
+    }
+
+    public Chat setDeviceID(String deviceID) {
+        this.deviceID = deviceID;
+        return this;
     }
 }
 

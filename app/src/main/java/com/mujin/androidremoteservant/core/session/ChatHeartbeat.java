@@ -19,7 +19,7 @@ public class ChatHeartbeat implements Runnable {
         Log.i(TAG, "heartbeat start");
         while (true) {
             try {
-                Chat.getInstance().sendMsg(ChatTypeEnum.REG, DeviceProvider.getDeviceInfo(context), DID);
+                Chat.getInstance().sendMsg(ChatTypeEnum.REG, DeviceProvider.getDeviceInfo(context));
                 Thread.sleep(80 * 1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
