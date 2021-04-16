@@ -89,10 +89,10 @@ public class MiniCap extends AbstractMiniCap {
     public void openSend() {
         synchronized (senderThread) {
             if (!senderRunFlag) {
+                this.senderRunFlag = true;
                 senderThread.notify();
             }
         }
-        this.senderRunFlag = true;
     }
 
     public void startSender() {

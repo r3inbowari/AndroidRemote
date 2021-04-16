@@ -22,6 +22,8 @@ public class Touch {
 
     private static Touch touchInstance = null;
 
+    private String deviceID = null;
+
     public static Touch getInstance() {
         if (touchInstance == null)
             touchInstance = new Touch();
@@ -32,7 +34,7 @@ public class Touch {
         // touch事件流
         touchStub = TouchGrpc.newStub(gRPCChannelPool.get().getChannel("touch"));
         // 准备就绪 发送 attach touch (REG) 请求
-        TouchRequest request1 = TouchRequest.newBuilder().setType(ChatTypeEnum.REG).build();
+        TouchRequest request1 = TouchRequest.newBuilder().setId(deviceID).setType(ChatTypeEnum.REG).build();
 
         // reply 流的处理
         touchStub.touchReq(request1, new StreamObserver<TouchReply>() {
@@ -66,4 +68,10 @@ public class Touch {
     }
 
     // 断开连接 不需要处理请求测断开, 因为请求不是流, 而是单次数据
+
+
+    public Touch setDeviceID(String deviceID) {
+        this.deviceID = deviceID;
+        return this;
+    }
 }

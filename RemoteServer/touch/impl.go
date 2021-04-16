@@ -10,7 +10,14 @@ type Server struct {
 	UnimplementedTouchServer
 }
 
+// Touch event struct
 type Touch struct {
+	Id      string `json:"id"`
+	Type    string `json:"type"`
+	X       int    `json:"x"`
+	Y       int    `json:"y"`
+	Contact int    `json:"contact"`
+	Ts      int64  `json:"ts"`
 }
 
 type TapSession struct {
@@ -30,13 +37,13 @@ func RegTapSession(id string, stream Touch_TouchReqServer) *TapSession {
 	var cs TapSession
 	cs.TouchStream = stream
 	cs.Id = id
-	cs.Ch2 = make(chan *Touch)
+	cs.Ch2 = make(chan *Touch, 100) // cap = 100
 	TapSessionsMap.Store(id, cs)
 	return &cs
 }
 
 func (s Server) TouchReq(request *TouchRequest, stream Touch_TouchReqServer) error {
-	var ts *TapSession
+	var ts *TapSession = nil
 	defer func() {
 		// release session
 		ts.CancelTapSession()
@@ -48,10 +55,16 @@ func (s Server) TouchReq(request *TouchRequest, stream Touch_TouchReqServer) err
 	switch request.GetType() {
 	case bilicoin.REG:
 		// reg here
-		bilicoin.Info("[TAP] a touch device reg")
+		bilicoin.Info("[TAP] a touch device reg", logrus.Fields{"id": request.GetId()})
 		ts = RegTapSession(request.GetId(), stream) // reg
 	default:
 		bilicoin.Fatal("[TAP] unsupported request")
+	}
+
+	// ts make no sense
+	if ts == nil {
+		bilicoin.Fatal("[TAP] unsupported request")
+		return ctx.Err()
 	}
 
 	for {
@@ -59,6 +72,8 @@ func (s Server) TouchReq(request *TouchRequest, stream Touch_TouchReqServer) err
 		case <-ctx.Done():
 			bilicoin.Info("[TAP] a close signal send from client-side", logrus.Fields{"id": request.GetId()})
 			return ctx.Err()
+		case event := <-ts.Ch2:
+			bilicoin.Info("[TAP] send event", logrus.Fields{"id": event.Id, "x": event.X, "y": event.Y, "contact": event.Contact, "type": event.Type, "ts": event.Ts})
 		}
 	}
 

@@ -122,11 +122,11 @@ public class SystemInit {
         }
 
         // chat connect
-        Chat.getInstance().connectAndProcess().setDeviceID(DID);
+        Chat.getInstance().setDeviceID(DID).connectAndProcess();
         // reg interval, renewal function
         new Thread(new ChatHeartbeat(context)).start();
 
         // touch connect
-        Touch.getInstance().sendAndProcess();
+        Touch.getInstance().setDeviceID(DID).sendAndProcess();
     }
 }

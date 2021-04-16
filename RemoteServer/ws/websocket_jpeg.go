@@ -2,7 +2,9 @@ package ws
 
 import (
 	pics "RemoteServer/jpeg"
+	"RemoteServer/touch"
 	bilicoin "RemoteServer/utils"
+	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
@@ -59,24 +61,49 @@ func screen(c *gin.Context) {
 
 	// 获取设备屏幕实例
 	// @param did 设备id
-	entry, ok := pics.ScreenSessionsMap.Load(deviceID)
+	screenSession, ok := pics.ScreenSessionsMap.Load(deviceID)
 	if !ok {
 		bilicoin.Warn("[WS] illegal or a non-existent device accessed", logrus.Fields{"addr": addr.String(), "sessionID": sessionID, "deviceID": deviceID})
 		return
 	}
 	bilicoin.Info("[WS] try to attach the device", logrus.Fields{"addr": addr.String(), "sessionID": sessionID, "deviceID": deviceID, "wsPtr": fmt.Sprintf("%p", unsafe.Pointer(ws))})
-	wsChannel := entry.(pics.ScreenSession).Ch2
+	wsChannel := screenSession.(pics.ScreenSession).Ch2
 
+	// 切换 session 持有者
 	wsChannel <- &pics.ScreenConn{
 		WsSessionID: sessionID,
 		Conn:        ws,
 	}
 
-	for {
+	// 获取 touch session
+	touchSession, ok := touch.TapSessionsMap.Load(deviceID)
+	if !ok {
+		bilicoin.Warn("[WS] illegal or a non-existent device accessed", logrus.Fields{"action": "ts", "addr": addr.String(), "sessionID": sessionID, "deviceID": deviceID})
+		return
+	}
+	// 事件控制器
+	tapController := touchSession.(touch.TapSession).Ch2
 
+	// 事件流处理
+	for {
+		_, message, err := ws.ReadMessage()
+		if err != nil {
+			bilicoin.Warn("[WS] websocket reset due to some inner problems")
+			return
+		}
+
+		var t touch.Touch
+
+		// unmarshal
+		err = json.Unmarshal(message, &t)
+		if err != nil {
+			bilicoin.Warn("[WS] a wrong touch event struct")
+			continue
+		}
+		tapController <- &t
 	}
 
-	//scr := entry.(pics.ScreenSession)
+	//scr := screenSession.(pics.ScreenSession)
 	//for {
 	//	input, err := scr.ScreenStream.Recv()
 	//	if err == io.EOF {

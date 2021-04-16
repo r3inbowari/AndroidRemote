@@ -4,12 +4,8 @@
     <list default="true" id="e102a309-9211-4948-bf88-6afa939dea44" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../RemoteServer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RemoteServer/control/impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/control/impl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RemoteServer/jpeg/impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/jpeg/impl.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../RemoteServer/touch/impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/touch/impl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RemoteServer/touch/touch.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/touch/touch.pb.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RemoteServer/touch/touch.proto" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/touch/touch.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RemoteServer/utils/enum.go" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/utils/enum.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RemoteServer/ws/websocket_jpeg.go" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/ws/websocket_jpeg.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
