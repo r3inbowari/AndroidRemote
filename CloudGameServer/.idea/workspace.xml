@@ -2,17 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e102a309-9211-4948-bf88-6afa939dea44" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../RemoteServer/jpeg/event_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../RemoteServer/jpeg/evt.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../RemoteServer/ws/ws_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../RemoteServer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RemoteServer/touch/impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/touch/impl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RemoteServer/utils/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/utils/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RemoteServer/jpeg/evt.go" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/jpeg/evt.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../RemoteServer/ws/websocket_jpeg.go" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/ws/websocket_jpeg.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/session/Touch.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/session/Touch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/stf/touch/MiniTouch.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/stf/touch/MiniTouch.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/GP.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/GP.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

@@ -1,6 +1,29 @@
 package pics
 
-import "encoding/binary"
+import (
+	"RemoteServer/touch"
+	"encoding/binary"
+)
+
+// ParseEvent
+// Type:    int(bs[6] & 0x0F),
+// X:       int(binary.BigEndian.Uint16(bs[7:9])),
+// Y:       int(binary.BigEndian.Uint16(bs[9:11])),
+// Contact: int((bs[6] & 0xF0) >> 4),
+// Ts:      int64(binary.BigEndian.Uint64(bs[11:19])),
+func ParseEvent(bs []byte) *touch.Event {
+	if len(bs) != 12 {
+		return nil
+	}
+	t := touch.Event{
+		Type:    int(bs[3] & 0x0F),
+		Contact: int((bs[3] & 0xF0) >> 4),
+		X:       int(binary.BigEndian.Uint16(bs[4:6])),
+		Y:       int(binary.BigEndian.Uint16(bs[6:8])),
+		Ts:      int64(binary.BigEndian.Uint32(bs[8:])),
+	}
+	return &t
+}
 
 func GetSessionID(bs []byte) string {
 	if len(bs) != 51 {

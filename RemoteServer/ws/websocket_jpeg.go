@@ -91,11 +91,12 @@ func screen(c *gin.Context) {
 			return
 		}
 
-		var t touch.Event
+		// var t touch.Event
 
 		// unmarshal
 		// err = json.Unmarshal(message, &t)
-		UnmarshalBinaryEvent(message, &t)
+		// UnmarshalBinaryEvent(message, &t)
+		t := pics.ParseEvent(message)
 
 		if err != nil {
 			bilicoin.Warn("[WS] a wrong touch event struct")
@@ -103,7 +104,7 @@ func screen(c *gin.Context) {
 			continue
 		}
 		t.Id = deviceID.(string)
-		tapController <- &t
+		tapController <- t
 	}
 
 	//scr := screenSession.(pics.ScreenSession)

@@ -79,14 +79,19 @@ export default defineComponent({
     function U64(i) {
       // console.log(i)
       var targets = []
-      targets[0] = 0
-      targets[1] = 0
-      targets[2] = 0
-      targets[3] = 0
-      targets[7] = i & 0xff
-      targets[6] = (i >> 8) & 0xff
-      targets[5] = (i >> 16) & 0xff
-      targets[4] = (i >> 24) & 0xff
+      // targets[0] = 0
+      // targets[1] = 0
+      // targets[2] = 0
+      // targets[3] = 0
+      // targets[7] = i & 0xff
+      // targets[6] = (i >> 8) & 0xff
+      // targets[5] = (i >> 16) & 0xff
+      // targets[4] = (i >> 24) & 0xff
+
+      targets[3] = i & 0xff
+      targets[2] = (i >> 8) & 0xff
+      targets[1] = (i >> 16) & 0xff
+      targets[0] = (i >> 24) & 0xff
       return targets
     }
 
@@ -231,7 +236,7 @@ export default defineComponent({
     let cnt = 0
     function onMove(e) {
       cnt++
-      if (isPress && cnt % 4 === 1) {
+      if (cnt % 8 === 1 && isPress) {
         // console.log(
         //   '[minicap] move -> %d, %d -> %d, %d',
         //   e.layerX,
@@ -240,20 +245,20 @@ export default defineComponent({
         //   e.layerY * transforRatio
         // )
         console.log('move')
-        let tag = [0x45, 0x56, 0x45, 0x4e, 0x54, 0x33]
+        let tag = [0x45, 0x56, 0x33]
         let contact = 1
         let type = 1
         let combine = (contact << 4) | type
         let x = ShortToUInt16(parseInt(e.layerX * transforRatio))
         let y = ShortToUInt16(parseInt(e.layerY * transforRatio))
         let ts = U64(Date.parse(new Date()) / 1000)
-        let sb = stobs('a8f5f167f44f4964e6c998dee827110c')
+        // let sb = stobs('a8f5f167f44f4964e6c998dee827110c')
 
         tag.push.apply(tag, [combine])
         tag.push.apply(tag, x)
         tag.push.apply(tag, y)
         tag.push.apply(tag, ts)
-        tag.push.apply(tag, sb)
+        // tag.push.apply(tag, sb)
 
         let arrayBuffer = new Int8Array(tag).buffer
         websocketsend(arrayBuffer)
@@ -280,20 +285,20 @@ export default defineComponent({
       //   })
       // )
 
-      let tag = [0x45, 0x56, 0x45, 0x4e, 0x54, 0x33]
+      let tag = [0x45, 0x56, 0x33]
       let contact = 1
       let type = 2
       let combine = (contact << 4) | type
       let x = ShortToUInt16(parseInt(e.layerX * transforRatio))
       let y = ShortToUInt16(parseInt(e.layerY * transforRatio))
       let ts = U64(Date.parse(new Date()) / 1000)
-      let sb = stobs('a8f5f167f44f4964e6c998dee827110c')
+      // let sb = stobs('a8f5f167f44f4964e6c998dee827110c')
 
       tag.push.apply(tag, [combine])
       tag.push.apply(tag, x)
       tag.push.apply(tag, y)
       tag.push.apply(tag, ts)
-      tag.push.apply(tag, sb)
+      // tag.push.apply(tag, sb)
 
       let arrayBuffer = new Int8Array(tag).buffer
       websocketsend(arrayBuffer)
@@ -317,20 +322,20 @@ export default defineComponent({
       //   ts: Date.parse(new Date()) / 1000,
       // })
 
-      let tag = [0x45, 0x56, 0x45, 0x4e, 0x54, 0x33]
+      let tag = [0x45, 0x56, 0x33]
       let contact = 1
       let type = 0
       let combine = (contact << 4) | type
       let x = ShortToUInt16(parseInt(e.layerX * transforRatio))
       let y = ShortToUInt16(parseInt(e.layerY * transforRatio))
       let ts = U64(Date.parse(new Date()) / 1000)
-      let sb = stobs('a8f5f167f44f4964e6c998dee827110c')
+      // let sb = stobs('a8f5f167f44f4964e6c998dee827110c')
 
       tag.push.apply(tag, [combine])
       tag.push.apply(tag, x)
       tag.push.apply(tag, y)
       tag.push.apply(tag, ts)
-      tag.push.apply(tag, sb)
+      // tag.push.apply(tag, sb)
 
       let arrayBuffer = new Int8Array(tag).buffer
       websocketsend(arrayBuffer)
