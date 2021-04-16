@@ -54,19 +54,24 @@ func screen(c *gin.Context) {
 	// 处理断开
 	defer func() {
 		ws.Close()
-		bilicoin.Info("[WS] close connection", logrus.Fields{"addr": addr.String(), "sessionID": sessionID, "deviceID": deviceID})
+		bilicoin.Info("[WS] close ws connection", logrus.Fields{"addr": addr.String(), "sessionID": sessionID, "deviceID": deviceID})
 	}()
 
 	// 获取设备屏幕实例
 	// @param did 设备id
 	entry, ok := pics.ScreenSessionsMap.Load(deviceID)
 	if !ok {
-		bilicoin.Info("[WS] illegal or a non-existent device accessed", logrus.Fields{"addr": addr.String(), "sessionID": sessionID, "deviceID": deviceID})
+		bilicoin.Warn("[WS] illegal or a non-existent device accessed", logrus.Fields{"addr": addr.String(), "sessionID": sessionID, "deviceID": deviceID})
 		return
 	}
-	bilicoin.Info("[WS] try to bind ws with device", logrus.Fields{"addr": addr.String(), "sessionID": sessionID, "deviceID": deviceID, "wsPtr": fmt.Sprintf("%p", unsafe.Pointer(ws))})
+	bilicoin.Info("[WS] try to attach the device", logrus.Fields{"addr": addr.String(), "sessionID": sessionID, "deviceID": deviceID, "wsPtr": fmt.Sprintf("%p", unsafe.Pointer(ws))})
 	wsChannel := entry.(pics.ScreenSession).Ch2
-	wsChannel <- ws
+
+	wsChannel <- &pics.ScreenConn{
+		WsSessionID: sessionID,
+		Conn:        ws,
+	}
+
 	for {
 
 	}
@@ -116,5 +121,5 @@ func JPEGWebsocketServer() {
 
 // SessionMiddleware 中间件
 func SessionMiddleware(c *gin.Context) {
-
+	// toke 校验
 }

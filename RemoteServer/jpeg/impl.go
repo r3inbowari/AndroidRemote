@@ -28,9 +28,13 @@ func (s *Server) SendJPEG(stream JPEG_SendJPEGServer) error {
 			return ctx.Err()
 		case o := <-ss.Ch2:
 			ss.sc.Lock()
-			ss.sc.conn = o
+			if ss.sc.Conn != nil {
+				bilicoin.Info("[JPEG] device session switch to a new ws", logrus.Fields{"oldWsSessionID": ss.sc.WsSessionID, "newWsSession": o.WsSessionID})
+			}
+			ss.sc.Conn = o.Conn
+			ss.sc.WsSessionID = o.WsSessionID
 			ss.sc.Unlock()
-			bilicoin.Info("[JPEG] ws was successfully bound to the device", logrus.Fields{"deviceID": id, "wsPtr": fmt.Sprintf("%p", unsafe.Pointer(o))})
+			bilicoin.Info("[JPEG] ws was successfully attached to the device", logrus.Fields{"addr": ss.sc.Conn.RemoteAddr().String(), "sessionID": ss.sc.WsSessionID, "deviceID": id, "wsPtr": fmt.Sprintf("%p", unsafe.Pointer(ss.sc.Conn))})
 		}
 	}
 	//exp.Mux.Lock()
@@ -53,10 +57,11 @@ func (cs *ScreenSession) ScreenProcess() {
 	// it will cause the thread race...
 	for {
 		result, err := cs.ScreenStream.Recv()
-		if cs.sc.conn == nil {
-			println("skip")
+		if cs.sc.Conn == nil {
+			// println("skip")
 			continue
 		}
+		// println("1")
 		if err == io.EOF {
 			bilicoin.Info("[JPEG] stream EOF", logrus.Fields{"id": cs.Id})
 			return
@@ -67,10 +72,11 @@ func (cs *ScreenSession) ScreenProcess() {
 
 		switch result.GetType() {
 		case bilicoin.REQ_SEND_JPEG:
+			// println("!23")
 			cs.sc.Lock()
-			if err = cs.sc.conn.WriteMessage(websocket.BinaryMessage, result.Data); err != nil {
-				println("[JPEG] ws disconnected", logrus.Fields{"addr": cs.sc.conn.RemoteAddr().String()})
-				cs.sc.conn = nil
+			if err = cs.sc.Conn.WriteMessage(websocket.BinaryMessage, result.Data); err != nil {
+				bilicoin.Warn("[JPEG] exception: the ws has been detached by device implicitly", logrus.Fields{"addr": cs.sc.Conn.RemoteAddr().String(), "device": cs.Id})
+				cs.sc.Conn = nil
 			}
 			cs.sc.Unlock()
 			// start screen share
@@ -85,15 +91,16 @@ func (cs *ScreenSession) ScreenProcess() {
 var ScreenSessionsMap sync.Map
 
 type ScreenConn struct {
-	conn *websocket.Conn
+	Conn        *websocket.Conn
+	WsSessionID string
 	sync.Mutex
 }
 
 type ScreenSession struct {
 	Id           string
 	ScreenStream JPEG_SendJPEGServer
-	Ch2          chan *websocket.Conn
-	sc           ScreenConn // 线程被持有者
+	Ch2          chan *ScreenConn
+	sc           *ScreenConn // 线程被持有者
 }
 
 func (cs *ScreenSession) CancelScreenSession() {
@@ -104,7 +111,8 @@ func RegScreenSession(id string, stream JPEG_SendJPEGServer) *ScreenSession {
 	var cs ScreenSession
 	cs.ScreenStream = stream
 	cs.Id = id
-	cs.Ch2 = make(chan *websocket.Conn)
+	cs.Ch2 = make(chan *ScreenConn)
+	cs.sc = &ScreenConn{}
 	ScreenSessionsMap.Store(id, cs)
 	return &cs
 }
