@@ -42,6 +42,7 @@ public class Touch {
             public void onNext(TouchReply value) {
                 // touch event 事件处理
                 try {
+                    Log.i("test", value.getType().toString());
                     if (value.getType().equals(TouchReply.TouchType.RELEASE)) {
                         MiniTouch.getInstance().getEventManager().release(value.getContact());
                     } else if (value.getType().equals(TouchReply.TouchType.TAP)) {

@@ -2,12 +2,15 @@ package com.mujin.androidremoteservant;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.nfc.NfcManager;
+import android.nfc.tech.MifareUltralight;
 import android.os.Bundle;
+import android.util.Log;
 
-import com.mujin.androidremoteservant.core.session.DeviceProvider;
-import com.mujin.androidremoteservant.core.stf.cap.MiniCap;
 import com.mujin.androidremoteservant.core.stf.touch.MiniTouch;
-import com.mujin.androidremoteservant.core.utils.Device;
+
+import java.io.IOException;
+import java.nio.charset.Charset;
 
 import static com.mujin.androidremoteservant.core.SystemInit.applicationEntry;
 import static com.mujin.androidremoteservant.core.SystemInit.prepareRuntimeNDKEnv;

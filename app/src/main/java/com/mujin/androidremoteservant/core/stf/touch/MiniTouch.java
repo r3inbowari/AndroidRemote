@@ -36,21 +36,25 @@ public class MiniTouch extends AbstractMiniTouch {
             while (true) {
                 try {
                     Thread.sleep(3000);
-                    this.eventManager.tap(0, 400, 400);
-                    Thread.sleep(16);
-                    this.eventManager.release(0);
+                    this.eventManager.tap(1, 400, 400);
+//                    Thread.sleep(16);
+//                    this.eventManager.release(1);
+                    for (int i = 200; i < 400; i++) {
+                        this.eventManager.move(1, 400, i);
+                    }
+                    this.eventManager.release(1);
 
-                    this.eventManager.move(3, 400, 200);
-                    Thread.sleep(1621);
-                    this.eventManager.move(3, 410, 210);
-                    Thread.sleep(1621);
-                    this.eventManager.move(3, 420, 230);
-                    Thread.sleep(1621);
-                    this.eventManager.move(3, 450, 220);
-                    Thread.sleep(1621);
-                    this.eventManager.move(3, 460, 320);
-                    Thread.sleep(1621);
-                    this.eventManager.release(3);
+//                    this.eventManager.move(3, 400, 200);
+//                    Thread.sleep(1621);
+//                    this.eventManager.move(3, 410, 210);
+//                    Thread.sleep(1621);
+//                    this.eventManager.move(3, 420, 230);
+//                    Thread.sleep(1621);
+//                    this.eventManager.move(3, 450, 220);
+//                    Thread.sleep(1621);
+//                    this.eventManager.move(3, 460, 320);
+//                    Thread.sleep(1621);
+                    // this.eventManager.release(3);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

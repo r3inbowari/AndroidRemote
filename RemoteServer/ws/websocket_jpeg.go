@@ -4,7 +4,6 @@ import (
 	pics "RemoteServer/jpeg"
 	"RemoteServer/touch"
 	bilicoin "RemoteServer/utils"
-	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
@@ -92,14 +91,18 @@ func screen(c *gin.Context) {
 			return
 		}
 
-		var t touch.Touch
+		var t touch.Event
 
 		// unmarshal
-		err = json.Unmarshal(message, &t)
+		// err = json.Unmarshal(message, &t)
+		UnmarshalBinaryEvent(message, &t)
+
 		if err != nil {
 			bilicoin.Warn("[WS] a wrong touch event struct")
+			println(err.Error())
 			continue
 		}
+		t.Id = deviceID.(string)
 		tapController <- &t
 	}
 
@@ -133,6 +136,15 @@ func screen(c *gin.Context) {
 	//		break
 	//	}
 	//}
+}
+
+func UnmarshalBinaryEvent(msg []byte, v interface{}) {
+	rv := v.(*touch.Event)
+	rv.Type = pics.GetType(msg)
+	rv.Contact = pics.GetContact(msg)
+	rv.X = pics.GetX(msg)
+	rv.Y = pics.GetY(msg)
+	rv.Ts = pics.GetTs(msg)
 }
 
 func JPEGWebsocketServer() {

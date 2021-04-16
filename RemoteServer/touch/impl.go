@@ -10,20 +10,25 @@ type Server struct {
 	UnimplementedTouchServer
 }
 
-// Touch event struct
-type Touch struct {
+// Event event struct
+type Event struct {
 	Id      string `json:"id"`
-	Type    string `json:"type"`
+	Type    int    `json:"type"`
 	X       int    `json:"x"`
 	Y       int    `json:"y"`
 	Contact int    `json:"contact"`
 	Ts      int64  `json:"ts"`
 }
 
+// Event 执行
+func (t *Event) exec() {
+
+}
+
 type TapSession struct {
 	Id          string
 	TouchStream Touch_TouchReqServer
-	Ch2         chan *Touch // 命令传输通道
+	Ch2         chan *Event // 命令传输通道
 	// 持有者 CAS..?
 }
 
@@ -37,7 +42,7 @@ func RegTapSession(id string, stream Touch_TouchReqServer) *TapSession {
 	var cs TapSession
 	cs.TouchStream = stream
 	cs.Id = id
-	cs.Ch2 = make(chan *Touch, 100) // cap = 100
+	cs.Ch2 = make(chan *Event, 100) // cap = 100
 	TapSessionsMap.Store(id, cs)
 	return &cs
 }
@@ -74,6 +79,17 @@ func (s Server) TouchReq(request *TouchRequest, stream Touch_TouchReqServer) err
 			return ctx.Err()
 		case event := <-ts.Ch2:
 			bilicoin.Info("[TAP] send event", logrus.Fields{"id": event.Id, "x": event.X, "y": event.Y, "contact": event.Contact, "type": event.Type, "ts": event.Ts})
+			err := stream.Send(&TouchReply{
+				Type:    TouchReply_TouchType(event.Type),
+				X:       int32(event.X),
+				Y:       int32(event.Y),
+				Contact: int32(event.Contact),
+				Ts:      event.Ts,
+			})
+			if err != nil {
+				println(err.Error())
+				return err
+			}
 		}
 	}
 

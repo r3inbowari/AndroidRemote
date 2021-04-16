@@ -50,6 +50,89 @@ export default defineComponent({
     return {}
   },
   setup() {
+    function stobs(str) {
+      var ch,
+        st,
+        re = []
+      for (var i = 0; i < str.length; i++) {
+        ch = str.charCodeAt(i) // get char
+        st = [] // set up "stack"
+        do {
+          st.push(ch & 0xff) // push byte to stack
+          ch = ch >> 8 // shift value down by 1 byte
+        } while (ch)
+        // add stack contents to result
+        // done because chars have "wrong" endianness
+        re = re.concat(st.reverse())
+      }
+      // return an array of bytes
+      return re
+    }
+
+    function ShortToUInt16(s) {
+      var targets = []
+      targets[0] = (s >> 8) & 0xff
+      targets[1] = s & 0xff
+      return targets
+    }
+
+    function U64(i) {
+      // console.log(i)
+      var targets = []
+      targets[0] = 0
+      targets[1] = 0
+      targets[2] = 0
+      targets[3] = 0
+      targets[7] = i & 0xff
+      targets[6] = (i >> 8) & 0xff
+      targets[5] = (i >> 16) & 0xff
+      targets[4] = (i >> 24) & 0xff
+      return targets
+    }
+
+    onMounted(() => {
+      // 0x45, 0x56, 0x45, 0x4E, 0X54,
+      // 0x33,
+      // 0x10,       // 0001 0000 -> Contact 1, Type,
+      // 0x01, 0xF4, // 500 X
+      // 0x01, 0xF4, // 500 Y
+      // 0x00, 0x00, 0x00, 0x00, 0x60, 0x79, 0x86, 0xA6, // 1618577062 Ts
+      // console.log('test')
+      // let tag = [0x45, 0x56, 0x45, 0x4e, 0x54, 0x33]
+      // let contact = 1
+      // let type = 0
+      // let combine = contact << 4 | type
+      // let x = ShortToUInt16(500)
+      // let y = ShortToUInt16(500)
+      // let ts = U64(Date.parse(new Date()) / 1000)
+      // let sb = stobs('a8f5f167f44f4964e6c998dee827110c')
+      // tag.push.apply(tag, [combine])
+      // tag.push.apply(tag, x)
+      // tag.push.apply(tag, y)
+      // tag.push.apply(tag, ts)
+      // tag.push.apply(tag, sb)
+      // console.log(tag)
+      // --------------------
+      // setTimeout(() => {
+      //   console.log('move')
+      //   let tag = [0x45, 0x56, 0x45, 0x4e, 0x54, 0x33]
+      //   let contact = 1
+      //   let type = 1
+      //   let combine = (contact << 4) | type
+      //   let x = ShortToUInt16(parseInt(500))
+      //   let y = ShortToUInt16(parseInt(500))
+      //   let ts = U64(Date.parse(new Date()) / 1000)
+      //   let sb = stobs('a8f5f167f44f4964e6c998dee827110c')
+      //   tag.push.apply(tag, [combine])
+      //   tag.push.apply(tag, x)
+      //   tag.push.apply(tag, y)
+      //   tag.push.apply(tag, ts)
+      //   tag.push.apply(tag, sb)
+      //   let arrayBuffer = new Int8Array(tag).buffer
+      //   websocketsend(arrayBuffer)
+      // }, 5000)
+    })
+
     const router = useRouter()
 
     // exit game trigger
@@ -144,10 +227,40 @@ export default defineComponent({
     const EVENT_SWIPE = 1
     const EVENT_RELEASE = 2
 
-    function onMove() {
-      // console.log('move')
+    let isPress = false
+    let cnt = 0
+    function onMove(e) {
+      cnt++
+      if (isPress && cnt % 4 === 1) {
+        // console.log(
+        //   '[minicap] move -> %d, %d -> %d, %d',
+        //   e.layerX,
+        //   e.layerY,
+        //   e.layerX * transforRatio,
+        //   e.layerY * transforRatio
+        // )
+        console.log('move')
+        let tag = [0x45, 0x56, 0x45, 0x4e, 0x54, 0x33]
+        let contact = 1
+        let type = 1
+        let combine = (contact << 4) | type
+        let x = ShortToUInt16(parseInt(e.layerX * transforRatio))
+        let y = ShortToUInt16(parseInt(e.layerY * transforRatio))
+        let ts = U64(Date.parse(new Date()) / 1000)
+        let sb = stobs('a8f5f167f44f4964e6c998dee827110c')
+
+        tag.push.apply(tag, [combine])
+        tag.push.apply(tag, x)
+        tag.push.apply(tag, y)
+        tag.push.apply(tag, ts)
+        tag.push.apply(tag, sb)
+
+        let arrayBuffer = new Int8Array(tag).buffer
+        websocketsend(arrayBuffer)
+      }
     }
     function onUp(e) {
+      isPress = false
       console.log(
         '[minicap] up -> %d, %d -> %d, %d',
         e.layerX,
@@ -155,8 +268,38 @@ export default defineComponent({
         e.layerX * transforRatio,
         e.layerY * transforRatio
       )
+
+      // TODO: test1
+      // websocketsend(
+      //   JSON.stringify({
+      //     id: 'a8f5f167f44f4964e6c998dee827110c',
+      //     contact: 2,
+      //     x: parseInt(e.layerX * transforRatio),
+      //     y: parseInt(e.layerY * transforRatio),
+      //     ts: Date.parse(new Date()) / 1000,
+      //   })
+      // )
+
+      let tag = [0x45, 0x56, 0x45, 0x4e, 0x54, 0x33]
+      let contact = 1
+      let type = 2
+      let combine = (contact << 4) | type
+      let x = ShortToUInt16(parseInt(e.layerX * transforRatio))
+      let y = ShortToUInt16(parseInt(e.layerY * transforRatio))
+      let ts = U64(Date.parse(new Date()) / 1000)
+      let sb = stobs('a8f5f167f44f4964e6c998dee827110c')
+
+      tag.push.apply(tag, [combine])
+      tag.push.apply(tag, x)
+      tag.push.apply(tag, y)
+      tag.push.apply(tag, ts)
+      tag.push.apply(tag, sb)
+
+      let arrayBuffer = new Int8Array(tag).buffer
+      websocketsend(arrayBuffer)
     }
     function onDown(e) {
+      isPress = true
       console.log(
         '[minicap] down -> %d, %d -> %d, %d',
         e.layerX,
@@ -165,15 +308,32 @@ export default defineComponent({
         e.layerY * transforRatio
       )
 
-      let reqBody = {
-        x: parseInt(e.layerX * transforRatio),
-        y: parseInt(e.layerY * transforRatio),
-        contact: 0,
-        type: EVENT_TAP,
-        ts: Date.parse(new Date()) / 1000,
-      }
+      // TODO: test2
+      // let p = JSON.stringify({
+      //   id: 'a8f5f167f44f4964e6c998dee827110c',
+      //   contact: 0,
+      //   x: parseInt(e.layerX * transforRatio),
+      //   y: parseInt(e.layerY * transforRatio),
+      //   ts: Date.parse(new Date()) / 1000,
+      // })
 
-      console.log(reqBody)
+      let tag = [0x45, 0x56, 0x45, 0x4e, 0x54, 0x33]
+      let contact = 1
+      let type = 0
+      let combine = (contact << 4) | type
+      let x = ShortToUInt16(parseInt(e.layerX * transforRatio))
+      let y = ShortToUInt16(parseInt(e.layerY * transforRatio))
+      let ts = U64(Date.parse(new Date()) / 1000)
+      let sb = stobs('a8f5f167f44f4964e6c998dee827110c')
+
+      tag.push.apply(tag, [combine])
+      tag.push.apply(tag, x)
+      tag.push.apply(tag, y)
+      tag.push.apply(tag, ts)
+      tag.push.apply(tag, sb)
+
+      let arrayBuffer = new Int8Array(tag).buffer
+      websocketsend(arrayBuffer)
     }
 
     // coord transfor from canvasCoord to real-imageCoord
@@ -221,7 +381,8 @@ export default defineComponent({
 
     //数据发送
     function websocketsend(agentData) {
-      websock.send(JSON.stringify(agentData))
+      // websock.send(JSON.stringify(agentData))
+      websock.send(agentData)
     }
 
     //关闭

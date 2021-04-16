@@ -2,10 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bf713413-0619-41a4-bb33-c69da8f8fe23" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/jpeg/event_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jpeg/evt.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ws/ws_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CloudGameServer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/touch/impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/touch/impl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils/log.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ws/websocket_jpeg.go" beforeDir="false" afterPath="$PROJECT_DIR$/ws/websocket_jpeg.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/session/Touch.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/session/Touch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/stf/touch/MiniTouch.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/stf/touch/MiniTouch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/GP.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/GP.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +67,7 @@
       <recent name="C:\Users\inven\Desktop\MujinProject\AndroidRemoteServant\RemoteServer\test" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Test.TestOpenSender in RemoteServer/test">
+  <component name="RunManager" selected="Go Build.go build RemoteServer/cmd">
     <configuration name="go build RemoteServer/cmd" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="RemoteServer" />
       <working_directory value="$PROJECT_DIR$" />
@@ -67,6 +75,18 @@
       <package value="RemoteServer/cmd" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$/cmd/main.go" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestEncode in RemoteServer/jpeg" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="RemoteServer" />
+      <working_directory value="$PROJECT_DIR$/jpeg" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="RemoteServer/jpeg" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestEncode\E$" />
       <method v="2" />
     </configuration>
     <configuration name="TestOpenSender in RemoteServer/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
@@ -81,18 +101,6 @@
       <pattern value="^\QTestOpenSender\E$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestPauseSender in RemoteServer/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="RemoteServer" />
-      <working_directory value="$PROJECT_DIR$/test" />
-      <root_directory value="$PROJECT_DIR$" />
-      <kind value="PACKAGE" />
-      <package value="RemoteServer/test" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <framework value="gotest" />
-      <pattern value="^\QTestPauseSender\E$" />
-      <method v="2" />
-    </configuration>
     <configuration name="TestProduct in RemoteServer/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="RemoteServer" />
       <working_directory value="$PROJECT_DIR$/test" />
@@ -105,25 +113,25 @@
       <pattern value="^\QTestProduct\E$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestPtr in RemoteServer/control" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestUM in RemoteServer/ws" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="RemoteServer" />
-      <working_directory value="$PROJECT_DIR$/control" />
+      <working_directory value="$PROJECT_DIR$/ws" />
       <root_directory value="$PROJECT_DIR$" />
       <kind value="PACKAGE" />
-      <package value="RemoteServer/control" />
+      <package value="RemoteServer/ws" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
       <framework value="gotest" />
-      <pattern value="^\QTestPtr\E$" />
+      <pattern value="^\QTestUM\E$" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Test.TestOpenSender in RemoteServer/test" />
         <item itemvalue="Go Build.go build RemoteServer/cmd" />
+        <item itemvalue="Go Test.TestEncode in RemoteServer/jpeg" />
+        <item itemvalue="Go Test.TestUM in RemoteServer/ws" />
+        <item itemvalue="Go Test.TestOpenSender in RemoteServer/test" />
         <item itemvalue="Go Test.TestProduct in RemoteServer/test" />
-        <item itemvalue="Go Test.TestPauseSender in RemoteServer/test" />
-        <item itemvalue="Go Test.TestPtr in RemoteServer/control" />
       </list>
     </recent_temporary>
   </component>
@@ -133,5 +141,21 @@
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/ws/ws_test.go</url>
+          <line>11</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/jpeg/event_test.go</url>
+          <line>27</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
