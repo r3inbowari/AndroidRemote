@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bf713413-0619-41a4-bb33-c69da8f8fe23" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../CloudGameServer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/control/impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/control/impl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/event/impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/event/impl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jpeg/event_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/event/event_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jpeg/evt.go" beforeDir="false" afterPath="$PROJECT_DIR$/event/event_t.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jpeg/impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/jpeg/impl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils/log.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ws/websocket_jpeg.go" beforeDir="false" afterPath="$PROJECT_DIR$/ws/websocket_jpeg.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/event/event.proto" beforeDir="false" afterPath="$PROJECT_DIR$/event/event.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/proto/Event.proto" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/proto/Event.proto" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,7 +58,7 @@
       <recent name="C:\Users\inven\Desktop\MujinProject\AndroidRemoteServant\RemoteServer\test" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Test.TestOpenSender in RemoteServer/test">
+  <component name="RunManager" selected="Go Build.go build RemoteServer/cmd">
     <configuration name="go build RemoteServer/cmd" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="RemoteServer" />
       <working_directory value="$PROJECT_DIR$" />
@@ -125,8 +118,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Test.TestOpenSender in RemoteServer/test" />
         <item itemvalue="Go Build.go build RemoteServer/cmd" />
+        <item itemvalue="Go Test.TestOpenSender in RemoteServer/test" />
         <item itemvalue="Go Test.TestEncode in RemoteServer/jpeg" />
         <item itemvalue="Go Test.TestUM in RemoteServer/ws" />
         <item itemvalue="Go Test.TestProduct in RemoteServer/test" />

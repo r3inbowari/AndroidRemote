@@ -7,7 +7,7 @@ import android.util.Log;
 import com.mujin.androidremoteservant.core.session.Chat;
 import com.mujin.androidremoteservant.core.session.ChatHeartbeat;
 import com.mujin.androidremoteservant.core.session.Jpeg;
-import com.mujin.androidremoteservant.core.session.Touch;
+import com.mujin.androidremoteservant.core.session.Event;
 import com.mujin.androidremoteservant.core.shell.ProcessShell;
 import com.mujin.androidremoteservant.core.stf.cap.CapProbe;
 import com.mujin.androidremoteservant.core.stf.cap.MiniCap;
@@ -124,6 +124,6 @@ public class SystemInit {
         new Thread(new ChatHeartbeat(context)).start();
 
         // touch connect
-        Touch.getInstance().setDeviceID(DID).sendAndProcess();
+        Event.getInstance().setDeviceID(DID).sendAndProcess();
     }
 }

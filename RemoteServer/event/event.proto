@@ -13,6 +13,7 @@ message EventResponse {
     TAP = 0;
     SWIPE = 1;
     RELEASE = 2;
+    KEYBOARD = 3;
   }
   int32 x = 2;
   int32 y = 3;

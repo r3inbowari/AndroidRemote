@@ -15,18 +15,18 @@ import io.grpc.stub.StreamObserver;
  * 即当 Touch被Attach后 REPLY流不可以完成,知道通信结束
  * 当前一个touch未被服务器detach时, 重新进行attach操作, 那么新的信道将会代替旧的
  */
-public class Touch {
+public class Event {
 
     // touch 的存根
     private EventGrpc.EventStub touchStub = null;
 
-    private static Touch touchInstance = null;
+    private static Event touchInstance = null;
 
     private String deviceID = null;
 
-    public static Touch getInstance() {
+    public static Event getInstance() {
         if (touchInstance == null)
-            touchInstance = new Touch();
+            touchInstance = new Event();
         return touchInstance;
     }
 
@@ -42,13 +42,14 @@ public class Touch {
             public void onNext(EventResponse value) {
                 // touch event 事件处理
                 try {
-                    Log.i("test", value.getType().toString());
-                    if (value.getType().equals(EventResponse.EventType.RELEASE)) {
+                    if (value.getType() == EventResponse.EventType.RELEASE) {
                         MiniTouch.getInstance().getEventManager().release(value.getContact());
-                    } else if (value.getType().equals(EventResponse.EventType.TAP)) {
+                    } else if (value.getType() == EventResponse.EventType.TAP) {
                         MiniTouch.getInstance().getEventManager().tap(value.getContact(), value.getX(), value.getY());
-                    } else if (value.getType().equals(EventResponse.EventType.SWIPE)) {
+                    } else if (value.getType() == EventResponse.EventType.SWIPE) {
                         MiniTouch.getInstance().getEventManager().move(value.getContact(), value.getX(), value.getY());
+                    } else if (value.getType() == EventResponse.EventType.KEYBOARD) {
+                        Log.i("test", "test");
                     }
                 } catch (InterruptedException e) {
                     Log.i("SessionTouch", "Touch failed..");
@@ -70,8 +71,7 @@ public class Touch {
 
     // 断开连接 不需要处理请求测断开, 因为请求不是流, 而是单次数据
 
-
-    public Touch setDeviceID(String deviceID) {
+    public Event setDeviceID(String deviceID) {
         this.deviceID = deviceID;
         return this;
     }
