@@ -173,6 +173,19 @@ func (consumer *Consumer) Consume(delivery rmq.Delivery) {
 			bilicoin.Info("[RMQ] device accessed", logrus.Fields{"id": entity.Id, "stub": entity.Stub, "op": entity.Operation})
 		}
 
+	case bilicoin.REQ_CLOSE_APP:
+		// @param type REQ_CLOSE_APP 1004
+		ret := control.GetSession(entity.Id)
+		if ret == nil {
+			// not exist session
+			bilicoin.Fatal("[RMQ] an offline or undefined device was accessed", logrus.Fields{"id": entity.Id, "stub": entity.Stub, "op": entity.Operation})
+			break
+		}
+		// send open order to device
+		if err := ret.ChatStream.Send(&control.ChatResponse{Output: entity.Data.(string), Type: int32(entity.Operation)}); err != nil {
+			bilicoin.Info("[RMQ] device accessed", logrus.Fields{"id": entity.Id, "stub": entity.Stub, "op": entity.Operation})
+		}
+
 	default:
 		bilicoin.Fatal("[RMQ] illegal or unsupported device accessed", logrus.Fields{"id": entity.Id, "stub": entity.Stub, "op": entity.Operation})
 	}

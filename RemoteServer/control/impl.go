@@ -98,6 +98,15 @@ func (cs *ChatSession) ChatProcess() {
 			// pause screen share
 			// @param output the response of the order
 			bilicoin.Info("[CHAT] device pause screen share ok", logrus.Fields{"id": result.GetId()})
+		case bilicoin.ASK_OPEN_APP:
+			if result.Input == bilicoin.SUCCEED {
+				bilicoin.Info("[CHAT] app has been open", logrus.Fields{"id": result.GetId()})
+			} else {
+				bilicoin.Info("[CHAT] app open failed", logrus.Fields{"id": result.GetId()})
+			}
+		case bilicoin.ASK_CLOSE_APP:
+			bilicoin.Info("[CHAT] app has been closed", logrus.Fields{"id": result.GetId()})
+
 		default:
 			bilicoin.Fatal("[CHAT] unsupported request")
 		}

@@ -145,3 +145,38 @@ func TestOpenApp(t *testing.T) {
 		bilicoin.Fatal("failed to publish")
 	}
 }
+
+func TestCloseApp(t *testing.T) {
+	rInstance := redis.NewClient(&redis.Options{
+		Addr:     bilicoin.GetConfig().RdbURL,
+		Password: bilicoin.GetConfig().RdbPassword,
+		DB:       1,
+	})
+
+	connection, err := rmq.OpenConnectionWithRedisClient("producer", rInstance, nil)
+	if err != nil {
+		panic(err)
+	}
+
+	order, err := connection.OpenQueue("order")
+	if err != nil {
+		panic(err)
+	}
+
+	op := queue.MQOrder{
+		Id:        "deab9dbaaa74541d",
+		Stub:      bilicoin.CreateMD5(time.Now().String()),
+		Data:      "com.shandagames.falloutshelterUc.uc",
+		Msg:       "order",
+		Operation: bilicoin.REQ_CLOSE_APP,
+	}
+
+	dat, err := json.Marshal(op)
+	if err != nil {
+		bilicoin.Fatal("error marshal")
+	}
+
+	if err = order.Publish(string(dat)); err != nil {
+		bilicoin.Fatal("failed to publish")
+	}
+}

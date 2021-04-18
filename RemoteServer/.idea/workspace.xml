@@ -4,11 +4,13 @@
     <list default="true" id="bf713413-0619-41a4-bb33-c69da8f8fe23" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../CloudGameServer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/control/impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/control/impl.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/queue/rmq.go" beforeDir="false" afterPath="$PROJECT_DIR$/queue/rmq.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/rmq_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/test/rmq_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/enum.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils/enum.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/session/Chat.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/session/Chat.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/session/ChatTypeEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/session/ChatTypeEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/session/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/session/Event.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +65,7 @@
       <recent name="C:\Users\inven\Desktop\MujinProject\AndroidRemoteServant\RemoteServer\test" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Test.TestOpenApp in RemoteServer/test">
+  <component name="RunManager" selected="Go Test.TestCloseApp in RemoteServer/test">
     <configuration name="go build RemoteServer/cmd" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="RemoteServer" />
       <working_directory value="$PROJECT_DIR$" />
@@ -73,16 +75,16 @@
       <filePath value="$PROJECT_DIR$/cmd/main.go" />
       <method v="2" />
     </configuration>
-    <configuration name="TestEncode in RemoteServer/jpeg" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestCloseApp in RemoteServer/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="RemoteServer" />
-      <working_directory value="$PROJECT_DIR$/jpeg" />
+      <working_directory value="$PROJECT_DIR$/test" />
       <root_directory value="$PROJECT_DIR$" />
       <kind value="PACKAGE" />
-      <package value="RemoteServer/jpeg" />
+      <package value="RemoteServer/test" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
       <framework value="gotest" />
-      <pattern value="^\QTestEncode\E$" />
+      <pattern value="^\QTestCloseApp\E$" />
       <method v="2" />
     </configuration>
     <configuration name="TestOpenApp in RemoteServer/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
@@ -123,11 +125,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.TestCloseApp in RemoteServer/test" />
         <item itemvalue="Go Test.TestOpenApp in RemoteServer/test" />
-        <item itemvalue="Go Test.TestOpenAppSender in RemoteServer/test" />
         <item itemvalue="Go Build.go build RemoteServer/cmd" />
+        <item itemvalue="Go Test.TestOpenAppSender in RemoteServer/test" />
         <item itemvalue="Go Test.TestOpenSender in RemoteServer/test" />
-        <item itemvalue="Go Test.TestEncode in RemoteServer/jpeg" />
       </list>
     </recent_temporary>
   </component>

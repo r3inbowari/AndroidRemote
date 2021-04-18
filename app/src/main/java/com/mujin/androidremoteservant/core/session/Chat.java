@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.VisibleForTesting;
 
+import com.mujin.androidremoteservant.core.shell.ProcessShell;
 import com.mujin.androidremoteservant.core.stf.cap.MiniCap;
 import com.mujin.androidremoteservant.core.utils.app.AppUtils;
 import com.mujin.androidremoteservant.grpc.gRPCChannelPool;
@@ -14,8 +15,10 @@ import com.r3inb.pb.ChatResponse;
 
 import io.grpc.stub.StreamObserver;
 
+import static com.mujin.androidremoteservant.core.session.ChatTypeEnum.ASK_CLOSE_APP;
 import static com.mujin.androidremoteservant.core.session.ChatTypeEnum.ASK_OPEN_APP;
 import static com.mujin.androidremoteservant.core.session.ChatTypeEnum.FAILED;
+import static com.mujin.androidremoteservant.core.session.ChatTypeEnum.REQ_CLOSE_APP;
 import static com.mujin.androidremoteservant.core.session.ChatTypeEnum.REQ_OPEN_APP;
 import static com.mujin.androidremoteservant.core.session.ChatTypeEnum.SUCCEED;
 
@@ -76,13 +79,19 @@ public class Chat {
                         Log.i(TAG, "device register ask");
                         break;
                     case REQ_OPEN_APP:
-                        boolean isSucceed = false;
+                        boolean isOpeSucceed = false;
                         Log.i(TAG, "launcher app: " + value.getOutput());
                         if (appUtils != null)
-                            isSucceed = appUtils.launchApp(value.getOutput());
+                            isOpeSucceed = appUtils.launchApp(value.getOutput());
                         else
                             Log.i(TAG, "launcher app failed(appUtils is null) app: " + value.getOutput());
-                        sendMsg(ASK_OPEN_APP, isSucceed ? SUCCEED : FAILED);
+                        sendMsg(ASK_OPEN_APP, isOpeSucceed ? SUCCEED : FAILED);
+                        break;
+                    case REQ_CLOSE_APP:
+                        // boolean isCloseSucceed = false;
+                        Log.i(TAG, "try to kill app: " + value.getOutput());
+                        ProcessShell.exec("am force-stop " + value.getOutput(), true);
+                        sendMsg(ASK_CLOSE_APP, SUCCEED);
                         break;
                     default:
                         Log.i(TAG, "unsupported method");
@@ -113,7 +122,6 @@ public class Chat {
             ChatRequest request = ChatRequest.newBuilder()
                     .setInput(payload)
                     .setType(type)
-                    .setInput(payload)
                     .setId(this.deviceID)
                     .build();
 

@@ -48,6 +48,7 @@ const (
 	REQ_PAUSE_SENDER
 	REQ_SEND_JPEG
 	REQ_OPEN_APP
+	REQ_CLOSE_APP
 )
 
 const (
@@ -55,4 +56,9 @@ const (
 	ASK_START_SENDER = iota + 2000
 	ASK_PAUSE_SENDER
 	ASK_SEND_JPEG
+	ASK_OPEN_APP
+	ASK_CLOSE_APP
 )
+
+const SUCCEED = "succeed"
+const FAILED = "failed"

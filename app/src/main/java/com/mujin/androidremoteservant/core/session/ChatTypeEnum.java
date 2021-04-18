@@ -20,9 +20,13 @@ public class ChatTypeEnum {
 
     public static final int REQ_OPEN_APP = 1003;
 
+    public static final int REQ_CLOSE_APP = 1004;
+
     public static final int ASK_START_SENDER = 2000;
     public static final int ASK_PAUSE_SENDER = 2001;
     public static final int ASK_SEND_JPEG = 2002;
 
     public static final int ASK_OPEN_APP = 2003;
+
+    public static final int ASK_CLOSE_APP = 2004;
 }
