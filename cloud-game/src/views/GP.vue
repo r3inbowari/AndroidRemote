@@ -1,5 +1,9 @@
 <template>
-  <div class="game-play-window">
+  <div
+    class="game-play-window keyboard-body"
+    ref="kbRef"
+    @key-event="keyboardEvnetHandler"
+  >
     <div class="play-toolbar-container mujin-drak"></div>
     <div class="play-main-container">
       <button style="display: none" @click="exitGameAsync">退出游戏</button>
@@ -42,6 +46,7 @@ import { VueCookieNext } from 'vue-cookie-next'
 import { IWebSocket } from './ws'
 
 import { exitGame } from './game'
+import { keyCodeMap } from '../utils'
 
 export default defineComponent({
   name: 'App',
@@ -136,6 +141,10 @@ export default defineComponent({
       //   let arrayBuffer = new Int8Array(tag).buffer
       //   websocketsend(arrayBuffer)
       // }, 5000)
+
+      setTimeout(() => {
+        console.log('keyboard event')
+      }, 5000)
     })
 
     const router = useRouter()
@@ -410,14 +419,76 @@ export default defineComponent({
       )
     })
 
+    // 转换与映射关系
+    // 键盘事件 -> 点击事件
+    // @param key    int           键位 keyCode 值
+    // @param redef  bool          是否重定义
+    // @param def    Coord [x, y]  重定义坐标对
+    // 键盘事件 -> 本身
+    const kbRef = ref(null)
+    const eventConfigReactive = reactive({
+      eventConfig: {},
+    })
+    function keyboardEvnetHandler(event) {
+      console.log(event.keyCode)
+      if (keyCodeMap.has(event.keyCode)) {
+        // console.log(keyCodeMap.get(event.keyCode))
+        // 发送测试
+        let tag = [0x45, 0x56, 0x33]
+        let contact = 0
+        let type = 3 // 3 表示键盘事件
+        let combine = (contact << 4) | type
+        let x = ShortToUInt16(keyCodeMap.get(event.keyCode))
+        let y = ShortToUInt16(0)
+        let ts = U64(Date.parse(new Date()) / 1000)
+        // let sb = stobs('a8f5f167f44f4964e6c998dee827110c')
+
+        tag.push.apply(tag, [combine])
+        tag.push.apply(tag, x)
+        tag.push.apply(tag, y)
+        tag.push.apply(tag, ts)
+        // tag.push.apply(tag, sb)
+
+        let arrayBuffer = new Int8Array(tag).buffer
+        websocketsend(arrayBuffer)
+      }
+    }
+
+    function keyboardEvnetInit() {
+      console.log(keyCodeMap)
+      // 配置加载
+      eventConfigReactive.eventConfig = {
+        aid: '6c1de797-ce90-43db-a51d-c77c440792f6', // 游戏id
+        uid: 'dd33b246-ce90-43db-a51d-c77c440792f6', // 游戏用户id
+        index: 0, // 配置索引(0-2)
+        tables: new Map([[46, [300, 300]]]), // 拦截 46 并重定向到Touch 44
+      }
+
+      // 初始化
+      // Vue.config.keyCodes 修改 code 映射参数
+      console.log(kbRef)
+      window.addEventListener('keydown', function (event) {
+        // 使用标准事件插件自定义事件
+        // Vue div中绑定的@key-event就会收到这个自定义事件
+        var myEvent = new Event('key-event')
+        myEvent.keyCode = event.keyCode
+        // dispatch this event
+        kbRef.value.dispatchEvent(myEvent)
+      })
+    }
+
+    onMounted(keyboardEvnetInit)
+
     return {
       exitGameAsync,
       canvasWidth,
       canvasHeight,
       refCanvas,
+      kbRef,
       onMove,
       onUp,
       onDown,
+      keyboardEvnetHandler,
     }
   },
   methods: {},

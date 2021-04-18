@@ -20,8 +20,7 @@ func main() {
 	CloudGameServer.BCApplication()
 
 	time.Sleep(time.Hour * 24)
-    // token 获取
-    // 进入
-
+	// token 获取
+	// 进入
 
 }
