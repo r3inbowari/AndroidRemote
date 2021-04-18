@@ -47,6 +47,7 @@ const (
 	REQ_START_SENDER = iota + 1000
 	REQ_PAUSE_SENDER
 	REQ_SEND_JPEG
+	REQ_OPEN_APP
 )
 
 const (

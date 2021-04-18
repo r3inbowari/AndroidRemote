@@ -11,12 +11,18 @@ public class ChatTypeEnum {
     public static final int REQ = 7;
     public static final int OPR = 8;
 
+    public static final String SUCCEED = "succeed";
+    public static final String FAILED = "failed";
 
     public static final int REQ_START_SENDER = 1000;
     public static final int REQ_PAUSE_SENDER = 1001;
     public static final int REQ_SEND_JPEG = 1002;
 
+    public static final int REQ_OPEN_APP = 1003;
+
     public static final int ASK_START_SENDER = 2000;
     public static final int ASK_PAUSE_SENDER = 2001;
     public static final int ASK_SEND_JPEG = 2002;
+
+    public static final int ASK_OPEN_APP = 2003;
 }

@@ -17,6 +17,7 @@ import com.mujin.androidremoteservant.core.utils.Device;
 import com.mujin.androidremoteservant.core.utils.PID;
 import com.mujin.androidremoteservant.core.utils.ScreenMetrics;
 import com.mujin.androidremoteservant.core.utils.Utils;
+import com.mujin.androidremoteservant.core.utils.app.AppUtils;
 import com.mujin.androidremoteservant.grpc.gRPCChannelPool;
 
 import java.io.IOException;
@@ -119,7 +120,10 @@ public class SystemInit {
         }
 
         // chat connect
-        Chat.getInstance().setDeviceID(DID).connectAndProcess();
+        Chat.getInstance()
+                .setDeviceID(DID)
+                .setAppUtils(new AppUtils(context))
+                .connectAndProcess();
         // reg interval, renewal function
         new Thread(new ChatHeartbeat(context)).start();
 

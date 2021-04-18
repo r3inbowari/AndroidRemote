@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.annotation.VisibleForTesting;
 
 import com.mujin.androidremoteservant.core.stf.cap.MiniCap;
+import com.mujin.androidremoteservant.core.utils.app.AppUtils;
 import com.mujin.androidremoteservant.grpc.gRPCChannelPool;
 import com.r3inb.pb.ChatGrpc;
 import com.r3inb.pb.ChatRequest;
@@ -12,6 +13,11 @@ import com.r3inb.pb.ChatRequestOrBuilder;
 import com.r3inb.pb.ChatResponse;
 
 import io.grpc.stub.StreamObserver;
+
+import static com.mujin.androidremoteservant.core.session.ChatTypeEnum.ASK_OPEN_APP;
+import static com.mujin.androidremoteservant.core.session.ChatTypeEnum.FAILED;
+import static com.mujin.androidremoteservant.core.session.ChatTypeEnum.REQ_OPEN_APP;
+import static com.mujin.androidremoteservant.core.session.ChatTypeEnum.SUCCEED;
 
 /**
  * 设备会话使用的chat通道类
@@ -37,6 +43,8 @@ public class Chat {
     private int heartbeatCnt = 0;
 
     private String deviceID = "null"; // must do
+
+    private AppUtils appUtils = null;
 
     // connect
     // 连接和处理
@@ -66,6 +74,15 @@ public class Chat {
                         break;
                     case ChatTypeEnum.REG:
                         Log.i(TAG, "device register ask");
+                        break;
+                    case REQ_OPEN_APP:
+                        boolean isSucceed = false;
+                        Log.i(TAG, "launcher app: " + value.getOutput());
+                        if (appUtils != null)
+                            isSucceed = appUtils.launchApp(value.getOutput());
+                        else
+                            Log.i(TAG, "launcher app failed(appUtils is null) app: " + value.getOutput());
+                        sendMsg(ASK_OPEN_APP, isSucceed ? SUCCEED : FAILED);
                         break;
                     default:
                         Log.i(TAG, "unsupported method");
@@ -142,6 +159,11 @@ public class Chat {
 
     public Chat setDeviceID(String deviceID) {
         this.deviceID = deviceID;
+        return this;
+    }
+
+    public Chat setAppUtils(AppUtils appUtils) {
+        this.appUtils = appUtils;
         return this;
     }
 }
