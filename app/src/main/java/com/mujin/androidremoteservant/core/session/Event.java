@@ -48,7 +48,7 @@ public class Event {
         this.keyQueue = new ArrayBlockingQueue<>(100);
         this.processShell = new ProcessShell(true);
 
-        processShell.Home();
+        // processShell.Home();
 
         new Thread(() -> {
             try {
