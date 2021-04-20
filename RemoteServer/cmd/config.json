@@ -1,0 +1,13 @@
+{
+  "finger": "1777945899",
+  "api_addr": ":5005",
+  "log_level": "debug",
+  "ws_addr": ":8080",
+  "rdb_url": "r3in.top:6379",
+  "rdb_password": "15598870762",
+  "rdb_index": 1,
+  "device_renew_ttl": 120,
+  "rmq_url": "r3in.top:6379",
+  "rmq_password": "15598870762",
+  "rmq_index": 1
+}

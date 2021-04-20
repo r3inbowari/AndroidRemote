@@ -4,11 +4,14 @@
     <list default="true" id="bf713413-0619-41a4-bb33-c69da8f8fe23" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../CloudGameServer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/rmq_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/test/rmq_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ws/websocket_jpeg.go" beforeDir="false" afterPath="$PROJECT_DIR$/ws/websocket_jpeg.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/SystemInit.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/SystemInit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/stf/cap/MiniCap.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/stf/cap/MiniCap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/GP.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/GP.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,10 +54,11 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/test" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/cmd" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\inven\Desktop\MujinProject\AndroidRemoteServant\RemoteServer\cmd" />
       <recent name="C:\Users\inven\Desktop\MujinProject\AndroidRemoteServant\RemoteServer\test" />
       <recent name="C:\Users\inven\Desktop\MujinProject\AndroidRemoteServant\RemoteServer\ws" />
     </key>
@@ -64,7 +68,7 @@
       <recent name="C:\Users\inven\Desktop\MujinProject\AndroidRemoteServant\RemoteServer\test" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Test.TestCloseApp in RemoteServer/test">
+  <component name="RunManager" selected="Go Build.go build RemoteServer/cmd">
     <configuration name="go build RemoteServer/cmd" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="RemoteServer" />
       <working_directory value="$PROJECT_DIR$" />
@@ -110,7 +114,7 @@
       <pattern value="^\QTestOpenAppSender\E$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestOpenSender in RemoteServer/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestOpenSenderRemote in RemoteServer/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="RemoteServer" />
       <working_directory value="$PROJECT_DIR$/test" />
       <root_directory value="$PROJECT_DIR$" />
@@ -119,16 +123,16 @@
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
       <framework value="gotest" />
-      <pattern value="^\QTestOpenSender\E$" />
+      <pattern value="^\QTestOpenSenderRemote\E$" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Build.go build RemoteServer/cmd" />
+        <item itemvalue="Go Test.TestOpenSenderRemote in RemoteServer/test" />
         <item itemvalue="Go Test.TestCloseApp in RemoteServer/test" />
         <item itemvalue="Go Test.TestOpenApp in RemoteServer/test" />
-        <item itemvalue="Go Build.go build RemoteServer/cmd" />
         <item itemvalue="Go Test.TestOpenAppSender in RemoteServer/test" />
-        <item itemvalue="Go Test.TestOpenSender in RemoteServer/test" />
       </list>
     </recent_temporary>
   </component>

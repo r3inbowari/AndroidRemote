@@ -9,6 +9,7 @@
       <button style="display: none" @click="exitGameAsync">退出游戏</button>
       <div class="play-inner-content">
         <canvas
+          disable-scroll="true"
           ref="refCanvas"
           @mousemove="onMove"
           @mouseup="onUp"
@@ -245,7 +246,7 @@ export default defineComponent({
     let cnt = 0
     function onMove(e) {
       cnt++
-      if (cnt % 8 === 1 && isPress) {
+      if (cnt % 2 === 1 && isPress) {
         // console.log(
         //   '[minicap] move -> %d, %d -> %d, %d',
         //   e.layerX,
@@ -415,7 +416,8 @@ export default defineComponent({
 
     onMounted(() => {
       initWs(
-        'ws://127.0.0.1:8080/screen?session=a8f5f167f44f4964e6c998dee827110c'
+        // 'ws://127.0.0.1:8080/screen?session=a8f5f167f44f4964e6c998dee827110c'
+        'ws://r3in.top:26000/screen?session=a8f5f167f44f4964e6c998dee827110c'
       )
     })
 

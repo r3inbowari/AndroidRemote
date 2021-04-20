@@ -51,15 +51,15 @@ public class MainActivity extends AppCompatActivity {
             applicationEntry(this);
         }).start();
 
-        try {
-            initMR();
-            recordAndPlay();
-        } catch (SocketException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            initMR();
+//            // recordAndPlay();
+//        } catch (SocketException e) {
+//            e.printStackTrace();
+//        }
     }
 
-    AudioRecord mRecord = null;
+
     boolean mReqStop = false;
 
     private final int kSampleRate = 44100;
@@ -71,17 +71,15 @@ public class MainActivity extends AppCompatActivity {
     DatagramSocket socket = null;
 
     private void initMR() throws SocketException {
+        AudioRecord mRecord;
         socket = new DatagramSocket(5004);
 
         int minBufferSize = AudioRecord.getMinBufferSize(kSampleRate, kChannelMode,
                 kEncodeFormat);
-        mRecord = new AudioRecord(MediaRecorder.AudioSource.MIC,
+        mRecord = new AudioRecord(MediaRecorder.AudioSource.CAMCORDER,
                 kSampleRate, kChannelMode, kEncodeFormat, minBufferSize * 2);
 
-    }
-    int cnt = 0;
-    private void recordAndPlay() {
-        // FileOutputStream os = null;
+        System.out.println(mRecord.getState() + "12312312312312313123");
         mRecord.startRecording();
         try {
             // os = new FileOutputStream(filePath);
@@ -109,8 +107,39 @@ public class MainActivity extends AppCompatActivity {
         mRecord.stop();
         mRecord.release();
         mRecord = null;
-        Log.d(TAG, "clean up");
     }
+    int cnt = 0;
+//    private void recordAndPlay() {
+//        // FileOutputStream os = null;
+//        mRecord.startRecording();
+//        try {
+//            // os = new FileOutputStream(filePath);
+//            byte[] buffer = new byte[kFrameSize];
+//            int num = 0;
+//            while (!mReqStop) {
+//                num = mRecord.read(buffer, 0, kFrameSize);
+//                Log.d(TAG, "buffer = " + buffer.toString() + ", num = " + num);
+//                // os.write(buffer, 0, num);
+//                // write here
+//                // byte[] buf = new byte[1024];
+//                // 解析数据包
+//                DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+//                cnt ++;
+//                socket.send(packet);
+//                System.out.println(cnt);
+//            }
+//
+//            Log.d(TAG, "exit loop");
+//            // os.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            Log.e(TAG, "Dump PCM to file failed");
+//        }
+//        mRecord.stop();
+//        mRecord.release();
+//        mRecord = null;
+//        Log.d(TAG, "clean up");
+//    }
 
 //    public void stop(View view) {
 //        mReqStop = true;

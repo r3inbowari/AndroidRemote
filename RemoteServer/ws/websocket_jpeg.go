@@ -47,7 +47,7 @@ func screen(c *gin.Context) {
 	// 协议升级
 	ws, err := upGrader.Upgrade(c.Writer, c.Request, nil)
 	if err != nil {
-		bilicoin.Fatal("[WS] upgrade connection failed", logrus.Fields{"addr": addr.String()})
+		bilicoin.Fatal("[WS] upgrade connection failed", logrus.Fields{"addr": addr.String(), "err": err.Error()})
 		return
 	}
 	bilicoin.Info("[WS] upgraded connection", logrus.Fields{"addr": addr.String(), "sessionID": sessionID})
