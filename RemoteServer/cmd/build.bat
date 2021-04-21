@@ -1,7 +1,7 @@
 for /f "delims=" %%i in ('go version') do (set goVersion=%%i)
 @REM echo %goVersion%
 
-for /f "delims=" %%i in ('git show -s --format^=%%H') do (set gitHash=%%i)
+for /f "delims=" %%i in ('git show -s --format^=%%h') do (set gitHash=%%i)
 @REM echo %gitHash%
 
 for /f "delims=" %%i in ('git show -s --format^=%%cd') do (set buildTime=%%i)

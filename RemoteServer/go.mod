@@ -10,6 +10,7 @@ require (
 	github.com/go-redis/redis/v8 v8.8.0
 	github.com/golang/protobuf v1.4.3
 	github.com/gorilla/websocket v1.4.2
+	github.com/inancgumus/screen v0.0.0-20190314163918-06e984b86ed3
 	github.com/mattn/go-colorable v0.1.8 // indirect
 	github.com/pion/webrtc/v3 v3.0.22
 	github.com/robertkrimen/otto v0.0.0-20200922221731-ef014fd054ac
