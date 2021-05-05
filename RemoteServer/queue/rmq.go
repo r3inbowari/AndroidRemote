@@ -25,9 +25,9 @@ const (
 func Cleaner() {
 	// @warning must use go-redis/v7
 	rInstance := redis.NewClient(&redis.Options{
-		Addr:     bilicoin.GetConfig().RdbURL,
-		Password: bilicoin.GetConfig().RdbPassword,
-		DB:       1,
+		Addr:     bilicoin.GetConfig().RmqURL,
+		Password: bilicoin.GetConfig().RmqPassword,
+		DB:       bilicoin.GetConfig().RmqIndex,
 	})
 	connection, err := rmq.OpenConnectionWithRedisClient("cleaner", rInstance, nil)
 	if err != nil {
@@ -36,7 +36,7 @@ func Cleaner() {
 	}
 
 	cleaner := rmq.NewCleaner(connection)
-	bilicoin.Info("[RMQ] running -> garbage cleaner")
+	bilicoin.Info("[RMQ] running -> garbage cleaner", logrus.Fields{"DEIndex": 1})
 
 	for range time.Tick(time.Second) {
 		cnt, err := cleaner.Clean()

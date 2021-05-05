@@ -10,9 +10,7 @@ import (
 	"time"
 )
 
-/**
- * local config struct
- */
+// LocalConfig /**
 type LocalConfig struct {
 	Finger         string    `json:"finger"`           // canvas指纹
 	APIAddr        string    `json:"api_addr"`         // API服务ADDR

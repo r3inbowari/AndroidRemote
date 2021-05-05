@@ -10,9 +10,7 @@ import (
 	"time"
 )
 
-/**
- * local config struct
- */
+// LocalConfig /**
 type LocalConfig struct {
 	Finger         string    `json:"finger"`           // canvas指纹
 	APIAddr        string    `json:"api_addr"`         // API服务ADDR
@@ -30,6 +28,9 @@ type LocalConfig struct {
 	MdbPassword    string    `json:"mdb_password"`
 	JwtSecret      *string   `json:"jwt_secret"`
 	JwtTimeout     int       `json:"jwt_timeout"`
+	RmqURL         string    `json:"rmq_url"`      // RMQ url
+	RmqPassword    string    `json:"rmq_password"` // RMQ password
+	RmqIndex       int       `json:"rmq_index"`    // RMQ 数据库索引
 }
 
 var config = new(LocalConfig)

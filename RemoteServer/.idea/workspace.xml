@@ -7,15 +7,20 @@
       <change afterPath="$PROJECT_DIR$/../trace/go.mod" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../trace/track.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CloudGameServer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/cmd/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CloudGameServer/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/config.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CloudGameServer/db/mongo.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/db/mongo.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CloudGameServer/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CloudGameServer/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/go.sum" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CloudGameServer/service/todo.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/service/exp.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/utils/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/utils/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/utils/enum.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/utils/enum.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/config.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/event/impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/event/impl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/queue/rmq.go" beforeDir="false" afterPath="$PROJECT_DIR$/queue/rmq.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/test/config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils/config.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/MainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/SystemInit.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/SystemInit.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../cloud-game/.env.development" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/.env.development" afterDir="false" />
