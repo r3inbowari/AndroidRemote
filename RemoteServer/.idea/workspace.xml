@@ -10,9 +10,13 @@
       <change beforePath="$PROJECT_DIR$/../CloudGameServer/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/cmd/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CloudGameServer/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/config.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CloudGameServer/db/mongo.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/db/mongo.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/domain/rtmsg/map.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/domain/rtmsg/map.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CloudGameServer/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CloudGameServer/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/rmq/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/rmq/api.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/server.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CloudGameServer/service/todo.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/service/exp.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/service/user/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/service/user/user.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CloudGameServer/utils/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/utils/config.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CloudGameServer/utils/enum.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/utils/enum.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />

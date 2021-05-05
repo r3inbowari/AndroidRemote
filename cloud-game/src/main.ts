@@ -31,7 +31,7 @@ app
   .use(store, key)
   .use(ElementPlus)
   .use(VueCookieNext) // options api mount
-  .use(VueNativeSock, 'ws://localhost:8081/push', {
+  .use(VueNativeSock, 'ws://localhost:5006/push', {
     reconnection: true, // 自动重连
     reconnectionAttempts: 20, // 重连次数
     reconnectionDelay: 10 * 1000, // 重连间隔

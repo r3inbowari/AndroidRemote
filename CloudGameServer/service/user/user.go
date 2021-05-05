@@ -42,7 +42,7 @@ func (u *User) Delete() error {
 	return db.MDB().DeleteOne(u)
 }
 
-// exist
+// IsExist exist
 func (u *User) IsExist() bool {
 	var users []User
 	err := db.MDB().FindAll(bson.M{"mobile": u.Mobile}, &users)
@@ -52,13 +52,13 @@ func (u *User) IsExist() bool {
 	return true
 }
 
-// validate
+// Validate validate
 func (u *User) Validate() error {
 	_, err := govalidator.ValidateStruct(u)
 	return err
 }
 
-// check token
+// CheckToken check token
 func CheckToken(token string) bool {
 	result, err := jwt.Parse(token, func(*jwt.Token) (interface{}, error) {
 		return bilicoin.GetConfig().GetJwtSecret(), nil
@@ -74,7 +74,7 @@ func CheckToken(token string) bool {
 	return true
 }
 
-// create token
+// CreateToken create token
 func (u *User) CreateToken() (string, error) {
 	claims := &jwt.StandardClaims{
 		NotBefore: time.Now().Unix(),
@@ -100,7 +100,7 @@ func (u *User) CreateUser() *User {
 	return u
 }
 
-// simple login
+// Login simple login
 func (u *User) Login() (string, error) {
 	if u.Mobile == "" || u.Password == "" {
 		return "", errors.New("format error")
@@ -128,7 +128,7 @@ func (u *User) Login() (string, error) {
 	}
 }
 
-// token 获取用户 id
+// GetInfoByToken token 获取用户 id
 func GetInfoByToken(token string) (*User, error) {
 	result, err := jwt.Parse(token, func(*jwt.Token) (interface{}, error) {
 		return bilicoin.GetConfig().GetJwtSecret(), nil
