@@ -79,7 +79,7 @@ func (s Server) EventReq(request *EventRequest, stream Event_EventReqServer) err
 }
 
 // ParseEvent
-// Type:    int(bs[6] & 0x0F),
+// Type:    int(bs[3] & 0x0F),
 // X:       int(binary.BigEndian.Uint16(bs[7:9])),
 // Y:       int(binary.BigEndian.Uint16(bs[9:11])),
 // Contact: int((bs[6] & 0xF0) >> 4),

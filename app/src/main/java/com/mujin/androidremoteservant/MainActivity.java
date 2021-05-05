@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
         int minBufferSize = AudioRecord.getMinBufferSize(kSampleRate, kChannelMode,
                 kEncodeFormat);
-        mRecord = new AudioRecord(MediaRecorder.AudioSource.CAMCORDER,
+        mRecord = new AudioRecord(MediaRecorder.AudioSource.REMOTE_SUBMIX,
                 kSampleRate, kChannelMode, kEncodeFormat, minBufferSize * 2);
 
         System.out.println(mRecord.getState() + "12312312312312313123");

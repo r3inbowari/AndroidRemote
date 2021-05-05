@@ -1,8 +1,8 @@
 {
   "finger": "1777945899",
-  "api_addr": ":5005",
+  "api_addr": ":5006",
   "log_level": "debug",
-  "ws_addr": ":8080",
+  "ws_addr": ":8081",
   "broker_host": "119.23.175.142:1883",
   "broker_username": "r3inb",
   "broker_password": "159463",

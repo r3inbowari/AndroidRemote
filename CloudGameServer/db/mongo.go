@@ -91,7 +91,7 @@ func (db *MongoExp) SetDBName(dbn string) {
 	db.dbn = dbn
 }
 
-// get collection
+// C get collection
 func (db *MongoExp) C(collectionName string) *mongo.Collection {
 	return db.Client.Database(db.dbn).Collection(collectionName)
 }
@@ -111,7 +111,7 @@ func (db *MongoExp) InsertOne(idoc interface{}, opts ...*options.InsertOneOption
 	return err
 }
 
-// only first type will predicted
+// InsertMany only first type will predicted
 func (db *MongoExp) InsertMany(idocs []interface{}, opts ...*options.InsertManyOptions) error {
 	var err error
 	if len(idocs) == 0 {

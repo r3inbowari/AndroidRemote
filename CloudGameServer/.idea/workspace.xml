@@ -2,8 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e102a309-9211-4948-bf88-6afa939dea44" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../trace/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../trace/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../trace/go.mod" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../trace/track.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/mongo.go" beforeDir="false" afterPath="$PROJECT_DIR$/db/mongo.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/todo.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/exp.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../RemoteServer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RemoteServer/cmd/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/cmd/config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RemoteServer/event/impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/event/impl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RemoteServer/test/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/test/config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/SystemInit.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/SystemInit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cloud-game/.env.development" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/.env.development" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cloud-game/.env.production" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/.env.production" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cloud-game/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/main.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +43,13 @@
   <component name="GoLibraries">
     <option name="indexEntireGoPath" value="false" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/test/config.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/server.go" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/config.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/cmd/main.go" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/utils/log.go" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="ProjectId" id="1r7PWoZneOoF8pW1slusEdlUa5A" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -38,9 +63,18 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../trace" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Go Build.go build CloudGameServer/cmd">
+    <configuration name="go build CloudGameServer/cmd" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="CloudGameServer" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="CloudGameServer/cmd" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/cmd/main.go" />
+      <method v="2" />
+    </configuration>
     <configuration name="TestTestWs in CloudGameServer/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="CloudGameServer" />
       <working_directory value="$PROJECT_DIR$/test" />
@@ -55,6 +89,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Build.go build CloudGameServer/cmd" />
         <item itemvalue="Go Test.TestTestWs in CloudGameServer/test" />
       </list>
     </recent_temporary>
@@ -65,5 +100,16 @@
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/service/user/user.go</url>
+          <line>81</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

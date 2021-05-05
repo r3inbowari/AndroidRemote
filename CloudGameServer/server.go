@@ -7,6 +7,8 @@ import (
 	bilicoin "CloudGameServer/utils"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/gorilla/websocket"
+	"github.com/sirupsen/logrus"
 	"net/http"
 	"strings"
 )
@@ -14,7 +16,7 @@ import (
 var s *gin.Engine
 
 func BCApplication() {
-	bilicoin.Info("Cloud Game Server running")
+	bilicoin.Info("[WS] Cloud Game Server running")
 	bilicoin.Info("[BCS] Listened on " + bilicoin.GetConfig().APIAddr)
 
 	s = gin.Default()
@@ -23,7 +25,55 @@ func BCApplication() {
 	s.Use(gin.Recovery())
 	user.MappingUser(s)
 
-	go s.Run(":5005")
+	go s.Run(bilicoin.GetConfig().APIAddr)
+
+	bilicoin.Info("[WS] running")
+	bilicoin.Info("[WS] Listened on " + bilicoin.GetConfig().WsAddr)
+
+	r := gin.Default()
+	r.GET("/push", push)
+	go r.Run(bilicoin.GetConfig().WsAddr)
+	bilicoin.Info("[WS] running -> push service")
+
+}
+
+var upGrader = websocket.Upgrader{
+	CheckOrigin: func(r *http.Request) bool {
+		return true
+	},
+}
+
+func push(c *gin.Context) {
+
+	addr, _ := c.RemoteIP()
+
+	// 协议升级
+	ws, err := upGrader.Upgrade(c.Writer, c.Request, nil)
+	if err != nil {
+		bilicoin.Fatal("[WS] upgrade connection failed", logrus.Fields{"addr": addr.String(), "err": err.Error()})
+		return
+	}
+
+	// 处理断开
+	defer func() {
+		ws.Close()
+		bilicoin.Info("[WS] close ws connection", logrus.Fields{"addr": addr.String()})
+	}()
+
+	for {
+		mt, _, err := ws.ReadMessage()
+		if err != nil {
+			bilicoin.Warn("[WS] websocket reset due to some inner problems")
+			return
+		}
+
+		// println(string(message))
+		err = ws.WriteMessage(mt, []byte("pong"))
+		if err != nil {
+			return
+		}
+	}
+
 }
 
 func CorsComplex() gin.HandlerFunc {

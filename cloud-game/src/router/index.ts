@@ -9,7 +9,7 @@ export const routerMap = [
   {
     name: 'Home',
     path: '/home',
-    component: importView('HomePage'),
+    component: importView('Home'),
   },
   {
     name: 'Play',

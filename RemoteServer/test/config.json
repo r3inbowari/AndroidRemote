@@ -5,7 +5,7 @@
   "ws_addr": ":8080",
   "rdb_url": "r3in.top:6379",
   "rdb_password": "15598870762",
-  "rdb_index": 1,
+  "rdb_index": 0,
   "device_renew_ttl": 120,
   "rmq_url": "r3in.top:6379",
   "rmq_password": "15598870762",
