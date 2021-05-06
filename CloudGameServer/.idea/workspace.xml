@@ -5,17 +5,14 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/domain/rtmsg/map.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/rtmsg/map.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rmq/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/rmq/api.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/server.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/user/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/user/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/rtmsg/handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/rtmsg/handler.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/enum.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils/enum.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../RemoteServer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RemoteServer/queue/rmq.go" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/queue/rmq.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RemoteServer/utils/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/utils/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/stf/cap/MiniCap.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/stf/cap/MiniCap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/GP.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/GP.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cloud-game/src/ws.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/ws.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,14 +62,16 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/queue" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/test" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\inven\Desktop\MujinProject\AndroidRemoteServant\CloudGameServer\test" />
       <recent name="C:\Users\inven\Desktop\MujinProject\AndroidRemoteServant\CloudGameServer\queue" />
+      <recent name="C:\Users\inven\Desktop\MujinProject\AndroidRemoteServant\CloudGameServer\db" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Build.go build CloudGameServer/cmd">
+  <component name="RunManager" selected="Go Test.TestInit in CloudGameServer/test">
     <configuration name="go build CloudGameServer/cmd" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="CloudGameServer" />
       <working_directory value="$PROJECT_DIR$" />
@@ -82,7 +81,43 @@
       <filePath value="$PROJECT_DIR$/cmd/main.go" />
       <method v="2" />
     </configuration>
-    <configuration name="TestTestWs in CloudGameServer/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestESQ in CloudGameServer/queue" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="CloudGameServer" />
+      <working_directory value="$PROJECT_DIR$/queue" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="CloudGameServer/queue" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestESQ\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestESQ1 in CloudGameServer/queue" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="CloudGameServer" />
+      <working_directory value="$PROJECT_DIR$/queue" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="CloudGameServer/queue" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestESQ1\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestInit in CloudGameServer/device" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="CloudGameServer" />
+      <working_directory value="$PROJECT_DIR$/device" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="CloudGameServer/device" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestInit\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestInit in CloudGameServer/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="CloudGameServer" />
       <working_directory value="$PROJECT_DIR$/test" />
       <root_directory value="$PROJECT_DIR$" />
@@ -91,13 +126,16 @@
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
       <framework value="gotest" />
-      <pattern value="^\QTestTestWs\E$" />
+      <pattern value="^\QTestInit\E$" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.TestInit in CloudGameServer/test" />
+        <item itemvalue="Go Test.TestInit in CloudGameServer/device" />
+        <item itemvalue="Go Test.TestESQ1 in CloudGameServer/queue" />
+        <item itemvalue="Go Test.TestESQ in CloudGameServer/queue" />
         <item itemvalue="Go Build.go build CloudGameServer/cmd" />
-        <item itemvalue="Go Test.TestTestWs in CloudGameServer/test" />
       </list>
     </recent_temporary>
   </component>
@@ -107,16 +145,5 @@
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/service/rtmsg/handler.go</url>
-          <line>18</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

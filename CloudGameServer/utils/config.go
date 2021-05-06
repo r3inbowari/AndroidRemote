@@ -31,6 +31,9 @@ type LocalConfig struct {
 	RmqURL         string    `json:"rmq_url"`      // RMQ url
 	RmqPassword    string    `json:"rmq_password"` // RMQ password
 	RmqIndex       int       `json:"rmq_index"`    // RMQ 数据库索引
+	RdbURL         string    `json:"rdb_url"`      // redis url
+	RdbPassword    string    `json:"rdb_password"` // redis password
+	RdbIndex       int       `json:"rdb_index"`    // Rdb 数据库索引
 }
 
 var config = new(LocalConfig)

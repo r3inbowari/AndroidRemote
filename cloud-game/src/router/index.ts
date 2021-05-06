@@ -1,4 +1,8 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import {
+  createRouter,
+  createWebHashHistory,
+  createWebHistory,
+} from 'vue-router'
 import { importView } from '../utils'
 
 export const routerMap = [
@@ -21,6 +25,6 @@ export const routerMap = [
 export const asyncRouterMap = []
 
 export const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes: routerMap,
 })

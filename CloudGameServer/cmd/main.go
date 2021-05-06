@@ -17,6 +17,7 @@ func main() {
 	//CloudGameServer.MQTTMapping("hello", func(client mqtt.Client, message mqtt.Message) {
 	//	println(string(message.Payload()))
 	//})
+	db.InitRDB()
 
 	rmq.InitRMQPub()
 

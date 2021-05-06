@@ -32,7 +32,7 @@ app
   .use(ElementPlus)
   .use(VueCookieNext) // options api mount
   .use(VueNativeSock, 'ws://localhost:5006/push', {
-    reconnection: true, // 自动重连
+    reconnection: false, // 自动重连
     reconnectionAttempts: 20, // 重连次数
     reconnectionDelay: 10 * 1000, // 重连间隔
     connectManually: true, // 启动手动连接模式

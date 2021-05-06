@@ -15,5 +15,8 @@
   "jwt_secret": "15598870762",
   "rmq_url": "r3in.top:6379",
   "rmq_password": "15598870762",
-  "rmq_index": 1
+  "rmq_index": 1,
+  "rdb_url": "r3in.top:6379",
+  "rdb_password": "15598870762",
+  "rdb_index": 0
 }
