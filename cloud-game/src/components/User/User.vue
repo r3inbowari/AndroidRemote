@@ -1,7 +1,7 @@
 <template>
   <div class="nav-user-content">
     <div @click="onClickAvatar" class="user-login-btn">
-      <el-avatar :size="38" @error="errorHandler">
+      <el-avatar :size="50" @error="errorHandler">
         <img
           src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
         />
@@ -28,13 +28,12 @@ import { useStore } from 'vuex'
   },
 })
 export default class MiniUser extends Vue {
-
   store = useStore(key)
 
   created() {}
 
   onClickAvatar() {
-    if(this.store.state.token === '') {
+    if (this.store.state.token === '') {
       this.$refs['nop'].needLogin()
     }
   }

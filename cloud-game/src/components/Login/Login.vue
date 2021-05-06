@@ -383,7 +383,11 @@ span::selection {
 
 .login-submit .el-button {
   width: 320px;
-  margin-left: 20px;
+  /* margin-left: 20px; */
+}
+
+.login-submit {
+  text-align: center;
 }
 
 .login-footer {

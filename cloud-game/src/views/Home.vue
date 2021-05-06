@@ -14,7 +14,11 @@
             <a href="/games" id="games"> <span>客服中心</span></a>
           </li>
         </ul>
-        <div class="login"></div>
+        <div class="login">
+          <div class="login-avatar">
+            <MiniUser> </MiniUser>
+          </div>
+        </div>
       </nav>
     </header>
 
@@ -40,11 +44,11 @@ import {
   watch,
 } from 'vue'
 
-import bg from '../assets/overlay_main_top.png'
+import MiniUser from '../components/User/User.vue'
 
 export default defineComponent({
   name: 'App',
-  components: {},
+  components: { MiniUser },
   data() {
     return {}
   },
@@ -135,7 +139,7 @@ a {
 }
 
 span {
-  font-family: 'Noto Sans SC';
+  font-family: 'Noto Sans SC', sans-serif;
 }
 
 .nav .navi li {
@@ -175,12 +179,24 @@ span {
   height: 100%;
   position: absolute;
   top: 0;
-  right: 20px;
+  right: 0px;
   font-size: 14px;
   font-weight: bold;
   line-height: 1.43;
   color: #b0baca;
   text-align: right;
+}
+
+.nav .login .login-avatar {
+  font: inherit;
+  color: inherit;
+
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  font-size: 0;
 }
 
 /* banner的背景 */
