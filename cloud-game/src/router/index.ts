@@ -20,6 +20,11 @@ export const routerMap = [
     path: '/play',
     component: importView('GP'),
   },
+  {
+    name: 'Game',
+    path: '/game/:aid',
+    component: importView('Game'),
+  },
 ]
 
 export const asyncRouterMap = []
