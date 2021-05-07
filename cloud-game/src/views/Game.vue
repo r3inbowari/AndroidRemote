@@ -154,8 +154,12 @@
           </div>
         </section>
       </div>
-
-      <section class="other-games"></section>
+      <section class="other-games">
+        <div class="content">
+          <h3>相关游戏</h3>
+          <OtherGame></OtherGame>
+        </div>
+      </section>
     </section>
     <footer class="footer">
       <HomeFooter></HomeFooter>
@@ -181,9 +185,11 @@ import HomeFooter from '../components/Footer.vue'
 
 import DetailSlider from '../components/DetailSlider.vue'
 
+import OtherGame from '../components/OtherGame.vue'
+
 export default defineComponent({
   name: 'GameDetail',
-  components: { HomeFooter, DetailSlider },
+  components: { HomeFooter, DetailSlider, OtherGame },
   props: {},
   setup() {
     const route = useRoute()
@@ -639,5 +645,28 @@ button {
 .game-detail .screenshot {
   position: relative;
   padding: 60px 0 30px;
+}
+
+/* 其他游戏 */
+.other-games .content {
+  width: 1240px;
+  position: relative;
+  margin: 0 auto;
+  padding: 0 20px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.other-games h3 {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1.25;
+  color: #000f45;
+  margin-left: 20px;
+}
+
+.other-games {
+  padding: 100px 0;
+  background-color: #fff;
 }
 </style>
