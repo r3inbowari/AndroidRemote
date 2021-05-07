@@ -22,105 +22,113 @@
       </nav>
     </header>
 
-    <section class="section-banner">
-      <!-- banner的背景 -->
-      <div class="background" :style="bannerBackground">
-        <div class="overlay"></div>
-      </div>
+    <section id="body">
+      <section class="section-banner">
+        <!-- banner的背景 -->
+        <div class="background" :style="bannerBackground">
+          <div class="overlay"></div>
+        </div>
 
-      <!-- banner走马灯 -->
-      <div class="content">
-        <!-- 滑动列表 -->
-        <div class="slider">
-          <div class="slick-list" style="width: 1200px">
-            <!-- prev -->
-            <button
-              type="button"
-              class="slick-prev slick-arrow"
-              style="display: block"
-              @click="onClickSlideNav(0)"
-            >
-              <i class="arrow"></i
-              ><span class="icon" :style="prevIconBackground"></span
-              ><span class="txt"
-                ><span class="title">{{ slideItems[prevIndex].title }}</span
-                ><span id="HIVEsocial_main_banner_prev_game" class="game">{{
-                  slideItems[prevIndex].alias
-                }}</span></span
+        <!-- banner走马灯 -->
+        <div class="content">
+          <!-- 滑动列表 -->
+          <div class="slider">
+            <div class="slick-list" style="width: 1200px">
+              <!-- prev -->
+              <button
+                type="button"
+                class="slick-prev slick-arrow"
+                style="display: block"
+                @click="onClickSlideNav(0)"
               >
-            </button>
+                <i class="arrow"></i
+                ><span class="icon" :style="prevIconBackground"></span
+                ><span class="txt"
+                  ><span class="title">{{ slideItems[prevIndex].title }}</span
+                  ><span id="HIVEsocial_main_banner_prev_game" class="game">{{
+                    slideItems[prevIndex].alias
+                  }}</span></span
+                >
+              </button>
 
-            <div class="cover-title">
-              <div class="desc">
-                <p class="event_title">{{ slideItems[currentIndex].title }}</p>
-                <p class="game_title">{{ slideItems[currentIndex].alias }}</p>
-                <br style="-webkit-user-select: none; user-select: none" />
-                <div class="slide_progress_bar" style="width: 300px">
-                  <p class="progress_num">
-                    <span class="current">{{ currentIndex + 1 }}</span
-                    >/<span class="total">{{ slideItems.length }}</span>
+              <div class="cover-title">
+                <div class="desc">
+                  <p class="event_title">
+                    {{ slideItems[currentIndex].title }}
                   </p>
-                  <div class="gauge" :style="processLoading"></div>
+                  <p class="game_title">{{ slideItems[currentIndex].alias }}</p>
+                  <br style="-webkit-user-select: none; user-select: none" />
+                  <div class="slide_progress_bar" style="width: 300px">
+                    <p class="progress_num">
+                      <span class="current">{{ currentIndex + 1 }}</span
+                      >/<span class="total">{{ slideItems.length }}</span>
+                    </p>
+                    <div class="gauge" :style="processLoading"></div>
+                  </div>
+                  <!-- end -->
                 </div>
-                <!-- end -->
               </div>
-            </div>
 
-            <swiper
-              :slidesPerView="1"
-              :spaceBetween="0"
-              :loop="true"
-              :pagination="{
-                clickable: true,
-              }"
-              :navigation="false"
-              class="mySwiper"
-              @slideChange="onSlideChange"
-              @swiper="onSwiper"
-            >
-              <!-- 滑动列表加载 -->
-              <swiper-slide v-for="slideItem in slideItems"
-                ><img class="img-cover" :src="slideItem.cover" />
-              </swiper-slide>
-            </swiper>
-
-            <!-- next -->
-            <button
-              type="button"
-              class="slick-next slick-arrow"
-              style="display: block"
-              @click="onClickSlideNav(1)"
-            >
-              <i class="arrow"></i
-              ><span class="icon" :style="nextIconBackground"></span
-              ><span class="txt"
-                ><span class="title">{{ slideItems[nextIndex].title }}</span
-                ><span id="HIVEsocial_main_banner_prev_game" class="game">{{
-                  slideItems[nextIndex].alias
-                }}</span></span
+              <swiper
+                :slidesPerView="1"
+                :spaceBetween="0"
+                :loop="true"
+                :pagination="{
+                  clickable: true,
+                }"
+                :navigation="false"
+                class="mySwiper"
+                @slideChange="onSlideChange"
+                @swiper="onSwiper"
               >
-            </button>
+                <!-- 滑动列表加载 -->
+                <swiper-slide v-for="slideItem in slideItems"
+                  ><img class="img-cover" :src="slideItem.cover" />
+                </swiper-slide>
+              </swiper>
+
+              <!-- next -->
+              <button
+                type="button"
+                class="slick-next slick-arrow"
+                style="display: block"
+                @click="onClickSlideNav(1)"
+              >
+                <i class="arrow"></i
+                ><span class="icon" :style="nextIconBackground"></span
+                ><span class="txt"
+                  ><span class="title">{{ slideItems[nextIndex].title }}</span
+                  ><span id="HIVEsocial_main_banner_prev_game" class="game">{{
+                    slideItems[nextIndex].alias
+                  }}</span></span
+                >
+              </button>
+            </div>
           </div>
         </div>
+
+        <div class="slide-progress-bar"></div>
+      </section>
+      <div id="content">
+        <section class="section_monthly_issue_game">
+          <div class="content">
+            <h2>热门游戏</h2>
+            <GameSlider></GameSlider>
+          </div>
+        </section>
       </div>
 
-      <div class="slide-progress-bar"></div>
-    </section>
-    <div id="content">
-      <section class="section_monthly_issue_game">
+      <section class="section-updates">
         <div class="content">
-          <h2>热门游戏</h2>
-          <GameSlider></GameSlider>
+          <h2>最近更新的游戏</h2>
+          <NormalCards></NormalCards>
         </div>
       </section>
-    </div>
-
-    <section class="section-updates">
-      <div class="content">
-        <h2>最近更新的游戏</h2>
-        <NormalCards></NormalCards>
-      </div>
     </section>
+
+    <footer class="footer">
+      <HomeFooter></HomeFooter>
+    </footer>
   </div>
 </template>
 
@@ -140,6 +148,8 @@ import GameSlider from '../components/Slider.vue'
 
 import NormalCards from '../components/NormalCards.vue'
 
+import HomeFooter from '../components/Footer.vue'
+
 // import Swiper core and required modules
 import SwiperCore, { Navigation, Pagination } from 'swiper'
 
@@ -157,7 +167,14 @@ SwiperCore.use([Navigation, Pagination])
 
 export default defineComponent({
   name: 'App',
-  components: { MiniUser, Swiper, SwiperSlide, GameSlider, NormalCards },
+  components: {
+    MiniUser,
+    Swiper,
+    SwiperSlide,
+    GameSlider,
+    NormalCards,
+    HomeFooter,
+  },
   data() {
     return {}
   },
@@ -748,5 +765,19 @@ button {
   padding: 0 20px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+}
+
+.section-updates {
+  padding: 0 0 98px;
+}
+
+/* table占位 */
+.section-updates:after {
+  display: table;
+  clear: both;
+  content: '';
+}
+.footer {
+  background-color: #0a0a12;
 }
 </style>
