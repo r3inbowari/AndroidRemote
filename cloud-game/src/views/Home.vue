@@ -41,12 +41,7 @@
               @click="onClickSlideNav(0)"
             >
               <i class="arrow"></i
-              ><span
-                class="icon"
-                style="
-                  background-image: url(https://image-glb.qpyou.cn/hubweb/gmnotice/appcenter/1597307065324.png);
-                "
-              ></span
+              ><span class="icon" :style="prevIconBackground"></span
               ><span class="txt"
                 ><span class="title">{{ slideItems[prevIndex].title }}</span
                 ><span id="HIVEsocial_main_banner_prev_game" class="game">{{
@@ -54,6 +49,22 @@
                 }}</span></span
               >
             </button>
+
+            <div class="cover-title">
+              <div class="desc">
+                <p class="event_title">{{ slideItems[currentIndex].title }}</p>
+                <p class="game_title">{{ slideItems[currentIndex].alias }}</p>
+                <br style="-webkit-user-select: none; user-select: none" />
+                <div class="slide_progress_bar" style="width: 300px">
+                  <p class="progress_num">
+                    <span class="current">{{ currentIndex + 1 }}</span
+                    >/<span class="total">{{ slideItems.length }}</span>
+                  </p>
+                  <div class="gauge" :style="processLoading"></div>
+                </div>
+                <!-- end -->
+              </div>
+            </div>
 
             <swiper
               :slidesPerView="1"
@@ -69,8 +80,8 @@
             >
               <!-- 滑动列表加载 -->
               <swiper-slide v-for="slideItem in slideItems"
-                ><img :src="slideItem.cover"
-              /></swiper-slide>
+                ><img class="img-cover" :src="slideItem.cover" />
+              </swiper-slide>
             </swiper>
 
             <!-- next -->
@@ -81,12 +92,7 @@
               @click="onClickSlideNav(1)"
             >
               <i class="arrow"></i
-              ><span
-                class="icon"
-                style="
-                  background-image: url(https://image-glb.qpyou.cn/hubweb/gmnotice/appcenter/1612412918869.jpg);
-                "
-              ></span
+              ><span class="icon" :style="nextIconBackground"></span
               ><span class="txt"
                 ><span class="title">{{ slideItems[nextIndex].title }}</span
                 ><span id="HIVEsocial_main_banner_prev_game" class="game">{{
@@ -100,6 +106,14 @@
 
       <div class="slide-progress-bar"></div>
     </section>
+    <div id="content">
+      <section class="section_monthly_issue_game">
+        <div class="content">
+          <h2>热门游戏</h2>
+          <GameSlider></GameSlider>
+        </div>
+      </section>
+    </div>
   </div>
 </template>
 
@@ -115,8 +129,10 @@ import {
 
 import MiniUser from '../components/User/User.vue'
 
+import GameSlider from '../components/Slider.vue'
+
 // import Swiper core and required modules
-// import SwiperCore, { Navigation, Pagination } from 'swiper'
+import SwiperCore, { Navigation, Pagination } from 'swiper'
 
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue'
@@ -128,11 +144,11 @@ import 'swiper/swiper-bundle.css'
 // import 'swiper/components/scrollbar/scrollbar.scss'
 
 // install Swiper modules
-// SwiperCore.use([Navigation, Pagination])
+SwiperCore.use([Navigation, Pagination])
 
 export default defineComponent({
   name: 'App',
-  components: { MiniUser, Swiper, SwiperSlide },
+  components: { MiniUser, Swiper, SwiperSlide, GameSlider },
   data() {
     return {}
   },
@@ -140,6 +156,12 @@ export default defineComponent({
   setup() {
     // 横幅背景引用
     let bannerBackground = ref('')
+    // 左侧导航icon
+    let prevIconBackground = ref('')
+    // 右侧导航icon
+    let nextIconBackground = ref('')
+    // process
+    let processLoading = ref('')
 
     let slideItems = reactive([
       {
@@ -148,7 +170,7 @@ export default defineComponent({
         cover:
           'https://image-glb.qpyou.cn/hubweb/hive_img/web/banner/20200317/41a9e65126c0463ad975ac444027bfa3_1200x490.jpg',
         icon:
-          'https://image-glb.qpyou.cn/hubweb/gmnotice/appcenter/1612412918869.jpg',
+          'https://image-glb.qpyou.cn/hubweb/gmnotice/appcenter/1606972197901.jpg',
       },
       {
         title: '内核活动1',
@@ -156,7 +178,7 @@ export default defineComponent({
         cover:
           'https://image-glb.qpyou.cn/hubweb/hive_img/web/banner/20201203/00d2a88aeb6037a2ada2ffd1ad703e61_1200x490.jpg',
         icon:
-          'https://image-glb.qpyou.cn/hubweb/gmnotice/appcenter/1612412918869.jpg',
+          'https://image-glb.qpyou.cn/hubweb/gmnotice/appcenter/1560919617216.jpg',
       },
       {
         title: '内核活动2',
@@ -184,6 +206,8 @@ export default defineComponent({
     let prevIndex = ref(0)
     let nextIndex = ref(0)
 
+    let currentIndex = ref(0)
+
     // 横幅走马灯更改时
     function onSlideChange(e) {
       // 索引判断
@@ -205,17 +229,36 @@ export default defineComponent({
       }
 
       // console.log(prevIndex.value, nextIndex.value)
+      // 更改主背景
       changeBackground(bannerBackground, slideItems[e.realIndex].cover)
+      // 更改 prev icon
+      changeBackground(prevIconBackground, slideItems[prevIndex.value].icon)
+      // 更改 next icon
+      changeBackground(nextIconBackground, slideItems[nextIndex.value].icon)
+      loadingValue = 0
+      currentIndex.value = e.realIndex
     }
 
-    onMounted(() => {
-      // 初始化
+    let loadingValue = 0
 
+    onMounted(() => {
       // 初始化背景
-      changeBackground(
-        bannerBackground,
-        'https://image-glb.qpyou.cn/hubweb/hive_img/web/banner/20200317/41a9e65126c0463ad975ac444027bfa3_1200x490.jpg'
-      )
+      if (slideItems.length > 0) {
+        changeBackground(bannerBackground, slideItems[0].cover)
+      }
+
+      processLoading.value = 'width:0px'
+
+      setInterval(() => {
+        processLoading.value = 'width:' + loadingValue + 'px'
+        loadingValue++
+        if (loadingValue == 200) {
+          if (slideItems.length > 1) {
+            mSwiper.slideNext()
+          }
+          loadingValue = 0
+        }
+      }, 30)
     })
 
     // swiper 初始化完成
@@ -242,6 +285,10 @@ export default defineComponent({
       prevIndex,
       onClickSlideNav,
       onSwiper,
+      prevIconBackground,
+      nextIconBackground,
+      processLoading,
+      currentIndex,
     }
   },
 })
@@ -250,10 +297,10 @@ export default defineComponent({
 <style>
 body {
   /* 全局污染 白色主题 */
-  background-color: white !important;
+  background-color: #f7f8fa !important;
 }
 #app {
-  background-color: white;
+  background-color: #f7f8fa;
 }
 
 .header.main {
@@ -450,15 +497,6 @@ span {
 .section-banner .slider {
   -webkit-mask-image: -webkit-radial-gradient(white, black);
 }
-.section-banner .slider {
-  width: 1200px;
-  height: 490px;
-  position: absolute;
-  overflow: hidden;
-  top: 82px;
-  left: 0;
-  border-radius: 30px;
-}
 
 /* prev */
 .section-banner .slider .slick-prev .arrow {
@@ -622,5 +660,84 @@ button {
   font-weight: bold;
   line-height: 1.38;
   color: #7e8592;
+}
+
+/* title */
+.cover-title {
+  position: absolute;
+  top: 350px;
+  left: 0px;
+  width: 400px;
+  height: 140px;
+  z-index: 20;
+}
+
+.cover-title .desc {
+  margin-left: 50px;
+}
+
+.section-banner .cover-title .desc .event_title {
+  display: block;
+  overflow: hidden;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: bold;
+  font-stretch: normal;
+  line-height: 1.5;
+  color: #1277ff;
+  text-overflow: ellipsis;
+  letter-spacing: normal;
+  word-wrap: normal !important;
+  white-space: nowrap;
+  -o-text-overflow: ellipsis;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.section-banner .slider .desc .game_title {
+  font-size: 16px;
+  font-weight: bold;
+  -webkit-user-select: none;
+  user-select: none;
+  color: #7e8592;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
+  border: 0;
+  font-family: 'Noto Sans', sans-serif;
+}
+
+.gauge {
+  height: 2px;
+  background-color: #1277ff;
+}
+
+.progress_num {
+  font-size: 14px;
+  font-weight: bold;
+  color: #7e8592;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* content内容 */
+.section_monthly_issue_game {
+  padding: 70px 0 40px;
+}
+
+.section_monthly_issue_game .content {
+  overflow-x: hidden;
+}
+
+.content {
+  width: 1240px;
+  position: relative;
+  margin: 0 auto;
+  padding: 0 20px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
 </style>
