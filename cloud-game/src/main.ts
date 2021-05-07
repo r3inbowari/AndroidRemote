@@ -25,11 +25,18 @@ import VueNativeSock from 'vue-native-websocket-vue3'
 
 // import { Fabric } from 'vue-fabric';
 
+import Vant from 'vant'
+import 'vant/lib/index.css'
+
+// 桌面端适配
+// import '@vant/touch-emulator'
+
 const app = createApp(App)
 app
   .use(router)
   .use(store, key)
   .use(ElementPlus)
+  .use(Vant) // vant
   .use(VueCookieNext) // options api mount
   .use(VueNativeSock, 'ws://localhost:5006/push', {
     reconnection: false, // 自动重连
