@@ -114,6 +114,13 @@
         </div>
       </section>
     </div>
+
+    <section class="section-updates">
+      <div class="content">
+        <h2>最近更新的游戏</h2>
+        <NormalCards></NormalCards>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -130,6 +137,8 @@ import {
 import MiniUser from '../components/User/User.vue'
 
 import GameSlider from '../components/Slider.vue'
+
+import NormalCards from '../components/NormalCards.vue'
 
 // import Swiper core and required modules
 import SwiperCore, { Navigation, Pagination } from 'swiper'
@@ -148,7 +157,7 @@ SwiperCore.use([Navigation, Pagination])
 
 export default defineComponent({
   name: 'App',
-  components: { MiniUser, Swiper, SwiperSlide, GameSlider },
+  components: { MiniUser, Swiper, SwiperSlide, GameSlider, NormalCards },
   data() {
     return {}
   },

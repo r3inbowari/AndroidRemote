@@ -6,10 +6,9 @@
       </div>
 
       <p class="tag">
-        <span class="box" v-for="(item, index) in info.tags"
-          >#{{ info.tags[index] }}</span
-        >
-
+        <span class="box" v-for="(item, index) in info.tags">
+          #{{ info.tags[index] }}
+        </span>
         <!-- <span class="box">#{{ info.tags }}</span> -->
       </p>
 
