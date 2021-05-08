@@ -21,7 +21,7 @@ import {
 import SwiperCore, { Navigation, Pagination } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/swiper-bundle.css'
-SwiperCore.use([Navigation, Pagination])
+SwiperCore.use([Pagination])
 
 import WideCard from './WideCard.vue'
 
@@ -78,7 +78,7 @@ export default defineComponent({
 </script>
 
 <style>
-.swiper-slide {
+.long-slider .swiper-slide {
   width: 30%;
 }
 

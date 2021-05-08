@@ -5,7 +5,7 @@
         <div class="overlay">
           <div class="content">
             <ol class="breadcrumb">
-              <li><a href="/" id="nav_home">主界面</a></li>
+              <li><a href="/home" id="nav_home">主界面</a></li>
               <li><a href="/games/648">魔灵召唤：失落的世纪</a></li>
             </ol>
             <h2 class="title">魔灵召唤：失落的世纪</h2>

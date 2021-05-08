@@ -6,14 +6,14 @@ import (
 	"net/http"
 )
 
-func MappingUser(s *gin.Engine) {
-	s.GET("v1/hello", func(context *gin.Context) {
+func MappingUser(s *gin.RouterGroup) {
+	s.GET("/hello", func(context *gin.Context) {
 		context.JSON(http.StatusOK, gin.H{"version": "v0.1.2"})
 	})
 
-	s.POST("v1/reg", user.HandlerReg)
-	s.POST("v1/login", user.HandlerLogin) // bearer token
+	s.POST("/reg", user.HandlerReg)
+	s.POST("/login", user.HandlerLogin) // bearer token
 
-	s.GET("v1/info", user.HandlerInfo)
+	s.GET("/info", user.HandlerInfo)
 
 }

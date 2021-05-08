@@ -56,7 +56,7 @@ func BVCovertEnc(av string) string {
 
 // buvid 生成
 func _buvidGenerate() (string, error) {
-	url := "https://data.bilibili.com/v/web/web_page_view?mid=null&fts=null&url=https%253A%252F%252Fwww.bilibili.com%252F&proid=3&ptype=2&module=game&title=%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%20(%E3%82%9C-%E3%82%9C)%E3%81%A4%E3%83%AD%20%E5%B9%B2%E6%9D%AF~-bilibili&ajaxtag=&ajaxid=&page_ref=https%253A%252F%252Fpassport.bilibili.com%252Flogin"
+	url := "https://data.bilibili.com/v/web/web_page_view?mid=null&fts=null&url=https%253A%252F%252Fwww.bilibili.com%252F&proid=3&ptype=2&module=public&title=%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%20(%E3%82%9C-%E3%82%9C)%E3%81%A4%E3%83%AD%20%E5%B9%B2%E6%9D%AF~-bilibili&ajaxtag=&ajaxid=&page_ref=https%253A%252F%252Fpassport.bilibili.com%252Flogin"
 	res, err := GET(url, nil)
 	if res != nil {
 		cook := res.Cookies()

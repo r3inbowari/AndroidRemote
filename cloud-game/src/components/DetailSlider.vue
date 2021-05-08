@@ -1,5 +1,5 @@
 <template>
-  <div class="long-slider">
+  <div class="snapshot-slider">
     <swiper :slidesPerView="'auto'" :spaceBetween="0" class="mySwiper">
       <swiper-slide v-for="(item, index) in slideItems">
         <img class="img" :src="item" alt="" />
@@ -45,7 +45,7 @@ export default defineComponent({
 </script>
 
 <style>
-.swiper-slide {
+.snapshot-slider .swiper-slide {
   width: 48%;
 }
 

@@ -92,7 +92,7 @@ public class MiniCap extends AbstractMiniCap {
                     }
 
                     Frame frame = frameAlloc.take();
-                    count++;
+                    // count++;
 
                     // byte[] a = frame.getFrameBuffer();
                     // this.jpegStub = JPEGGrpc.newStub(gRPCChannelPool.get().getChannel("jpeg"));
@@ -117,10 +117,10 @@ public class MiniCap extends AbstractMiniCap {
 //                        }
 //                    });
 
-                    if (count == 30) {
-                        count = 0;
-                        System.out.println("30 FP By Sender Probe");
-                    }
+//                    if (count == 30) {
+//                        count = 0;
+//                        System.out.println("30 FP By Sender Probe");
+//                    }
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -179,7 +179,7 @@ class MiniCapNDK extends Thread {
         if (mx > 5000 || my > 5000) {
             Log.e(TAG, "run failed used a error x or y metrics pixel");
         }
-        String dp = "-P " + mx + "x" + my + "@" + mx + "x" + my + "/0";
+        String dp = "-P " + mx + "x" + my + "@" + mx + "x" + my + "/0 -Q 50";
 
         execString = TextUtils.join(" ",
                 new Object[]{

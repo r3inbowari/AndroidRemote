@@ -1,6 +1,7 @@
 package CloudGameServer
 
 import (
+	"CloudGameServer/domain/public"
 	"CloudGameServer/domain/rtmsg"
 	"CloudGameServer/domain/user"
 	"CloudGameServer/service"
@@ -20,10 +21,19 @@ func BCApplication() {
 
 	s = gin.Default()
 	s.Use(CorsSimple())
-	s.Use(UserAuth())
+
 	s.Use(gin.Recovery())
 
-	user.MappingUser(s)
+	// 公共内容分发
+	gameService := s.Group("/public")
+	public.MappingGameService(gameService)
+
+	// 用户服务
+	userService := s.Group("/v1")
+	// 校验中间件
+	userService.Use(UserAuth())
+	user.MappingUser(userService)
+
 	rtmsg.MappingRTMsg(s)
 
 	go s.Run(bilicoin.GetConfig().APIAddr)

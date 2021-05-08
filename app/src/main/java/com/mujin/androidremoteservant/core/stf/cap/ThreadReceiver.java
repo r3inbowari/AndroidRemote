@@ -3,6 +3,7 @@ package com.mujin.androidremoteservant.core.stf.cap;
 import android.content.Context;
 import android.util.Log;
 
+import com.google.protobuf.ByteString;
 import com.mujin.androidremoteservant.core.utils.Utils;
 
 import java.io.IOException;
@@ -61,7 +62,7 @@ public class ThreadReceiver extends Thread {
             byte[] len = new byte[4];
 
             // testCount
-            int testCount = 0;
+//            int testCount = 0;
 
             long nanoStart = System.nanoTime();
 
@@ -78,13 +79,13 @@ public class ThreadReceiver extends Thread {
                 }
 
                 frameAlloc.put(frame);
-                testCount++;
-                if (testCount == 30) {
-                    long nanoEnd = System.nanoTime();
-                    System.out.println("30 FP -> Time Consuming: " + Long.toString((nanoEnd - nanoStart) / 1000000));
-                    nanoStart = nanoEnd;
-                    testCount = 0;
-                }
+//                testCount++;
+//                if (testCount == 30) {
+//                    long nanoEnd = System.nanoTime();
+//                    System.out.println("30 FP -> Time Consuming: " + Long.toString((nanoEnd - nanoStart) / 1000000));
+//                    nanoStart = nanoEnd;
+//                    testCount = 0;
+//                }
             }
 
             mRace.close();

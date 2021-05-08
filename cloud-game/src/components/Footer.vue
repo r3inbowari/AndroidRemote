@@ -18,9 +18,13 @@
 
     <div class="img"></div>
 
-    <div style="color: #b0baca">
-      <div style="text-align: center">r3inbowari @2021 bye designed</div>
-      <div style="text-align: center">powered by aliyun</div>
+    <div class="thanks">
+      <div>❤ r3inbowari @2021 bye designed ❤</div>
+      <img
+        src="https://img.alicdn.com/tfs/TB13DzOjXP7gK0jSZFjXXc5aXXa-212-48.pnghttps://img.alicdn.com/tfs/TB13DzOjXP7gK0jSZFjXXc5aXXa-212-48.png"
+        alt=""
+      />
+      <div>Deploy on aliyun</div>
     </div>
   </div>
 </template>
@@ -56,6 +60,8 @@ export default defineComponent({
   vertical-align: baseline;
   border: 0;
   font-family: 'Noto Sans', sans-serif;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .content {
@@ -136,5 +142,19 @@ export default defineComponent({
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  background-color: inherit;
+}
+
+.thanks {
+  color: #b0baca;
+  font-weight: bold;
+  text-align: center;
+}
+.thanks img {
+  margin-top: 20px;
+  margin-bottom: 5px;
+  width: 106px;
+  height: 24px;
+  background-color: #0a0a12;
 }
 </style>

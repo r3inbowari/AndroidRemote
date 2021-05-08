@@ -2,17 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bf713413-0619-41a4-bb33-c69da8f8fe23" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../CloudGameServer/domain/public/map.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CloudGameServer/service/public.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CloudGameServer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CloudGameServer/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/cmd/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CloudGameServer/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CloudGameServer/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CloudGameServer/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CloudGameServer/service/rtmsg/handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/service/rtmsg/handler.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CloudGameServer/utils/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/utils/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/domain/user/map.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/domain/user/map.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/utils/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/utils/utils.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/stf/cap/MiniCap.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/stf/cap/MiniCap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/GP.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/GP.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/ws.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/ws.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/rmq_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/test/rmq_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ws/websocket_jpeg.go" beforeDir="false" afterPath="$PROJECT_DIR$/ws/websocket_jpeg.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cloud-game/src/components/DetailSlider.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/components/DetailSlider.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cloud-game/src/components/Footer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/components/Footer.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cloud-game/src/components/Slider.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/components/Slider.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cloud-game/src/components/WideCard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/components/WideCard.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cloud-game/src/css/glob.css" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/css/glob.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/Game.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/Game.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,15 +46,15 @@
     <option name="indexEntireGoPath" value="false" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/event/event.pb.go" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/cmd/config.json" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/config.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/event/event_grpc.pb.go" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/go/pkg/mod/google.golang.org/grpc@v1.36.0/server.go" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/ws/websocket_ap.go" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/test/config.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/config.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ws/websocket_jpeg.go" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/cmd/main.go" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/ws/websocket_ap.go" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$USER_HOME$/go/pkg/mod/google.golang.org/grpc@v1.36.0/server.go" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/test/config.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/event/event.pb.go" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/cmd/config.json" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1r7PZIPzRk6G83JyA2VijIhViIr" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -82,7 +86,7 @@
       <recent name="C:\Users\inven\Desktop\MujinProject\AndroidRemoteServant\RemoteServer\test" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Test.TestOpenSender in RemoteServer/test (2)">
+  <component name="RunManager" selected="Go Test.TestOpenSender in RemoteServer/test (3)">
     <configuration name="go build RemoteServer/cmd" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="RemoteServer" />
       <working_directory value="$PROJECT_DIR$" />
@@ -90,18 +94,6 @@
       <package value="RemoteServer/cmd" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$/cmd/main.go" />
-      <method v="2" />
-    </configuration>
-    <configuration name="TestESQ in RemoteServer/queue" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="RemoteServer" />
-      <working_directory value="$PROJECT_DIR$/queue" />
-      <root_directory value="$PROJECT_DIR$" />
-      <kind value="PACKAGE" />
-      <package value="RemoteServer/queue" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <framework value="gotest" />
-      <pattern value="^\QTestESQ\E$" />
       <method v="2" />
     </configuration>
     <configuration name="TestOpenSender in RemoteServer/test (1)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
@@ -128,7 +120,7 @@
       <pattern value="^\QTestOpenSender\E$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestOpenSender in RemoteServer/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestOpenSender in RemoteServer/test (3)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="RemoteServer" />
       <working_directory value="$PROJECT_DIR$/test" />
       <root_directory value="$PROJECT_DIR$" />
@@ -140,13 +132,25 @@
       <pattern value="^\QTestOpenSender\E$" />
       <method v="2" />
     </configuration>
+    <configuration name="TestOpenSenderSM in RemoteServer/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="RemoteServer" />
+      <working_directory value="$PROJECT_DIR$/test" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="RemoteServer/test" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestOpenSenderSM\E$" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Test.TestOpenSender in RemoteServer/test (2)" />
+        <item itemvalue="Go Test.TestOpenSender in RemoteServer/test (3)" />
         <item itemvalue="Go Build.go build RemoteServer/cmd" />
+        <item itemvalue="Go Test.TestOpenSenderSM in RemoteServer/test" />
+        <item itemvalue="Go Test.TestOpenSender in RemoteServer/test (2)" />
         <item itemvalue="Go Test.TestOpenSender in RemoteServer/test (1)" />
-        <item itemvalue="Go Test.TestESQ in RemoteServer/queue" />
-        <item itemvalue="Go Test.TestOpenSender in RemoteServer/test" />
       </list>
     </recent_temporary>
   </component>
