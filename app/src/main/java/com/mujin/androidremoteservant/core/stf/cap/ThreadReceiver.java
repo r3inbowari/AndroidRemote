@@ -64,15 +64,16 @@ public class ThreadReceiver extends Thread {
             // testCount
 //            int testCount = 0;
 
-            long nanoStart = System.nanoTime();
+//           long nanoStart = System.nanoTime();
 
             while (Running) {
+//                System.out.println(System.currentTimeMillis());
                 mRace.read(len);
                 frameLen = Utils.parseFrameLen(len);
                 Frame frame = frameAlloc.alloc().setLen(frameLen);
 
                 int read = 0;
-                while (frameLen != read) {
+                while (frameLen > read) {
                     // 增量   偏移量   剩余
                     // read   read    frameLen - read
                     read += mRace.read(frame.getFrameBuffer(), read, frameLen - read);

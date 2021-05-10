@@ -31,7 +31,7 @@ public class MiniCap extends AbstractMiniCap {
     MiniCap() {
         super("minicap");
         // taskQueue = new ArrayBlockingQueue<>(100);
-        this.frameAlloc = new FrameAlloc(100, 1024 * 256);
+        this.frameAlloc = new FrameAlloc(200, 1024 * 256);
 
         // 初始化 RPC 存根
 //        this.jpegStub = JPEGGrpc.newStub(gRPCChannelPool.get().getChannel("jpeg"));
@@ -176,11 +176,14 @@ class MiniCapNDK extends Thread {
     MiniCapNDK(int width, int height) {
         mx = width;
         my = height;
+
+
+
         if (mx > 5000 || my > 5000) {
             Log.e(TAG, "run failed used a error x or y metrics pixel");
         }
-        String dp = "-P " + mx + "x" + my + "@" + mx + "x" + my + "/0 -Q 50";
-
+        String dp = "-P " + mx + "x" + my + "@" + mx + "x" + my + "/0 -Q 5";
+        // String dp = "-P 1920x1080@1280x720/180 -Q 5";
         execString = TextUtils.join(" ",
                 new Object[]{
                         ENV_PATH,

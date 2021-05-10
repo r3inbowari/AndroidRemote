@@ -2,20 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e102a309-9211-4948-bf88-6afa939dea44" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/domain/public/map.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/service/public.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/domain/user/map.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/user/map.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/server.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils/utils.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rmq/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/rmq/api.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/rtmsg/handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/rtmsg/handler.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../RemoteServer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RemoteServer/test/rmq_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/test/rmq_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../RemoteServer/ws/websocket_jpeg.go" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/ws/websocket_jpeg.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/components/DetailSlider.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/components/DetailSlider.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/components/Footer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/components/Footer.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/components/Slider.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/components/Slider.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/components/WideCard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/components/WideCard.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/SystemInit.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/SystemInit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/stf/cap/MiniCap.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/stf/cap/MiniCap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/stf/cap/ThreadReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/stf/cap/ThreadReceiver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../cloud-game/src/css/glob.css" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/css/glob.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/GP.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/GP.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/Game.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/Game.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -46,8 +42,8 @@
     <option name="indexEntireGoPath" value="false" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/test/config.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/server.go" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/test/config.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/config.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/cmd/main.go" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/utils/log.go" root0="FORCE_HIGHLIGHTING" />

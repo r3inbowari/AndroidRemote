@@ -192,7 +192,8 @@ export default defineComponent({
 }
 /* 卡片全局 */
 .wait-queue-card .el-dialog {
-  background-color: rgba(28, 32, 34, 0.9);
+  background-color: rgba(7, 65, 99, 0.9);
+  /* background-color: rgba(28, 32, 34, 0.9); */
   border-radius: 10px;
 }
 

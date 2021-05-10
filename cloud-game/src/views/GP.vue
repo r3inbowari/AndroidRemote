@@ -389,6 +389,7 @@ export default defineComponent({
         // img = null
         // u = null
         // blob = null
+        // console.log(new Date().getTime())
       }
       let u = URL.createObjectURL(blob)
       img.src = u
@@ -508,7 +509,8 @@ export default defineComponent({
 .play-main-container {
   width: 100%;
   height: 100%;
-  background: tomato;
+  /* background: tomato; */
+  background: rgb(30, 30, 30);
   position: absolute;
 }
 

@@ -1,4 +1,5 @@
 import { ComponentInternalInstance } from 'vue'
+import { VueCookieNext } from 'vue-cookie-next'
 
 export class IWebSocket {
   // timer tag
@@ -58,14 +59,16 @@ export class IWebSocket {
     ;(this.componentInstance?.appContext.config.globalProperties.sockets).onopen = () => {
       console.log('[ws] websocket connected')
 
-      this.componentInstance?.appContext.config.globalProperties.$socket.send(
-        JSON.stringify({
-          stub: '',
-          op: 0,
-          data:
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjAyODEwOTQsImp0aSI6ImEzYWIwYmRjMDdiMjk1OWUyNDk5NDk2YzNmM2ZkMzJmIiwiaXNzIjoicjNpbmIiLCJuYmYiOjE2MjAxOTQ2OTR9.NtbtSssl3tSLOrOTldYuMqjgNDWdje031DtJriXbPJo',
-        })
-      )
+      let t = VueCookieNext.isCookieAvailable('token')
+      if (t) {
+        this.componentInstance?.appContext.config.globalProperties.$socket.send(
+          JSON.stringify({
+            stub: '',
+            op: 0,
+            data: VueCookieNext.getCookie('token'),
+          })
+        )
+      }
 
       this.wsHeartbeat(this.ttlHeartbeat)
     }

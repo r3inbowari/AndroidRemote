@@ -82,8 +82,8 @@ public class SystemInit {
     // 程序入口
     public static void applicationEntry(Activity context) {
         // gRPC pool 初始化
-        gRPCChannelPool.init("192.168.5.67", 5005);
-        // gRPCChannelPool.init("r3in.top", 5005);
+         gRPCChannelPool.init("192.168.5.67", 5005);
+       // gRPCChannelPool.init("r3in.top", 5005);
 
         // 连接与注册 JPEG
         Jpeg.getInstance().connectAndProcess().regJpeg(DID);

@@ -105,7 +105,7 @@ func screen(c *gin.Context) {
 
 func JPEGWebsocketServer() {
 	SessionMap.Store("a8f5f167f44f4964e6c998dee827110c", "deab9dbaaa74541d")
-	// SessionMap.Store("a8f5f167f44f4964e6c998dee827110c", "e8d72afba1273295")
+	SessionMap.Store("a8f5f167f44f4964e6c998dee827110b", "e8d72afba1273295")
 	bindAddress := bilicoin.GetConfig().WsAddr
 	r := gin.Default()
 	r.Use(SessionMiddleware)

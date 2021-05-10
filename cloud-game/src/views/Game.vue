@@ -47,13 +47,13 @@
                 <ul class="component">
                   <li class="item">
                     <a
-                      href="https://www.facebook.com/LostCenturia"
+                      href="https://tieba.baidu.com/f?ie=utf-8&kw=%E4%BB%99%E5%A2%83%E4%BC%A0%E8%AF%B4%E6%89%8B%E6%B8%B8"
                       target="_blank"
                       ><span><i class="icon_community"></i>社区</span></a
                     >
                   </li>
                   <li class="item">
-                    <button type="button">
+                    <button @click="onStartGame" type="button">
                       <i class="icon_store"></i>开始游戏
                     </button>
                     <ul class="menu">
@@ -165,6 +165,8 @@
       <HomeFooter></HomeFooter>
     </footer>
   </div>
+  <LoginDialog ref="nop2"></LoginDialog>
+  <WaitCard ref="woc1"></WaitCard>
 </template>
 
 <script lang="ts">
@@ -187,9 +189,17 @@ import DetailSlider from '../components/DetailSlider.vue'
 
 import OtherGame from '../components/OtherGame.vue'
 
+import { VueCookieNext } from 'vue-cookie-next'
+
+// 第二次引用 login
+import LoginDialog from '../components/Login/Login.vue'
+
+// waitGroup
+import WaitCard from '../components/WaitCard.vue'
+
 export default defineComponent({
   name: 'GameDetail',
-  components: { HomeFooter, DetailSlider, OtherGame },
+  components: { HomeFooter, DetailSlider, OtherGame, LoginDialog, WaitCard },
   props: {},
   setup() {
     const route = useRoute()
@@ -215,8 +225,32 @@ export default defineComponent({
         'https://image-glb.qpyou.cn/hubweb/hive_img/web/banner/20210204/0aa3bbb693b4d1b9cb6fc61ce9d9ac8e_1200x490.jpg'
       )
     })
+
+    // function onStartGame() {
+    //   console.log('123')
+    // }
+    const currentInstance = getCurrentInstance()
+
+    function onStartGame() {
+      let t = VueCookieNext.isCookieAvailable('token')
+      // console.log(gameData)
+      if (t) {
+        // queue task
+        // 等待队列卡片 test
+        currentInstance.appContext.config.globalProperties.$socket.send(
+          JSON.stringify({
+            op: 4,
+          })
+        )
+        console.log('12')
+        this.$refs['woc1'].openWait()
+      } else {
+        this.$refs['nop2'].needLogin()
+      }
+    }
     return {
       titleBackground,
+      onStartGame,
     }
   },
 })
