@@ -75,7 +75,21 @@ export default defineComponent({
       r.value = 'background-image: url("' + url + '")'
     }
 
+    // 图像重绘
+    watch(
+      () => props.info,
+      (first, second) => {
+        console.log(
+          'Watch props.selected function called with args:',
+          first,
+          second
+        )
+        changeBackground(iconBackground, info.value.icon)
+      }
+    )
+
     onMounted(() => {
+      // console.log(info.value.icon)
       changeBackground(iconBackground, info.value.icon)
     })
     return {

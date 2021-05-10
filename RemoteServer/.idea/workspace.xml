@@ -2,17 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bf713413-0619-41a4-bb33-c69da8f8fe23" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../CloudGameServer/service/public/public.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CloudGameServer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/cmd/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/domain/public/map.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/domain/public/map.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CloudGameServer/rmq/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/rmq/api.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CloudGameServer/service/rtmsg/handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/service/rtmsg/handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/service/public.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/utils/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/utils/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/utils/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/utils/utils.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ws/websocket_jpeg.go" beforeDir="false" afterPath="$PROJECT_DIR$/ws/websocket_jpeg.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils/log.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/SystemInit.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/SystemInit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/stf/cap/MiniCap.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/stf/cap/MiniCap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/stf/cap/ThreadReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/stf/cap/ThreadReceiver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/css/glob.css" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/css/glob.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cloud-game/.env.development" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/.env.development" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cloud-game/.env.production" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/.env.production" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cloud-game/src/components/NormalCard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/components/NormalCard.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cloud-game/src/components/NormalCards.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/components/NormalCards.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cloud-game/src/components/Slider.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/components/Slider.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cloud-game/src/components/WideCard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/components/WideCard.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/GP.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/GP.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/Game.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/Game.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/Home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/Home.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +91,7 @@
       <recent name="C:\Users\inven\Desktop\MujinProject\AndroidRemoteServant\RemoteServer\test" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Test.TestOpenSender in RemoteServer/test (3)">
+  <component name="RunManager" selected="Go Build.go build RemoteServer/cmd">
     <configuration name="go build RemoteServer/cmd" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="RemoteServer" />
       <working_directory value="$PROJECT_DIR$" />
@@ -142,8 +151,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Test.TestOpenSender in RemoteServer/test (3)" />
         <item itemvalue="Go Build.go build RemoteServer/cmd" />
+        <item itemvalue="Go Test.TestOpenSender in RemoteServer/test (3)" />
         <item itemvalue="Go Test.TestOpenSenderRemote in RemoteServer/test" />
         <item itemvalue="Go Test.TestOpenSenderSM in RemoteServer/test" />
         <item itemvalue="Go Test.TestPauseSender in RemoteServer/test" />

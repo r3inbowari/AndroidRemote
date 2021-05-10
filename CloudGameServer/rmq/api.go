@@ -65,7 +65,7 @@ func OpenApp(stub, appName string) error {
 	op := MQOrder{
 		Id:        "deab9dbaaa74541d",
 		Stub:      bilicoin.CreateMD5(time.Now().String()),
-		Data:      "辐射避难所",
+		Data:      "仙境传说RO",
 		Msg:       "order",
 		Operation: bilicoin.REQ_OPEN_APP,
 	}
@@ -87,7 +87,8 @@ func CloseApp(stub, appName string) error {
 	op := MQOrder{
 		Id:        "deab9dbaaa74541d",
 		Stub:      bilicoin.CreateMD5(time.Now().String()),
-		Data:      "com.shandagames.falloutshelterUc.uc",
+		//Data:      "com.shandagames.falloutshelterUc.uc",
+		Data: "com.xd.ro.roapk",
 		Msg:       "order",
 		Operation: bilicoin.REQ_CLOSE_APP,
 	}

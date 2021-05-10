@@ -126,9 +126,16 @@ func AppInfo(mode string, gitHash, buildTime, goVersion string) {
 		Blue("   \\ \\  \\|\\  \\ \\  \\ \\  \\____\\ \\  \\ \\  \\____\\ \\  \\\\\\  \\ \\  \\ \\  \\\\ \\  \\      Port: UNSUPPORTED")
 	}
 	Blue("    \\ \\_______\\ \\__\\ \\_______\\ \\__\\ \\_______\\ \\_______\\ \\__\\ \\__\\\\ \\__\\     PID: " + strconv.Itoa(os.Getpid()))
-	Blue("     \\|_______|\\|__|\\|_______|\\|__|\\|_______|\\|_______|\\|__|\\|__| \\|__|     built at " + buildTime)
-	Blue("")
-	Info("Build on " + goVersion)
+
+	if buildTime == "" {
+		Blue("     \\|_______|\\|__|\\|_______|\\|__|\\|_______|\\|_______|\\|__|\\|__| \\|__|     Status: dev ")
+		Blue("")
+	} else {
+		Blue("     \\|_______|\\|__|\\|_______|\\|__|\\|_______|\\|_______|\\|__|\\|__| \\|__|     built at " + buildTime)
+		Blue("")
+		Info("Build on " + goVersion)
+	}
+
 }
 
 func InitLogger() {

@@ -8,9 +8,15 @@ import (
 	"time"
 )
 
+var (
+	gitHash   string
+	buildTime string
+	goVersion string
+)
+
 func main() {
 	bilicoin.InitLogger()
-	bilicoin.AppInfo("Main")
+	bilicoin.AppInfo("Main", gitHash, buildTime, goVersion)
 
 	db.InitMongo()
 

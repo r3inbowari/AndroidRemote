@@ -76,9 +76,21 @@ export default defineComponent({
       }
     })
 
-    watch(props, (newProps, oldProps) => {
-      changeBackground(imgBackground, newProps.cover)
-    })
+    // watch(info, (newProps, oldProps) => {
+    //   console.log('asd')
+    //   changeBackground(imgBackground, newProps.cover)
+    // })
+
+    watch(
+      () => props.info.value,
+      (first, second) => {
+        console.log(
+          'Watch props.selected function called with args:',
+          first,
+          second
+        )
+      }
+    )
 
     return { imgBackground, iconBackground }
   },

@@ -38,7 +38,7 @@ app
   .use(ElementPlus)
   .use(Vant) // vant
   .use(VueCookieNext) // options api mount
-  .use(VueNativeSock, 'ws://localhost:5006/push', {
+  .use(VueNativeSock, import.meta.env['VITE_PUSH_BASE_URL'], {
     reconnection: false, // 自动重连
     reconnectionAttempts: 20, // 重连次数
     reconnectionDelay: 10 * 1000, // 重连间隔

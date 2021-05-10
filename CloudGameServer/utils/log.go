@@ -1,7 +1,6 @@
 package bilicoin
 
 import (
-	"CloudGameServer/release"
 	"fmt"
 	"github.com/sirupsen/logrus"
 	"os"
@@ -107,9 +106,9 @@ func Blue(msg string) {
 	fmt.Printf("\x1b[%dm"+msg+" \x1b[0m\n", 34)
 }
 
-func AppInfo(mode string) {
+func AppInfo(mode string, gitHash, buildTime, goVersion string) {
 	Blue("  ________  ___  ___       ___  ________  ________  ___  ________")
-	Blue(" |\\   __  \\|\\  \\|\\  \\     |\\  \\|\\   ____\\|\\   __  \\|\\  \\|\\   ___  \\         BILICOIN #UNOFFICIAL " + release.Version)
+	Blue(" |\\   __  \\|\\  \\|\\  \\     |\\  \\|\\   ____\\|\\   __  \\|\\  \\|\\   ___  \\         BILICOIN #UNOFFICIAL " + gitHash)
 	Blue(" \\ \\  \\|\\ /\\ \\  \\ \\  \\    \\ \\  \\ \\  \\___|\\ \\  \\|\\  \\ \\  \\ \\  \\\\ \\  \\        -... .. .-.. .. -.-. --- .. -.")
 	Blue("  \\ \\   __  \\ \\  \\ \\  \\    \\ \\  \\ \\  \\    \\ \\  \\\\\\  \\ \\  \\ \\  \\\\ \\  \\       Running in " + mode + " mode")
 	if mode == "api" {
@@ -118,8 +117,14 @@ func AppInfo(mode string) {
 		Blue("   \\ \\  \\|\\  \\ \\  \\ \\  \\____\\ \\  \\ \\  \\____\\ \\  \\\\\\  \\ \\  \\ \\  \\\\ \\  \\      Port: UNSUPPORTED")
 	}
 	Blue("    \\ \\_______\\ \\__\\ \\_______\\ \\__\\ \\_______\\ \\_______\\ \\__\\ \\__\\\\ \\__\\     PID: " + strconv.Itoa(os.Getpid()))
-	Blue("     \\|_______|\\|__|\\|_______|\\|__|\\|_______|\\|_______|\\|__|\\|__| \\|__|     built on " + release.Built)
-	Blue("")
+	if buildTime == "" {
+		Blue("     \\|_______|\\|__|\\|_______|\\|__|\\|_______|\\|_______|\\|__|\\|__| \\|__|     Status: dev ")
+		Blue("")
+	} else {
+		Blue("     \\|_______|\\|__|\\|_______|\\|__|\\|_______|\\|_______|\\|__|\\|__| \\|__|     built at " + buildTime)
+		Blue("")
+		Info("Build on " + goVersion)
+	}
 }
 
 func InitLogger() {

@@ -33,7 +33,12 @@
         <div class="content">
           <!-- 滑动列表 -->
           <div class="slider">
-            <div class="slick-list" style="width: 1200px">
+            <!-- 防止空错误 slideItems.dat.length !== 0 -->
+            <div
+              v-if="slideItems.dat.length !== 0"
+              class="slick-list"
+              style="width: 1200px"
+            >
               <!-- prev -->
               <button
                 type="button"
@@ -44,9 +49,11 @@
                 <i class="arrow"></i
                 ><span class="icon" :style="prevIconBackground"></span
                 ><span class="txt"
-                  ><span class="title">{{ slideItems[prevIndex].title }}</span
+                  ><span class="title">{{
+                    slideItems.dat[prevIndex].title
+                  }}</span
                   ><span id="HIVEsocial_main_banner_prev_game" class="game">{{
-                    slideItems[prevIndex].alias
+                    slideItems.dat[prevIndex].alias
                   }}</span></span
                 >
               </button>
@@ -54,14 +61,16 @@
               <div class="cover-title">
                 <div class="desc">
                   <p class="event_title">
-                    {{ slideItems[currentIndex].title }}
+                    {{ slideItems.dat[currentIndex].title }}
                   </p>
-                  <p class="game_title">{{ slideItems[currentIndex].alias }}</p>
+                  <p class="game_title">
+                    {{ slideItems.dat[currentIndex].alias }}
+                  </p>
                   <br style="-webkit-user-select: none; user-select: none" />
                   <div class="slide_progress_bar" style="width: 300px">
                     <p class="progress_num">
                       <span class="current">{{ currentIndex + 1 }}</span
-                      >/<span class="total">{{ slideItems.length }}</span>
+                      >/<span class="total">{{ slideItems.dat.length }}</span>
                     </p>
                     <div class="gauge" :style="processLoading"></div>
                   </div>
@@ -82,7 +91,7 @@
                 @swiper="onSwiper"
               >
                 <!-- 滑动列表加载 -->
-                <swiper-slide v-for="slideItem in slideItems"
+                <swiper-slide v-for="slideItem in slideItems.dat"
                   ><img class="img-cover" :src="slideItem.cover" />
                 </swiper-slide>
               </swiper>
@@ -97,9 +106,11 @@
                 <i class="arrow"></i
                 ><span class="icon" :style="nextIconBackground"></span
                 ><span class="txt"
-                  ><span class="title">{{ slideItems[nextIndex].title }}</span
+                  ><span class="title">{{
+                    slideItems.dat[nextIndex].title
+                  }}</span
                   ><span id="HIVEsocial_main_banner_prev_game" class="game">{{
-                    slideItems[nextIndex].alias
+                    slideItems.dat[nextIndex].alias
                   }}</span></span
                 >
               </button>
@@ -165,6 +176,8 @@ import 'swiper/swiper-bundle.css'
 // install Swiper modules
 SwiperCore.use([Navigation, Pagination])
 
+import { getBanner } from '../api/banner'
+
 export default defineComponent({
   name: 'App',
   components: {
@@ -180,6 +193,48 @@ export default defineComponent({
   },
   methods: {},
   setup() {
+    let slideItems = reactive({
+      dat: [
+        // {
+        //   title: '内核活动0',
+        //   alias: 'kernel event',
+        //   cover:
+        //     'https://image-glb.qpyou.cn/hubweb/hive_img/web/banner/20200317/41a9e65126c0463ad975ac444027bfa3_1200x490.jpg',
+        //   icon:
+        //     'https://image-glb.qpyou.cn/hubweb/gmnotice/appcenter/1606972197901.jpg',
+        // },
+        // {
+        //   title: '内核活动1',
+        //   alias: 'kernel event',
+        //   cover:
+        //     'https://image-glb.qpyou.cn/hubweb/hive_img/web/banner/20201203/00d2a88aeb6037a2ada2ffd1ad703e61_1200x490.jpg',
+        //   icon:
+        //     'https://image-glb.qpyou.cn/hubweb/gmnotice/appcenter/1560919617216.jpg',
+        // },
+        // {
+        //   title: '内核活动2',
+        //   alias: 'kernel event',
+        //   cover:
+        //     'https://image-glb.qpyou.cn/hubweb/hive_img/web/banner/20210204/0aa3bbb693b4d1b9cb6fc61ce9d9ac8e_1200x490.jpg',
+        //   icon:
+        //     'https://image-glb.qpyou.cn/hubweb/gmnotice/appcenter/1612412918869.jpg',
+        // },
+      ],
+    })
+
+    // let slideItems = reactive({
+    //   dat: [
+    //     {
+    //       title: '内核活动2',
+    //       alias: 'kernel event',
+    //       cover:
+    //         'https://image-glb.qpyou.cn/hubweb/hive_img/web/banner/20210204/0aa3bbb693b4d1b9cb6fc61ce9d9ac8e_1200x490.jpg',
+    //       icon:
+    //         'https://image-glb.qpyou.cn/hubweb/gmnotice/appcenter/1612412918869.jpg',
+    //     },
+    //   ],
+    // })
+
     // 横幅背景引用
     let bannerBackground = ref('')
     // 左侧导航icon
@@ -188,33 +243,6 @@ export default defineComponent({
     let nextIconBackground = ref('')
     // process
     let processLoading = ref('')
-
-    let slideItems = reactive([
-      {
-        title: '内核活动0',
-        alias: 'kernel event',
-        cover:
-          'https://image-glb.qpyou.cn/hubweb/hive_img/web/banner/20200317/41a9e65126c0463ad975ac444027bfa3_1200x490.jpg',
-        icon:
-          'https://image-glb.qpyou.cn/hubweb/gmnotice/appcenter/1606972197901.jpg',
-      },
-      {
-        title: '内核活动1',
-        alias: 'kernel event',
-        cover:
-          'https://image-glb.qpyou.cn/hubweb/hive_img/web/banner/20201203/00d2a88aeb6037a2ada2ffd1ad703e61_1200x490.jpg',
-        icon:
-          'https://image-glb.qpyou.cn/hubweb/gmnotice/appcenter/1560919617216.jpg',
-      },
-      {
-        title: '内核活动2',
-        alias: 'kernel event',
-        cover:
-          'https://image-glb.qpyou.cn/hubweb/hive_img/web/banner/20210204/0aa3bbb693b4d1b9cb6fc61ce9d9ac8e_1200x490.jpg',
-        icon:
-          'https://image-glb.qpyou.cn/hubweb/gmnotice/appcenter/1612412918869.jpg',
-      },
-    ])
 
     /**
        * 虚化背景替换
@@ -236,18 +264,19 @@ export default defineComponent({
 
     // 横幅走马灯更改时
     function onSlideChange(e) {
+      console.log(e.realIndex)
       // 索引判断
-      if (slideItems.length === 1 || slideItems.length === 0) {
+      if (slideItems.dat.length === 1 || slideItems.dat.length === 0) {
         prevIndex.value = 0
         nextIndex.value = 0
       } else {
         if (e.realIndex === 0) {
-          prevIndex.value = slideItems.length - 1
+          prevIndex.value = slideItems.dat.length - 1
         } else {
           prevIndex.value = e.realIndex - 1
         }
 
-        if (e.realIndex === slideItems.length - 1) {
+        if (e.realIndex === slideItems.dat.length - 1) {
           nextIndex.value = 0
         } else {
           nextIndex.value = e.realIndex + 1
@@ -256,35 +285,44 @@ export default defineComponent({
 
       // console.log(prevIndex.value, nextIndex.value)
       // 更改主背景
-      changeBackground(bannerBackground, slideItems[e.realIndex].cover)
+      changeBackground(bannerBackground, slideItems.dat[e.realIndex].cover)
       // 更改 prev icon
-      changeBackground(prevIconBackground, slideItems[prevIndex.value].icon)
+      changeBackground(prevIconBackground, slideItems.dat[prevIndex.value].icon)
       // 更改 next icon
-      changeBackground(nextIconBackground, slideItems[nextIndex.value].icon)
+      changeBackground(nextIconBackground, slideItems.dat[nextIndex.value].icon)
       loadingValue = 0
       currentIndex.value = e.realIndex
+      // console.log(currentIndex.value)
     }
 
     let loadingValue = 0
+    let timer
 
     onMounted(() => {
-      // 初始化背景
-      if (slideItems.length > 0) {
-        changeBackground(bannerBackground, slideItems[0].cover)
-      }
-
       processLoading.value = 'width:0px'
 
-      setInterval(() => {
-        processLoading.value = 'width:' + loadingValue + 'px'
-        loadingValue++
-        if (loadingValue == 200) {
-          if (slideItems.length > 1) {
-            mSwiper.slideNext()
-          }
-          loadingValue = 0
+      // 获取数据
+      getBanner().then((res) => {
+        // console.log(res.Data)
+        slideItems.dat.length = 0
+        slideItems.dat = res.Data
+
+        // 初始化背景
+        if (slideItems.dat.length > 0) {
+          changeBackground(bannerBackground, slideItems.dat[0].cover)
         }
-      }, 30)
+
+        timer = setInterval(() => {
+          processLoading.value = 'width:' + loadingValue + 'px'
+          loadingValue++
+          if (loadingValue == 200) {
+            if (slideItems.dat.length > 1) {
+              mSwiper.slideNext()
+            }
+            loadingValue = 0
+          }
+        }, 30)
+      })
     })
 
     // swiper 初始化完成
@@ -725,7 +763,8 @@ button {
   font-weight: bold;
   -webkit-user-select: none;
   user-select: none;
-  color: #7e8592;
+  /* color: #7e8592; */
+  color: #f7f8fa;
 }
 
 * {
