@@ -5,7 +5,17 @@ const POST: string = 'post'
 const PUT: string = 'put'
 const DEL: string = 'delete'
 
-// get banner
+// get hot
 export const getHot = function () {
   return req(GET, '/public/home/hot', {})
+}
+
+// del hot
+export const delHot = function (id: string) {
+  return req(DEL, '/public/home/hot/' + id, {})
+}
+
+// add hot
+export const addHot = function (data: object) {
+  return req(POST, '/public/home/hot', data)
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="_2oV8uPP0dj">
-    <div class="_24ddJm1Q5s"><h1 class="B4QNkMu-0t">关于</h1></div>
+    <!-- <div class="_24ddJm1Q5s"><h1 class="B4QNkMu-0t">关于</h1></div> -->
     <div class="cHbZy_rAHf">
       <h2>云游戏管理中心</h2>
       <p>

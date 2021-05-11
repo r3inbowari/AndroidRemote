@@ -135,7 +135,7 @@
               ></rect>
             </g>
           </svg>
-          <div class="item-desc">测量</div>
+          <div class="item-desc">规划</div>
         </a>
         <a
           class="sider-item"
@@ -325,6 +325,12 @@
     </div>
     <!-- 嵌套路由 -->
     <div class="app-main">
+      <div class="_3WrcX9K2WQ">
+        <div class="_24ddJm1Q5s">
+          <h1 class="B4QNkMu-0t">{{ navName }}</h1>
+        </div>
+      </div>
+
       <router-view></router-view>
     </div>
   </div>
@@ -348,12 +354,17 @@ import { ElNotification } from 'element-plus'
 import { getVersion } from '../api/public'
 
 import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
+import { key } from '../store'
 
 export default defineComponent({
   data() {
     return {}
   },
   setup() {
+    // get store using inject store key
+    const store = useStore(key)
+
     // 主题
     let theme = ref(true)
     let visibleExit = ref(false)
@@ -365,11 +376,15 @@ export default defineComponent({
       })
     }
 
+    // false light
+    // true dark
     function onThemeChange() {
       theme.value = !theme.value
+      store.commit('setTheme', theme.value)
     }
 
     let currIndex = ref(-1)
+    let navName = ref('概况')
 
     function onJump(index) {
       switch (index) {
@@ -384,6 +399,7 @@ export default defineComponent({
         case 2:
           router.push('/center/measure')
           currIndex.value = 2
+          navName.value = '主页规划'
           break
         case 3:
           router.push('/center/connection')
@@ -400,6 +416,7 @@ export default defineComponent({
         case 6:
           router.push('/center/about')
           currIndex.value = -1
+          navName.value = '关于'
           break
       }
     }
@@ -409,7 +426,7 @@ export default defineComponent({
       onExit,
       visibleExit,
       onThemeChange,
-
+      navName,
       onJump,
       currIndex,
     }
@@ -695,6 +712,26 @@ svg {
 
 .selectside {
   background: var(--color-sb-active-row-bg);
+}
+
+/* 导航头部设置 */
+._24ddJm1Q5s {
+  height: 76px;
+  display: flex;
+  align-items: center;
+}
+._3WrcX9K2WQ {
+  display: grid;
+  grid-template-columns: 1fr minmax(auto, 330px);
+  align-items: center;
+  padding-right: 40px;
+  background-color: var(--color-row-odd);
+  box-shadow: 0 0 6px rgb(0 0 0 / 12%);
+  /* bilibili阴影 */
+}
+.B4QNkMu-0t {
+  padding: 0 40px;
+  font-size: 2em;
 }
 </style>
 

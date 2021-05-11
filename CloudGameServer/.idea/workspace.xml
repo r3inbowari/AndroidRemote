@@ -3,14 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="e102a309-9211-4948-bf88-6afa939dea44" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/domain/public/map.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/public/map.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/manager/map.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/manager/map.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/server.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/common.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils/common.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils/log.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../RemoteServer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/router/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/router/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cloud-game/src/api/banner.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/api/banner.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cloud-game/src/store/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/store/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cloud-game/src/utils/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/utils/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/About.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/About.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/Log.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/Log.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/Manager.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/Manager.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/Measure.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/Measure.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

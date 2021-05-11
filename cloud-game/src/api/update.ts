@@ -9,3 +9,13 @@ const DEL: string = 'delete'
 export const getUpdate = function () {
   return req(GET, '/public/home/update', {})
 }
+
+// del update
+export const delUpdate = function (id: string) {
+  return req(DEL, '/public/home/update/' + id, {})
+}
+
+// add update
+export const addUpdate = function (data: object) {
+  return req(POST, '/public/home/update', data)
+}

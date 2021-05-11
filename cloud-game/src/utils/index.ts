@@ -3,11 +3,38 @@ import { useStore } from 'vuex'
 
 import { VueCookieNext } from 'vue-cookie-next'
 
+import { ElNotification } from 'element-plus'
+
+import { RendererNode, RendererElement, VNode } from 'vue'
+
 export const importView = (viewName: string) => () =>
   import('../views/' + viewName + '.vue')
 
 export const importCom = (viewName: string) => () =>
   import('../components/' + viewName + '.vue')
+
+export function ops(
+  type?: '' | 'success' | 'warning' | 'info' | 'error' | undefined,
+  title?: string | undefined,
+  message?:
+    | string
+    | VNode<
+        RendererNode,
+        RendererElement,
+        {
+          [key: string]: any
+        }
+      >
+    | undefined,
+  customClass?: string | undefined
+) {
+  ElNotification({
+    title: title,
+    message: message,
+    type: type,
+    customClass: customClass,
+  })
+}
 
 // 打印环境
 /**

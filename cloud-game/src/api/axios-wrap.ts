@@ -27,11 +27,11 @@ var instance = axios.create({
 // request interceptors
 instance.interceptors.request.use(
   function (config) {
-    let token = getToken();
+    let token = getToken()
     if (token) {
-      config.headers["Authorization"] = "Bearer " + token;
+      config.headers['Authorization'] = 'Bearer ' + token
     } else {
-      console.log('token is not exist');
+      console.log('token is not exist')
     }
     return config
   },

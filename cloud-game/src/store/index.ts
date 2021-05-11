@@ -24,6 +24,7 @@ export interface State {
   avatar: String
   token: String
   ws: IWebSocket | null
+  theme: boolean
 }
 
 // define injection key
@@ -35,15 +36,19 @@ export const store = createStore<State>({
     avatar: 'null',
     token: '',
     // ws global
-    ws: null
+    ws: null,
+    theme: true,
   },
   mutations: {
+    setTheme(state, t) {
+      state.theme = t
+      console.log('[store] setTheme ' + state.theme)
+    },
     increment(state) {
       // mutate state
       state.count++
     },
     setToken(state, t) {
-      
       state.token = t
       console.log('[store] setToken ' + state.token)
     },
@@ -54,6 +59,6 @@ export const store = createStore<State>({
     setWs(state, t) {
       state.ws = t
       console.log('[store] setWs ')
-    }
+    },
   },
 })
