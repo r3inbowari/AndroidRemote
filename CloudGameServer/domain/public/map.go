@@ -4,6 +4,7 @@ import (
 	"CloudGameServer/service/public"
 	bilicoin "CloudGameServer/utils"
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 func MappingGameService(s *gin.RouterGroup) {
@@ -20,4 +21,8 @@ func MappingGameService(s *gin.RouterGroup) {
 	s.GET("/home/update", public.GetUpdate)
 	s.DELETE("/home/update/:id", public.DelUpdate)
 	s.POST("/home/update", public.AddUpdate)
+
+	s.GET("/version", func(context *gin.Context) {
+		context.JSON(http.StatusOK, gin.H{"version": bilicoin.GetConfig().Version, "hash": bilicoin.HashValue})
+	})
 }

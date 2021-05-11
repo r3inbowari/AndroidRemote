@@ -124,6 +124,7 @@ func AppInfo(mode string, gitHash, buildTime, goVersion string) {
 		Blue("     \\|_______|\\|__|\\|_______|\\|__|\\|_______|\\|_______|\\|__|\\|__| \\|__|     built at " + buildTime)
 		Blue("")
 		Info("Build on " + goVersion)
+		HashValue = gitHash
 	}
 }
 

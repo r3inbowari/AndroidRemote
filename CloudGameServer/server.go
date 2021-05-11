@@ -1,6 +1,7 @@
 package CloudGameServer
 
 import (
+	"CloudGameServer/domain/manager"
 	"CloudGameServer/domain/public"
 	"CloudGameServer/domain/rtmsg"
 	"CloudGameServer/domain/user"
@@ -28,6 +29,7 @@ func BCApplication() {
 	gameService := s.Group("/public")
 	public.MappingGameService(gameService)
 
+
 	// 用户服务
 	userService := s.Group("/v1")
 	// 校验中间件
@@ -35,6 +37,10 @@ func BCApplication() {
 	user.MappingUser(userService)
 
 	rtmsg.MappingRTMsg(s)
+
+	// 管理服务
+	managerService := s.Group("/m")
+	manager.MappingManager(managerService)
 
 	go s.Run(bilicoin.GetConfig().APIAddr)
 }

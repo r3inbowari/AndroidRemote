@@ -8,12 +8,12 @@ import { importView } from '../utils'
 export const routerMap = [
   {
     path: '/',
-    component: importView('HomePage'),
+    component: importView('Home'),
   },
   {
     name: 'Home',
     path: '/home',
-    component: importView('Home'),
+    component: importView('HomePage'),
   },
   {
     name: 'Play',
@@ -24,6 +24,46 @@ export const routerMap = [
     name: 'Game',
     path: '/game/:aid',
     component: importView('Game'),
+  },
+  {
+    name: 'Login',
+    path: '/login',
+    component: importView('LoginPage'),
+  },
+  {
+    name: 'Center',
+    path: '/center',
+    component: importView('Manager'),
+    children: [
+      {
+        path: 'about',
+        component: importView('About'),
+      },
+      {
+        path: 'log',
+        component: importView('Log'),
+      },
+      {
+        path: 'setting',
+        component: importView('Setting'),
+      },
+      {
+        path: 'measure',
+        component: importView('Measure'),
+      },
+      {
+        path: 'global',
+        component: importView('Global'),
+      },
+      {
+        path: 'dashboard',
+        component: importView('Dashboard'),
+      },
+      {
+        path: 'connection',
+        component: importView('Connection'),
+      },
+    ],
   },
 ]
 

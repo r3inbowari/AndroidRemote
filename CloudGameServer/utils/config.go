@@ -34,6 +34,7 @@ type LocalConfig struct {
 	RdbURL         string    `json:"rdb_url"`      // redis url
 	RdbPassword    string    `json:"rdb_password"` // redis password
 	RdbIndex       int       `json:"rdb_index"`    // Rdb 数据库索引
+	Version        string    `json:"version"`
 }
 
 var config = new(LocalConfig)

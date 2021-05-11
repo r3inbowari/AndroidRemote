@@ -44,3 +44,5 @@ func ResponseWrapWithDate(code int, msg string, data interface{}) ResponseBody {
 		Ts:   time.Now().Unix(),
 	}
 }
+
+var HashValue = "dev"
