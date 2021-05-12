@@ -6,7 +6,7 @@
         <div
           style="
             float: right;
-            margin-right: 20px;
+            margin-right: 30px;
             margin-top: 10px;
             color: steelblue;
           "
@@ -17,17 +17,32 @@
     </el-row>
   </div>
   <div class="da-content-main">
-    <el-table :data="tableData" style="width: 100%">
-      <el-table-column prop="stub" label="存根" width="100"> </el-table-column>
+    <el-table
+      empty-text="无数据"
+      :data="wsSessionsData.dat"
+      style="width: 100%"
+    >
+      <el-table-column prop="stub" label="存根" width="150"> </el-table-column>
       <el-table-column prop="uid" label="用户名" width="100"> </el-table-column>
       <el-table-column prop="created" label="创建时间" width="100">
       </el-table-column>
-      <el-table-column prop="term" label="持续时间" width="100">
+      <el-table-column prop="term" label="持续时间（分钟）" width="140">
       </el-table-column>
       <el-table-column prop="state" label="状态" width="100"> </el-table-column>
       <el-table-column prop="did" label="容器ID" width="200"> </el-table-column>
-      <el-table-column prop="aid" label="游戏"> </el-table-column>
-      <el-table-column prop="address" label="远程地址"> </el-table-column>
+      <el-table-column prop="aid" label="游戏ID" width="200"> </el-table-column>
+      <el-table-column prop="remote_address" label="远程地址">
+      </el-table-column>
+      <el-table-column label="操作">
+        <template #default="scope">
+          <el-button
+            size="mini"
+            type="danger"
+            @click="handlekillSession(scope.$index, scope.row)"
+            >强制关闭会话
+          </el-button>
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
@@ -47,6 +62,8 @@ import { ops, formatDate } from '../../utils'
 import { useStore } from 'vuex'
 import { key } from '../../store'
 
+import { getSessions, killSession } from '../../api/session'
+
 export default defineComponent({
   data() {
     return {}
@@ -55,6 +72,13 @@ export default defineComponent({
   setup() {
     const store = useStore(key) // 主题监听
     let customClass = ref('dark')
+
+    // 响应式 ws sessions
+    const wsSessionsData = reactive({
+      dat: [],
+      ts: '',
+    })
+
     watch(
       () => store.state.theme,
       (oldValue, newValue) => {
@@ -63,10 +87,20 @@ export default defineComponent({
     )
 
     let freshTime = ref('')
-    setInterval(() => {
-      freshTime.value = formatDate()
-    }, 5000)
-    freshTime.value = formatDate()
+
+    onMounted(() => {
+      getSessions().then((res) => {
+        wsSessionsData.dat = res.Data
+        freshTime.value = formatDate()
+      })
+
+      setInterval(() => {
+        getSessions().then((res) => {
+          wsSessionsData.dat = res.Data
+          freshTime.value = formatDate()
+        })
+      }, 5000)
+    })
 
     let tableData = [
       {
@@ -75,13 +109,17 @@ export default defineComponent({
         created: '早上',
         term: '58分钟',
         state: '未绑定',
-        did: 'a23bd2ccf',
-        aid: 'asdjasdjoashdonasodjo',
-        address: 'address',
+        did: 'a23bd2ccfa23bd2ccf',
+        aid: '未绑定',
+        address: '192.168.5.233:23889',
       },
     ]
 
-    return { freshTime, tableData }
+    function handlekillSession(index, row) {
+      killSession(row.stub)
+      wsSessionsData.dat.splice(index, 1)
+    }
+    return { freshTime, tableData, wsSessionsData, handlekillSession }
   },
 })
 </script>

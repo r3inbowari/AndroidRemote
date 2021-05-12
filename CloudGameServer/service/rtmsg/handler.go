@@ -11,6 +11,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"golang.org/x/net/context"
 	"net/http"
+	"sync"
 	"time"
 )
 
@@ -18,6 +19,20 @@ var upGrader = websocket.Upgrader{
 	CheckOrigin: func(r *http.Request) bool {
 		return true
 	},
+}
+
+// WSSessionMap 记录Map
+var WSSessionMap sync.Map
+
+type UserSession struct {
+	UID           string          `json:"uid"`
+	Stub          string          `json:"stub"`
+	Aid           string          `json:"aid"`
+	State         string          `json:"state"`
+	RemoteAddress string          `json:"remote_address"`
+	Created       int64           `json:"created"`
+	DeviceID      string          `json:"device_id"`
+	Ws            *websocket.Conn `json:"-"`
 }
 
 func PushHandler(c *gin.Context) {
@@ -35,6 +50,9 @@ func PushHandler(c *gin.Context) {
 	var info *user.User
 	var running = false
 
+	// 存根生成
+	spStub := bilicoin.CreateMD5(time.Now().String())
+
 	// 处理断开
 	defer func() {
 		ws.Close()
@@ -45,7 +63,21 @@ func PushHandler(c *gin.Context) {
 			rmq.CloseApp("21", "sda")
 		}
 
+		// 清除存根
+		WSSessionMap.Delete(spStub)
 	}()
+
+	// 添加存根到map
+	WSSessionMap.Store(spStub, UserSession{
+		UID:           "未绑定",
+		Aid:           "未绑定",
+		DeviceID:      "未绑定",
+		Stub:          spStub,
+		State:         "未登录",
+		RemoteAddress: addr.String(),
+		Created:       time.Now().Unix(),
+		Ws:            ws,
+	})
 
 	for {
 		_, message, err := ws.ReadMessage()
@@ -70,7 +102,7 @@ func PushHandler(c *gin.Context) {
 				info, err = user.GetInfoByToken(res.Data)
 
 				// track
-				res.Stub = bilicoin.CreateMD5(time.Now().String()) //...
+				res.Stub = spStub //...
 				res.Op = SU_LOGIN
 				res.Data = "login ok"
 
@@ -103,6 +135,16 @@ func PushHandler(c *gin.Context) {
 
 				// online ask
 				db.Rdb.Set(context.TODO(), "user:online:"+info.Uid, infojson, time.Second*120)
+
+				// session
+				ins, ok := WSSessionMap.Load(spStub)
+				if ok {
+					p := ins.(UserSession)
+					p.UID = info.Uid
+					p.State = "已登录"
+					WSSessionMap.Store(spStub, p)
+				}
+
 			} else {
 				err := ws.WriteJSON(Push{
 					Stub: "",
@@ -128,6 +170,15 @@ func PushHandler(c *gin.Context) {
 		case REQ_APPLY:
 			println("apply")
 			// 查询可用机器
+
+			ins, ok := WSSessionMap.Load(spStub)
+			if ok {
+				p := ins.(UserSession)
+				p.Aid = "app"
+				p.DeviceID = "asdasdasdasd"
+				p.State = "游戏中"
+				WSSessionMap.Store(spStub, p)
+			}
 
 			rmq.OpenSender("a", "a")
 			rmq.OpenApp("b", "as")

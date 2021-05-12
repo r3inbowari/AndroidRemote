@@ -3,11 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="e102a309-9211-4948-bf88-6afa939dea44" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/manager/map.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/manager/map.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/manager/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/manager/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/user_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/test/user_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/rtmsg/handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/rtmsg/handler.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../RemoteServer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/Manager.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/Manager.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/Measure.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/Measure.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cloud-game/src/components/Dash/Content.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/components/Dash/Content.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +71,7 @@
       <recent name="C:\Users\inven\Desktop\MujinProject\AndroidRemoteServant\CloudGameServer\service\public" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Test.TestMem in CloudGameServer/test (1)">
+  <component name="RunManager" selected="Go Build.go build CloudGameServer/cmd">
     <configuration name="go build CloudGameServer/cmd" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="CloudGameServer" />
       <working_directory value="$PROJECT_DIR$" />
@@ -131,8 +131,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Test.TestMem in CloudGameServer/test (1)" />
         <item itemvalue="Go Build.go build CloudGameServer/cmd" />
+        <item itemvalue="Go Test.TestMem in CloudGameServer/test (1)" />
         <item itemvalue="Go Test.TestMem in CloudGameServer/test" />
         <item itemvalue="Go Test.TestInit in CloudGameServer/test" />
         <item itemvalue="Go Test.TestInit in CloudGameServer/device" />
