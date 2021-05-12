@@ -3,14 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="bf713413-0619-41a4-bb33-c69da8f8fe23" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../CloudGameServer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CloudGameServer/domain/manager/map.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/domain/manager/map.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CloudGameServer/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/service/manager/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/service/manager/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/test/user_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/test/user_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/api/banner.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/api/banner.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/store/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/store/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/utils/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/utils/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/About.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/About.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/Log.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/Log.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/Manager.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/Manager.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/Measure.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/Measure.vue" afterDir="false" />
     </list>

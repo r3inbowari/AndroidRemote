@@ -306,7 +306,12 @@
       <!-- 退出 -->
       <div class="sider-exit">
         <!-- <div @click="onExit" class="exit-text">退出登录</div> -->
-        <el-popover placement="top" :width="160" v-model:visible="visibleExit">
+        <el-popover
+          :popper-class="themeClass"
+          placement="top"
+          :width="160"
+          v-model:visible="visibleExit"
+        >
           <p>确定要退出吗？</p>
           <div style="height: 10px"></div>
           <div style="text-align: right; margin: 0">
@@ -376,10 +381,13 @@ export default defineComponent({
       })
     }
 
+    let themeClass = ref('light')
+
     // false light
     // true dark
     function onThemeChange() {
       theme.value = !theme.value
+      themeClass.value = theme.value ? 'dark' : 'light'
       store.commit('setTheme', theme.value)
     }
 
@@ -391,6 +399,7 @@ export default defineComponent({
         case 0:
           router.push('/center/dashboard')
           currIndex.value = 0
+          navName.value = '仪表盘'
           break
         case 1:
           router.push('/center/global')
@@ -403,6 +412,7 @@ export default defineComponent({
           break
         case 3:
           router.push('/center/connection')
+          navName.value = '用户连接'
           currIndex.value = 3
           break
         case 4:
@@ -429,6 +439,7 @@ export default defineComponent({
       navName,
       onJump,
       currIndex,
+      themeClass,
     }
   },
 })
@@ -639,6 +650,7 @@ svg {
   --btn-bg: #387cec;
 }
 
+/* 定制弹出层 */
 .el-popper.is-light {
   background-color: #494b4e;
   border: 0px solid #e4e7ed;

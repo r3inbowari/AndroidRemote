@@ -3,7 +3,9 @@
     <div class="measure-content">
       <div v-for="(item, index) in MeasureItems.dat">
         <div @click="onOpen(index)" class="measure-item">
-          <div class="item-title">{{ item.title }}</div>
+          <div class="item-title">
+            {{ item.title }}
+          </div>
         </div>
         <div class="dvi"></div>
       </div>
@@ -114,7 +116,7 @@
           <el-button
             size="mini"
             type="danger"
-            @click="handleDeleteBanner(scope.$index, scope.row)"
+            @click="handleDeleteHot(scope.$index, scope.row)"
             >删除
           </el-button>
         </template>
@@ -180,12 +182,139 @@
           <el-button
             size="mini"
             type="danger"
-            @click="handleDeleteBanner(scope.$index, scope.row)"
+            @click="handleDeleteUpdate(scope.$index, scope.row)"
             >删除
           </el-button>
         </template>
       </el-table-column>
     </el-table>
+  </el-dialog>
+
+  <el-dialog
+    width="600px"
+    :custom-class="customClass"
+    title="添加热门"
+    v-model="dialogAddHotVisible"
+  >
+    <el-form
+      label-position="right"
+      label-width="80px"
+      :model="formHotData.dat"
+      ref="formHotRef"
+    >
+      <el-form-item label="游戏名称">
+        <el-input
+          placeholder="例如: 仙境传说RO: 守护永恒的爱"
+          v-model="formHotData.dat.title"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="游戏别名">
+        <el-input
+          placeholder="例如: Ragnarok Mobile"
+          v-model="formHotData.dat.alias"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="游戏图标">
+        <el-input
+          placeholder="图标的资源地址, 禁止跨域资源访问"
+          v-model="formHotData.dat.icon"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="横幅地址">
+        <el-input
+          placeholder="横幅的资源地址, 请勿使用重定向资源地址"
+          v-model="formHotData.dat.cover"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="类型">
+        <el-input
+          placeholder="横幅的资源地址, 请勿使用重定向资源地址"
+          v-model="formHotData.dat.type"
+        ></el-input>
+      </el-form-item>
+
+      <el-form-item label="活动性质">
+        <el-checkbox-group v-model="formHotData.dat.tags">
+          <el-checkbox label="线上活动" name="type"></el-checkbox>
+          <el-checkbox label="最近更新" name="type"></el-checkbox>
+          <el-checkbox label="最受欢迎" name="type"></el-checkbox>
+          <el-checkbox label="热门" name="type"></el-checkbox>
+          <el-checkbox label="体验" name="type"></el-checkbox>
+          <el-checkbox label="可爱" name="type"></el-checkbox>
+        </el-checkbox-group>
+      </el-form-item>
+
+      <el-button style="width: 560px" type="primary" @click="handleAddHot()"
+        >立即创建</el-button
+      >
+    </el-form>
+  </el-dialog>
+
+  <el-dialog
+    width="600px"
+    :custom-class="customClass"
+    title="添加更新内容"
+    v-model="dialogAddUpdateVisible"
+  >
+    <el-form
+      label-position="right"
+      label-width="80px"
+      :model="formUpdateData.dat"
+      ref="formUpdateRef"
+    >
+      <el-form-item label="游戏名称">
+        <el-input
+          placeholder="例如: 仙境传说RO: 守护永恒的爱"
+          v-model="formUpdateData.dat.title"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="游戏别名">
+        <el-input
+          placeholder="例如: Ragnarok Mobile"
+          v-model="formUpdateData.dat.alias"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="游戏图标">
+        <el-input
+          placeholder="图标的资源地址, 禁止跨域资源访问"
+          v-model="formUpdateData.dat.icon"
+        ></el-input> </el-form-item
+      >.
+      <el-form-item label="横幅地址">
+        <el-input
+          placeholder="横幅的资源地址, 请勿使用重定向资源地址"
+          v-model="formUpdateData.dat.cover"
+        ></el-input>
+      </el-form-item>
+      <el-row type="flex" class="row-bg">
+        <el-col :span="6">
+          <el-form-item label="人气">
+            <el-switch v-model="formUpdateData.dat.popular"> </el-switch>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="推荐">
+            <el-switch v-model="formUpdateData.dat.recommend"> </el-switch>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="最新">
+            <el-switch v-model="formUpdateData.dat.new"> </el-switch>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="更新">
+            <el-switch v-model="formUpdateData.dat.update"> </el-switch>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-form-item label="描述">
+        <el-input type="textarea" v-model="formUpdateData.dat.desc"></el-input>
+      </el-form-item>
+      <el-button style="width: 560px" type="primary" @click="handleAddUpdate()"
+        >立即创建</el-button
+      >
+    </el-form>
   </el-dialog>
 </template>
 
@@ -234,6 +363,12 @@ export default defineComponent({
         {
           title: '添加更新内容',
         },
+        {
+          title: '游戏上线',
+        },
+        {
+          title: '游戏库管理',
+        },
       ],
     })
 
@@ -249,6 +384,8 @@ export default defineComponent({
     const updateData = reactive({ dat: [] })
 
     let formBannerRef = ref(null)
+    let formHotRef = ref(null)
+    let formUpdateRef = ref(null)
 
     function onOpen(index) {
       console.log(index)
@@ -333,9 +470,37 @@ export default defineComponent({
         })
     }
 
+    // 删除update
+    function handleDeleteUpdate(index) {
+      // console.log(bannerData.dat[index]._id)
+      delUpdate(updateData.dat[index]._id)
+        .then(() => {
+          ops('success', '消息 😊', '删除成功(3001)', customClass.value)
+          // 刷新
+          updateData.dat.splice(index, 1)
+        })
+        .catch(() => {
+          ops('error', '消息 😊', '删除失败(3002)', customClass.value)
+        })
+    }
+
+    // 删除hot
+    function handleDeleteHot(index) {
+      // console.log(bannerData.dat[index]._id)
+      delHot(hotData.dat[index]._id)
+        .then(() => {
+          ops('success', '消息 😊', '删除成功(3001)', customClass.value)
+          // 刷新
+          hotData.dat.splice(index, 1)
+        })
+        .catch(() => {
+          ops('error', '消息 😊', '删除失败(3002)', customClass.value)
+        })
+    }
+
     // 新增banner
     function handleAddBanner() {
-      console.log(formBannerRef.value)
+      // console.log(formBannerRef.value)
       if (
         formBannerData.dat.title === '' ||
         formBannerData.dat.alias === '' ||
@@ -351,11 +516,84 @@ export default defineComponent({
         .then(() => {
           ops('success', '消息 😊', '添加成功(3001)', customClass.value)
           formBannerRef.value.resetFields()
+          dialogAddBannerVisible.value = false
+          formBannerData.dat.title = ''
+          formBannerData.dat.alias = ''
+          formBannerData.dat.cover = ''
+          formBannerData.dat.icon = ''
         })
         .catch(() => {
           ops('error', '消息 😊', '添加失败(3002)', customClass.value)
         })
     }
+
+    // 新增hot
+    function handleAddHot() {
+      // console.log(formHotRef.value)
+      // console.log(formHotData.dat)
+      if (
+        formHotData.dat.title === '' ||
+        formHotData.dat.alias === '' ||
+        formHotData.dat.cover === '' ||
+        formHotData.dat.icon === '' ||
+        formHotData.dat.type === ''
+      ) {
+        ops('error', '消息 😊', '添加失败, 参数错误(3003)', customClass.value)
+
+        formHotRef.value.resetFields()
+        return
+      }
+      addHot(formHotData.dat)
+        .then(() => {
+          ops('success', '消息 😊', '添加成功(3001)', customClass.value)
+          formHotRef.value.resetFields()
+          dialogAddHotVisible.value = false
+          formHotData.dat.title = ''
+          formHotData.dat.alias = ''
+          formHotData.dat.cover = ''
+          formHotData.dat.icon = ''
+          formHotData.dat.type = ''
+          formHotData.dat.tags.length = 0
+        })
+        .catch(() => {
+          ops('error', '消息 😊', '添加失败(3002)', customClass.value)
+        })
+    }
+
+    // 新增update
+    function handleAddUpdate() {
+      if (
+        formUpdateData.dat.title === '' ||
+        formUpdateData.dat.alias === '' ||
+        formUpdateData.dat.cover === '' ||
+        formUpdateData.dat.icon === '' ||
+        formUpdateData.dat.desc === ''
+      ) {
+        ops('error', '消息 😊', '添加失败, 参数错误(3003)', customClass.value)
+
+        formUpdateRef.value.resetFields()
+        return
+      }
+      addUpdate(formUpdateData.dat)
+        .then(() => {
+          ops('success', '消息 😊', '添加成功(3001)', customClass.value)
+          formUpdateRef.value.resetFields()
+          dialogAddUpdateVisible.value = false
+          formUpdateData.dat.title = ''
+          formUpdateData.dat.alias = ''
+          formUpdateData.dat.cover = ''
+          formUpdateData.dat.icon = ''
+          formUpdateData.dat.desc = ''
+          formUpdateData.dat.new = false
+          formUpdateData.dat.recommend = false
+          formUpdateData.dat.popular = false
+          formUpdateData.dat.update = false
+        })
+        .catch(() => {
+          ops('error', '消息 😊', '添加失败(3002)', customClass.value)
+        })
+    }
+
     const formBannerData = reactive({
       dat: {
         title: '',
@@ -365,14 +603,49 @@ export default defineComponent({
       },
     })
 
+    const formHotData = reactive({
+      dat: {
+        aid: '',
+        title: '',
+        alias: '',
+        cover: '',
+        icon: '',
+        type: '',
+        tags: [],
+      },
+    })
+
+    const formUpdateData = reactive({
+      dat: {
+        aid: '',
+        title: '',
+        alias: '',
+        cover: '',
+        icon: '',
+        new: false,
+        recommend: false,
+        popular: false,
+        update: false,
+        desc: '',
+      },
+    })
+
     return {
       handleDeleteBanner,
+      handleDeleteHot,
+      handleDeleteUpdate,
       customClass,
       MeasureItems,
       onOpen,
       formBannerData,
+      formHotData,
+      formUpdateData,
       handleAddBanner,
+      handleAddHot,
+      handleAddUpdate,
       formBannerRef,
+      formHotRef,
+      formUpdateRef,
       dialogBannerTableVisible,
       dialogAddBannerVisible,
       dialogHotTableVisible,
@@ -518,5 +791,23 @@ export default defineComponent({
 }
 .el-form-item__label {
   color: var(--color-text);
+}
+
+/* 定制弹出层 */
+
+/* 单选框定制 */
+.el-checkbox__label {
+  color: var(--color-text);
+}
+
+/* 多行文本定制 */
+.el-textarea__inner {
+  background-color: var(--color-bg-sidebar);
+  color: var(--color-text);
+  border: 1px solid var(--color-separator);
+}
+
+.el-textarea__inner:hover {
+  border-color: var(--color-toggle-bg);
 }
 </style>

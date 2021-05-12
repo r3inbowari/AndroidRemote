@@ -3,14 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="e102a309-9211-4948-bf88-6afa939dea44" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/domain/manager/map.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/manager/map.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/manager/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/manager/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/user_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/test/user_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../RemoteServer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/api/banner.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/api/banner.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/store/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/store/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/utils/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/utils/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/About.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/About.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/Log.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/Log.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/Manager.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/Manager.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/Measure.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/Measure.vue" afterDir="false" />
     </list>
@@ -63,6 +58,7 @@
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../meeting" />
+    <property name="settings.editor.selected.configurable" value="http.proxy" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -75,7 +71,7 @@
       <recent name="C:\Users\inven\Desktop\MujinProject\AndroidRemoteServant\CloudGameServer\service\public" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Build.go build CloudGameServer/cmd">
+  <component name="RunManager" selected="Go Test.TestMem in CloudGameServer/test (1)">
     <configuration name="go build CloudGameServer/cmd" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="CloudGameServer" />
       <working_directory value="$PROJECT_DIR$" />
@@ -83,30 +79,6 @@
       <package value="CloudGameServer/cmd" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$/cmd/main.go" />
-      <method v="2" />
-    </configuration>
-    <configuration name="TestESQ in CloudGameServer/queue" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="CloudGameServer" />
-      <working_directory value="$PROJECT_DIR$/queue" />
-      <root_directory value="$PROJECT_DIR$" />
-      <kind value="PACKAGE" />
-      <package value="CloudGameServer/queue" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <framework value="gotest" />
-      <pattern value="^\QTestESQ\E$" />
-      <method v="2" />
-    </configuration>
-    <configuration name="TestESQ1 in CloudGameServer/queue" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="CloudGameServer" />
-      <working_directory value="$PROJECT_DIR$/queue" />
-      <root_directory value="$PROJECT_DIR$" />
-      <kind value="PACKAGE" />
-      <package value="CloudGameServer/queue" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <framework value="gotest" />
-      <pattern value="^\QTestESQ1\E$" />
       <method v="2" />
     </configuration>
     <configuration name="TestInit in CloudGameServer/device" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
@@ -133,13 +105,37 @@
       <pattern value="^\QTestInit\E$" />
       <method v="2" />
     </configuration>
+    <configuration name="TestMem in CloudGameServer/test (1)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="CloudGameServer" />
+      <working_directory value="$PROJECT_DIR$/test" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="CloudGameServer/test" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestMem\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestMem in CloudGameServer/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="CloudGameServer" />
+      <working_directory value="$PROJECT_DIR$/test" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="CloudGameServer/test" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestMem\E$" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.TestMem in CloudGameServer/test (1)" />
         <item itemvalue="Go Build.go build CloudGameServer/cmd" />
+        <item itemvalue="Go Test.TestMem in CloudGameServer/test" />
         <item itemvalue="Go Test.TestInit in CloudGameServer/test" />
         <item itemvalue="Go Test.TestInit in CloudGameServer/device" />
-        <item itemvalue="Go Test.TestESQ1 in CloudGameServer/queue" />
-        <item itemvalue="Go Test.TestESQ in CloudGameServer/queue" />
       </list>
     </recent_temporary>
   </component>
