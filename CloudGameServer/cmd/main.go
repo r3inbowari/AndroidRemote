@@ -3,6 +3,7 @@ package main
 import (
 	"CloudGameServer"
 	"CloudGameServer/db"
+	"CloudGameServer/device"
 	"CloudGameServer/rmq"
 	bilicoin "CloudGameServer/utils"
 	"time"
@@ -26,6 +27,8 @@ func main() {
 	db.InitRDB()
 
 	rmq.InitRMQPub()
+
+	device.InitDeviceDispatcher()
 
 	CloudGameServer.BCApplication()
 

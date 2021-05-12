@@ -49,6 +49,7 @@ const (
 	REQ_SEND_JPEG
 	REQ_OPEN_APP
 	REQ_CLOSE_APP
+	REQ_APPLY_DEVICE
 )
 
 const (

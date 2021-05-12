@@ -1,6 +1,10 @@
 import { ComponentInternalInstance } from 'vue'
 import { VueCookieNext } from 'vue-cookie-next'
 
+// import { useRouter } from 'vue-router'
+import { storeKey, useStore } from 'vuex'
+import { key } from './store'
+
 export class IWebSocket {
   // timer tag
   wsHeartbeatTag: number = 0
@@ -43,43 +47,55 @@ export class IWebSocket {
     }
 
     // 消息接收
-    ;(this.componentInstance?.appContext.config.globalProperties.sockets).onmessage = (res: {
-      data: string
-    }) => {
-      // msg case
-      console.log('[ws] ' + res.data)
-    }
-
-    // error handler
-    ;(this.componentInstance?.appContext.config.globalProperties.sockets).onerror = () => {
-      console.log('[ws] error found')
-    }
-
-    // connection open
-    ;(this.componentInstance?.appContext.config.globalProperties.sockets).onopen = () => {
-      console.log('[ws] websocket connected')
-
-      let t = VueCookieNext.isCookieAvailable('token')
-      if (t) {
-        this.componentInstance?.appContext.config.globalProperties.$socket.send(
-          JSON.stringify({
-            stub: '',
-            op: 0,
-            data: VueCookieNext.getCookie('token'),
-          })
-        )
+    ;(this.componentInstance?.appContext.config.globalProperties.sockets).onmessage =
+      (res: { data: string }) => {
+        // msg case
+        let result = JSON.parse(res.data)
+        console.log('[ws] ' + result)
+        if (result.op === 6) {
+          // const router = useRouter()
+          // console.log(router)
+          // router.replace({
+          //   name: 'Play',
+          // })
+          // const store = useStore(key) // 主题监听
+          // console.log(store.state.theme)
+        }
       }
 
-      this.wsHeartbeat(this.ttlHeartbeat)
-    }
+    // error handler
+    ;(this.componentInstance?.appContext.config.globalProperties.sockets).onerror =
+      () => {
+        console.log('[ws] error found')
+      }
+
+    // connection open
+    ;(this.componentInstance?.appContext.config.globalProperties.sockets).onopen =
+      () => {
+        console.log('[ws] websocket connected')
+
+        let t = VueCookieNext.isCookieAvailable('token')
+        if (t) {
+          this.componentInstance?.appContext.config.globalProperties.$socket.send(
+            JSON.stringify({
+              stub: '',
+              op: 0,
+              data: VueCookieNext.getCookie('token'),
+            })
+          )
+        }
+
+        this.wsHeartbeat(this.ttlHeartbeat)
+      }
 
     // connection close
-    ;(this.componentInstance?.appContext.config.globalProperties.sockets).onclose = () => {
-      console.log('[ws] close')
-      console.log('[ws] clear interval ', this.wsHeartbeatTag)
-      clearInterval(this.wsHeartbeatTag)
-      this.wsHeartbeatTag = 0
-    }
+    ;(this.componentInstance?.appContext.config.globalProperties.sockets).onclose =
+      () => {
+        console.log('[ws] close')
+        console.log('[ws] clear interval ', this.wsHeartbeatTag)
+        clearInterval(this.wsHeartbeatTag)
+        this.wsHeartbeatTag = 0
+      }
   }
 
   // heartbear function

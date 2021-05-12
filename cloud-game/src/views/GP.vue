@@ -40,7 +40,7 @@ import {
 } from 'vue'
 import { useRouter } from 'vue-router'
 
-import { key } from './store'
+import { key } from '../store'
 import { useStore } from 'vuex'
 
 import { VueCookieNext } from 'vue-cookie-next'
@@ -62,6 +62,7 @@ export default defineComponent({
     return {}
   },
   setup() {
+    const store = useStore(key)
     function stobs(str) {
       var ch,
         st,
@@ -422,9 +423,10 @@ export default defineComponent({
     }
 
     onMounted(() => {
+      let stub = store.state.session
+
       let wsi =
-        import.meta.env['VITE_STREAMING_BASE_URL'] +
-        'screen?session=a8f5f167f44f4964e6c998dee827110c'
+        import.meta.env['VITE_STREAMING_BASE_URL'] + 'screen?session=' + stub
       initWs(wsi)
     })
 

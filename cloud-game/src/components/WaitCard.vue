@@ -35,7 +35,7 @@
             <span>正在做最后的准备, 请稍后 {{ loadingDotStr }}</span>
           </div>
           <div v-if="processValue === 5">
-            <span>即将启动 {{ loadingDotStr }}</span>
+            <span>服务器拥挤, 正在排队 {{ loadingDotStr }}</span>
           </div>
         </div>
       </div>
@@ -50,7 +50,13 @@
 </template>
 
 <script>
-import { defineComponent, onMounted, reactive, ref } from 'vue'
+import {
+  defineComponent,
+  onMounted,
+  reactive,
+  ref,
+  getCurrentInstance,
+} from 'vue'
 import { useRouter } from 'vue-router'
 
 import { key } from '../store'
@@ -90,16 +96,37 @@ export default defineComponent({
 
     const store = useStore(key)
 
+    const currentInstance = getCurrentInstance()
+
     // 加载过程模拟
     function handleRun() {
-      let timeout = 30
+      currentInstance.appContext.config.globalProperties.sockets.onmessage = (
+        res
+      ) => {
+        // msg case
+        let result = JSON.parse(res.data)
+        // console.log('[ws] ' + result.op)
+        if (result.op === 6) {
+          // open
+          store.state.ws.send({ op: 5 })
 
-      // let tag = setInterval(() => {
-      //   openPercentage.value++
-      //   if (openPercentage.value === 100) {
-      //     clearInterval(tag)
-      //   }
-      // }, 30)
+          store.commit('setSession', result.stub)
+          setInterval(() => {
+            router.replace({
+              name: 'Play',
+            })
+          }, 5000)
+        }
+      }
+
+      // 请求机器
+      currentInstance.appContext.config.globalProperties.$socket.send(
+        JSON.stringify({
+          op: 4,
+        })
+      )
+
+      let timeout = 30
 
       let cnt = 10
       startTimer(cnt, () => {
@@ -135,9 +162,9 @@ export default defineComponent({
         }
 
         if (openPercentage.value === 100) {
-          router.replace({
-            name: 'Play',
-          })
+          // router.replace({
+          //   name: 'Play',
+          // })
           return -1
         } else {
           return cnt
@@ -154,9 +181,9 @@ export default defineComponent({
         }
       }
 
-      setTimeout(() => {
-        store.state.ws.send({ msg: 'hello' })
-      }, 4000)
+      // setTimeout(() => {
+      //   store.state.ws.send({ msg: 'hello' })
+      // }, 4000)
     }
 
     // onMounted(handleRun)

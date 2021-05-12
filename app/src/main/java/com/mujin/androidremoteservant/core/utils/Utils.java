@@ -8,6 +8,9 @@ import android.util.Log;
 import com.mujin.androidremoteservant.core.shell.AbstractShell;
 import com.mujin.androidremoteservant.core.shell.ProcessShell;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public class Utils {
 
     public static final String ARCH_X86 = "x86";
@@ -185,4 +188,6 @@ public class Utils {
     public static void kill(int pid) {
         ProcessShell.exec("kill -9 " + String.valueOf(pid), true);
     }
+
+
 }

@@ -1,9 +1,11 @@
 package ws
 
 import (
+	"RemoteServer/db"
 	"RemoteServer/event"
 	pics "RemoteServer/jpeg"
 	bilicoin "RemoteServer/utils"
+	"context"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
@@ -21,6 +23,14 @@ var upGrader = websocket.Upgrader{
 
 var SessionMap sync.Map
 
+func getDevice(sessionID string) (string, bool) {
+	ret := db.Rdb.HGet(context.TODO(), "sessionMap", sessionID).Val()
+	if ret == "" {
+		return "", false
+	}
+	return ret, true
+}
+
 func screen(c *gin.Context) {
 	addr, _ := c.RemoteIP()
 	sessionID := c.Query("session")
@@ -33,10 +43,13 @@ func screen(c *gin.Context) {
 		return
 	}
 
-	// session 检查是否有效
+	// session 检查是否有效 测试
 	// val 为设备 did
 	// 数据源 请求队列
-	deviceID, ok := SessionMap.Load(sessionID)
+	// deviceID, ok := SessionMap.Load(sessionID)
+	// 正式
+	deviceID, ok := getDevice(sessionID)
+
 	if !ok {
 		bilicoin.Fatal("[WS] unavailable session", logrus.Fields{"addr": addr.String()})
 		// c.JSON(http.StatusNotFound, FailedResponse(errors.New("unavailable params").Error(), bilicoin.InternalServerError))

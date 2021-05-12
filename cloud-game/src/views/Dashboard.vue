@@ -3,7 +3,7 @@
     <div>
       <el-row type="flex" class="row-bg">
         <el-col :span="8"
-          ><PlayChart style="margin: 0 auto"></PlayChart
+          ><VisitChart style="margin: 0 auto"></VisitChart
         ></el-col>
         <el-col :span="8"> <Server style="margin: 0 auto"></Server></el-col>
         <el-col :span="8"
@@ -37,6 +37,7 @@ import { useStore } from 'vuex'
 import { key } from '../store'
 
 import PlayChart from '../components/Dash/PlayChart.vue'
+import VisitChart from '../components/Dash/VisitChart.vue'
 import Server from '../components/Dash/Server.vue'
 import Content from '../components/Dash/Content.vue'
 
@@ -48,6 +49,7 @@ export default defineComponent({
     PlayChart,
     Server,
     Content,
+    VisitChart,
   },
   setup() {
     let customClass = ref('dark')

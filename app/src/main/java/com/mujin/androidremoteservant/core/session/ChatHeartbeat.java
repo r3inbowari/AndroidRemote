@@ -3,6 +3,8 @@ package com.mujin.androidremoteservant.core.session;
 import android.app.Activity;
 import android.util.Log;
 
+import java.security.NoSuchAlgorithmException;
+
 import static com.mujin.androidremoteservant.core.SystemInit.DID;
 
 public class ChatHeartbeat implements Runnable {
@@ -21,7 +23,7 @@ public class ChatHeartbeat implements Runnable {
             try {
                 Chat.getInstance().sendMsg(ChatTypeEnum.REG, DeviceProvider.getDeviceInfo(context));
                 Thread.sleep(80 * 1000);
-            } catch (InterruptedException e) {
+            } catch (InterruptedException | NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
         }

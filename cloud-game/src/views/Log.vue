@@ -1,11 +1,16 @@
 <template>
   <div class="_2oV8uPP0dj">
     <div>
-      <div class="_24ddJm1Q5s"><h1 class="B4QNkMu-0t">日志</h1></div>
-      <div class="_2QPZldYe9U">
+      <!-- <div class="_24ddJm1Q5s"><h1 class="B4QNkMu-0t">日志</h1></div> -->
+      <div style="margin-top: 30px" class="_2QPZldYe9U">
         <div class="_2PCUI90lIf">
           <div class="xOYTLnYrng">
-            <input type="text" class="_1JKQs_Qawx" value="" />
+            <input
+              placeholder="试试搜索吧"
+              type="text"
+              class="_1JKQs_Qawx"
+              value=""
+            />
           </div>
           <div class="_2km92h_dfH">
             <svg

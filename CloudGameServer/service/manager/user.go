@@ -1,9 +1,13 @@
 package manager
 
 import (
+	"CloudGameServer/db"
 	"CloudGameServer/service/rtmsg"
 	bilicoin "CloudGameServer/utils"
 	"github.com/gin-gonic/gin"
+	"golang.org/x/net/context"
+	"net/http"
+	"runtime"
 )
 
 func GetSessions(c *gin.Context) {
@@ -32,4 +36,48 @@ func KillSession(c *gin.Context) {
 		}
 	}
 	c.JSON(200, bilicoin.ResponseOKWrap("ok"))
+}
+
+func SystemHeap(c *gin.Context) {
+	var m runtime.MemStats
+	runtime.ReadMemStats(&m)
+	c.JSON(200, &m)
+}
+
+func GetDevicesCount(c *gin.Context) {
+	results, err := db.Rdb.Keys(context.TODO(), "reg:info:*").Result()
+	if err != nil {
+		return
+	}
+	c.JSON(http.StatusOK, len(results))
+}
+
+// GetDevices ..temp
+func GetDevices(c *gin.Context) {
+	//results, err := db.Rdb.Keys(context.TODO(), "reg:info:*").Result()
+	//if err != nil {
+	//	return
+	//}
+	results, err := db.Rdb.Keys(context.TODO(), "reg:info:*").Result()
+	if err != nil {
+		return
+	}
+
+	var rets string
+	rets = "["
+
+	vl := len(results)
+	for k, v := range results {
+		// 事务
+		result := db.Rdb.Get(context.TODO(), v)
+		//rets = append(rets, result.Val())
+		rets += result.Val()
+
+		if k + 1 == vl {
+			rets += "]"
+		} else {
+			rets += ","
+		}
+	}
+	c.String(200, rets)
 }

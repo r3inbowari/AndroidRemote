@@ -36,6 +36,7 @@ export const routerMap = [
     component: importView('Manager'),
     children: [
       {
+        name: 'About',
         path: 'about',
         component: importView('About'),
       },

@@ -19,7 +19,7 @@ import { VueCookieNext } from 'vue-cookie-next'
 import { userInfo } from './api/user'
 
 import { IWebSocket } from './ws'
-
+import { useRouter } from 'vue-router'
 export default defineComponent({
   name: 'App',
   components: {},
@@ -63,6 +63,8 @@ export default defineComponent({
     // ws instance
     let ws = new IWebSocket(currentInstance, null)
     store.commit('setWs', ws)
+    const router = useRouter()
+
     function initMsgWebsocket() {
       ws.initMsgWebsocket()
     }

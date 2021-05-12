@@ -1,6 +1,11 @@
 package com.mujin.androidremoteservant.core.session;
 
 import com.mujin.androidremoteservant.core.utils.Device;
+import com.mujin.androidremoteservant.core.utils.Hash;
+import com.mujin.androidremoteservant.core.utils.Utils;
+
+import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 
 public class DeviceInfo {
     private String deviceFingerPrint = "";
@@ -15,6 +20,10 @@ public class DeviceInfo {
     private long deviceTotalMem = 0;
     private long deviceAvailMem = 0;
     private String deviceWifiAddress = "";
+    private String deviceContainerID = "";
+
+    public DeviceInfo() throws NoSuchAlgorithmException {
+    }
 
     public String getDeviceWifiAddress() {
         return deviceWifiAddress;
@@ -27,7 +36,7 @@ public class DeviceInfo {
 
     private static DeviceInfo mInstance = null;
 
-    public static DeviceInfo getInstance() {
+    public static DeviceInfo getInstance() throws NoSuchAlgorithmException {
         if (mInstance == null)
             mInstance = new DeviceInfo();
         return mInstance;
@@ -130,5 +139,14 @@ public class DeviceInfo {
     public DeviceInfo setDeviceTotalMem(long deviceTotalMem) {
         this.deviceTotalMem = deviceTotalMem;
         return this;
+    }
+
+    public DeviceInfo setDeviceContainerID(String deviceContainerID) {
+        this.deviceContainerID = deviceContainerID;
+        return this;
+    }
+
+    public String getDeviceContainerID() {
+        return deviceContainerID;
     }
 }

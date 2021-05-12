@@ -25,6 +25,7 @@ export interface State {
   token: String
   ws: IWebSocket | null
   theme: boolean
+  session: String
 }
 
 // define injection key
@@ -38,6 +39,7 @@ export const store = createStore<State>({
     // ws global
     ws: null,
     theme: true,
+    session: '',
   },
   mutations: {
     setTheme(state, t) {
@@ -59,6 +61,10 @@ export const store = createStore<State>({
     setWs(state, t) {
       state.ws = t
       console.log('[store] setWs ')
+    },
+    setSession(state, t) {
+      state.session = t
+      console.log('[store] setSession ' + state.session)
     },
   },
 })

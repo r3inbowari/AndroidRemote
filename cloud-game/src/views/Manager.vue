@@ -166,7 +166,7 @@
               d="M33,21H15c-1.1,0-2,0.9-2,2s0.9,2,2,2h18c1.1,0,2-0.9,2-2S34.1,21,33,21z"
             ></path>
           </svg>
-          <div class="item-desc">连接</div>
+          <div class="item-desc">设备</div>
         </a>
         <a
           class="sider-item"
@@ -412,15 +412,17 @@ export default defineComponent({
           break
         case 3:
           router.push('/center/connection')
-          navName.value = '用户连接'
+          navName.value = '容器管理'
           currIndex.value = 3
           break
         case 4:
           router.push('/center/setting')
+          navName.value = '设置'
           currIndex.value = 4
           break
         case 5:
           router.push('/center/log')
+          navName.value = '日志'
           currIndex.value = 5
           break
         case 6:

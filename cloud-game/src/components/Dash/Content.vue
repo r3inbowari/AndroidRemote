@@ -22,14 +22,17 @@
       :data="wsSessionsData.dat"
       style="width: 100%"
     >
-      <el-table-column prop="stub" label="存根" width="150"> </el-table-column>
-      <el-table-column prop="uid" label="用户名" width="100"> </el-table-column>
-      <el-table-column prop="created" label="创建时间" width="100">
+      <el-table-column prop="stub" label="存根 ID" width="150">
       </el-table-column>
-      <el-table-column prop="term" label="持续时间（分钟）" width="140">
+      <el-table-column prop="uid" label="用户 ID" width="150">
+      </el-table-column>
+      <el-table-column prop="created" label="创建时间" width="150">
+      </el-table-column>
+      <el-table-column prop="term" label="持续时间（分钟）" width="150">
       </el-table-column>
       <el-table-column prop="state" label="状态" width="100"> </el-table-column>
-      <el-table-column prop="did" label="容器ID" width="200"> </el-table-column>
+      <el-table-column prop="device_id" label="设备 ID" width="200">
+      </el-table-column>
       <el-table-column prop="aid" label="游戏ID" width="200"> </el-table-column>
       <el-table-column prop="remote_address" label="远程地址">
       </el-table-column>
@@ -119,6 +122,7 @@ export default defineComponent({
       killSession(row.stub)
       wsSessionsData.dat.splice(index, 1)
     }
+
     return { freshTime, tableData, wsSessionsData, handlekillSession }
   },
 })

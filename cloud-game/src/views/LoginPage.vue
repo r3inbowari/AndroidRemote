@@ -105,17 +105,26 @@ import {
   reactive,
   watch,
 } from 'vue'
-
+import { VueCookieNext } from 'vue-cookie-next'
 import logo_t from '/src/assets/login-bg.png'
 import { ElNotification } from 'element-plus'
 
 import { getVersion } from '../api/public'
+
+import { userLogin } from '../api/user'
+import { useStore } from 'vuex'
+import { key } from '../store'
+
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   data() {
     return {}
   },
   setup() {
+    const store = useStore(key)
+    const router = useRouter()
+
     let logoUrl = ref(logo_t)
     let showForm = ref(true)
     let showLoading = ref(false)
@@ -178,6 +187,41 @@ export default defineComponent({
           // open loading status
           showLoading.value = true
           showForm.value = false
+
+          // validated and login req
+          userLogin(loginData.mobile, loginData.password)
+            .then((res) => {
+              if (res.code === 2005) {
+                ElNotification({
+                  title: '成功',
+                  message: '登陆成功 用户: ' + loginData.mobile,
+                  type: 'success',
+                })
+
+                VueCookieNext.setCookie('token', res.data, { expire: '7d' })
+                store.commit('setToken', res.data)
+                router.replace({
+                  name: 'About',
+                })
+              } else {
+                ElNotification({
+                  title: '错误',
+                  message: '账号或密码错误，请重试(' + res.code + ')',
+                  type: 'error',
+                })
+              }
+              showForm.value = true
+              showLoading.value = false
+            })
+            .catch((e) => {
+              ElNotification({
+                title: '错误',
+                message: '账号或密码错误，请重试111',
+                type: 'error',
+              })
+              showForm.value = true
+              showLoading.value = false
+            })
         } else {
           ElNotification({
             title: '发生错误 🤔',

@@ -2,6 +2,7 @@ package rtmsg
 
 import (
 	"CloudGameServer/db"
+	"CloudGameServer/device"
 	"CloudGameServer/rmq"
 	"CloudGameServer/service/user"
 	bilicoin "CloudGameServer/utils"
@@ -49,6 +50,7 @@ func PushHandler(c *gin.Context) {
 	var isLogin = false
 	var info *user.User
 	var running = false
+	var applied = false
 
 	// 存根生成
 	spStub := bilicoin.CreateMD5(time.Now().String())
@@ -63,15 +65,19 @@ func PushHandler(c *gin.Context) {
 			rmq.CloseApp("21", "sda")
 		}
 
-		// 清除存根
+		// 清除本地存根
 		WSSessionMap.Delete(spStub)
+
+		// 清除redis
+		device.Try2Detach(spStub)
+
 	}()
 
 	// 添加存根到map
 	WSSessionMap.Store(spStub, UserSession{
 		UID:           "未绑定",
 		Aid:           "未绑定",
-		DeviceID:      "未绑定",
+		DeviceID:      "未分配",
 		Stub:          spStub,
 		State:         "未登录",
 		RemoteAddress: addr.String(),
@@ -168,24 +174,54 @@ func PushHandler(c *gin.Context) {
 			}
 			return
 		case REQ_APPLY:
-			println("apply")
-			// 查询可用机器
-
-			ins, ok := WSSessionMap.Load(spStub)
+			bilicoin.Info("[WS] try to apply a device", logrus.Fields{"stub": spStub})
+			// 尝试申请容器 ok 则申请成功
+			ok := device.Try2Apply(spStub)
 			if ok {
-				p := ins.(UserSession)
-				p.Aid = "app"
-				p.DeviceID = "asdasdasdasd"
-				p.State = "游戏中"
-				WSSessionMap.Store(spStub, p)
+				ws.WriteJSON(Push{
+					Stub: spStub,
+					Op:   ASK_APPLY_SUCCEED,
+					Data: "申请成功",
+				})
+				applied = true
+				bilicoin.Info("[WS] apply succeed", logrus.Fields{"stub": spStub})
+			} else {
+				// 可以扩展排队系统
+				ws.WriteJSON(Push{
+					Stub: spStub,
+					Op:   ASK_APPLY_FAILED,
+					Data: "等待5s后尝试",
+				})
+				bilicoin.Info("[WS] apply failed", logrus.Fields{"stub": spStub})
 			}
+		case REQ_START:
+			if applied {
+				deviceID, ok := getDevice(spStub)
 
-			rmq.OpenSender("a", "a")
-			rmq.OpenApp("b", "as")
-			running = true
+				if ok {
+					ins, ok := WSSessionMap.Load(spStub)
+					if ok {
+						p := ins.(UserSession)
+						p.Aid = "app"
+						p.DeviceID = deviceID
+						p.State = "游戏中"
+						WSSessionMap.Store(spStub, p)
+
+						rmq.OpenSender(spStub, deviceID)
+						rmq.OpenApp(spStub, res.Data)
+					}
+				}
+			}
 		}
-
 	}
+}
+
+func getDevice(sessionID string) (string, bool) {
+	ret := db.Rdb.HGet(context.TODO(), "sessionMap", sessionID).Val()
+	if ret == "" {
+		return "", false
+	}
+	return ret, true
 }
 
 type Push struct {
@@ -195,10 +231,13 @@ type Push struct {
 }
 
 const (
-	UNAUTH    = -1
-	REQ_LOGIN = 0
-	SU_LOGIN  = 1
-	REQ_HB    = 2
-	REQ_EXIT  = 3
-	REQ_APPLY = 4
+	UNAUTH            = -1
+	REQ_LOGIN         = 0
+	SU_LOGIN          = 1
+	REQ_HB            = 2
+	REQ_EXIT          = 3
+	REQ_APPLY         = 4
+	REQ_START         = 5
+	ASK_APPLY_SUCCEED = 6
+	ASK_APPLY_FAILED  = 7
 )

@@ -215,8 +215,7 @@ export default defineComponent({
       alias: 'kernel event',
       cover:
         'https://image-glb.qpyou.cn/hubweb/hive_img/web/banner/20210204/0aa3bbb693b4d1b9cb6fc61ce9d9ac8e_1200x490.jpg',
-      icon:
-        'https://image-glb.qpyou.cn/hubweb/gmnotice/appcenter/1612412918869.jpg',
+      icon: 'https://image-glb.qpyou.cn/hubweb/gmnotice/appcenter/1612412918869.jpg',
     }
 
     onMounted(() => {

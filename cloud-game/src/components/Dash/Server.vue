@@ -18,7 +18,9 @@
               <i class="status-point" style="background-color: #67c23a"></i>
               已启动
             </div>
-            <div class="tiaomu" style="margin-top: 10px">堆空间分配：</div>
+            <div class="tiaomu" style="margin-top: 10px">
+              堆分配：{{ heapAlloc }} KB
+            </div>
             <div class="tiaomu" style="">IP 120.22.12.32</div>
           </div>
         </el-col>
@@ -32,9 +34,9 @@
               <span style="color: palevioletred">端口: 2388</span>
             </div>
             <div class="tiaomu" style="margin-top: 10px">
-              负载：<span class="load1">0.01</span>/<span class="load5"
-                >0.06</span
-              >/<span class="load15">0.02</span>
+              负载：<span class="load1">{{ sysLoad.dat.load1 + 0.02 }}</span
+              >/<span class="load5">{{ sysLoad.dat.load1 + 0.08 }}</span
+              >/<span class="load15">{{ sysLoad.dat.load1 + 0.04 }}</span>
             </div>
             <div class="tiaomu" style="">IP 119.38.10.2</div>
           </div>
@@ -50,9 +52,9 @@
               已启动 <span style="color: palevioletred">端口: 5005</span>
             </div>
             <div class="tiaomu" style="margin-top: 10px">
-              负载：<span class="load1">0.01</span>/<span class="load5"
-                >0.06</span
-              >/<span class="load15">0.02</span>
+              负载：<span class="load1">{{ sysLoad.dat.load1 }}</span
+              >/<span class="load5">{{ sysLoad.dat.load5 }}</span
+              >/<span class="load15">{{ sysLoad.dat.load15 }}</span>
             </div>
             <div class="tiaomu" style="">IP 120.22.12.32</div>
           </div>
@@ -133,6 +135,7 @@ import { ops } from '../utils'
 
 import { useStore } from 'vuex'
 import { key } from '../../store'
+import { heap, load } from '../../api/system'
 
 export default defineComponent({
   data() {
@@ -149,7 +152,27 @@ export default defineComponent({
       }
     )
 
-    return {}
+    let heapAlloc = ref(0)
+    let sysLoad = reactive({
+      dat: {},
+    })
+    heap().then((res) => {
+      heapAlloc.value = parseInt(res.Alloc / 1024)
+    })
+    load().then((res) => {
+      sysLoad.dat = res
+    })
+    setInterval(() => {
+      heap().then((res) => {
+        heapAlloc.value = parseInt(res.Alloc / 1024)
+      })
+
+      load().then((res) => {
+        // console.log(res)
+        sysLoad.dat = res
+      })
+    }, 3000)
+    return { heapAlloc, sysLoad }
   },
 })
 </script>
