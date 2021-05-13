@@ -166,7 +166,7 @@ func TestCloseApp(t *testing.T) {
 	op := queue.MQOrder{
 		Id:        "deab9dbaaa74541d",
 		Stub:      bilicoin.CreateMD5(time.Now().String()),
-		Data:      "com.shandagames.falloutshelterUc.uc",
+		Data:      "com.xd.ro.roapk",
 		Msg:       "order",
 		Operation: bilicoin.REQ_CLOSE_APP,
 	}

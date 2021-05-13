@@ -209,6 +209,7 @@ func PushHandler(c *gin.Context) {
 
 						rmq.OpenSender(spStub, deviceID)
 						rmq.OpenApp(spStub, res.Data)
+						running = true
 					}
 				}
 			}

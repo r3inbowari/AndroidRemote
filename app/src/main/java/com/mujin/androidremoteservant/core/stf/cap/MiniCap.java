@@ -182,7 +182,7 @@ class MiniCapNDK extends Thread {
         if (mx > 5000 || my > 5000) {
             Log.e(TAG, "run failed used a error x or y metrics pixel");
         }
-        String dp = "-P " + mx + "x" + my + "@" + mx + "x" + my + "/0 -Q 5";
+        String dp = "-P " + mx + "x" + my + "@" + mx + "x" + my + "/0 -Q 2";
         // String dp = "-P 1920x1080@1280x720/180 -Q 5";
         execString = TextUtils.join(" ",
                 new Object[]{

@@ -528,7 +528,8 @@ export default defineComponent({
 }
 
 .play-inner-content canvas {
-  background-color: wheat;
+  /* background-color: wheat; */
+  background-color: rgb(30, 30, 30);
 }
 
 /* canvas 水平居中, 垂直居中暂未制作 */
