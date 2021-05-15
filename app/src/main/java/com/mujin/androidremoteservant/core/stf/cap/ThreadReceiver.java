@@ -72,6 +72,8 @@ public class ThreadReceiver extends Thread {
                 frameLen = Utils.parseFrameLen(len);
                 Frame frame = frameAlloc.alloc().setLen(frameLen);
 
+//                byte[] fb = new byte[frameLen];
+
                 int read = 0;
                 while (frameLen > read) {
                     // 增量   偏移量   剩余

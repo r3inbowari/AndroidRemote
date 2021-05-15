@@ -12,6 +12,7 @@
           @contextmenu.prevent=""
           disable-scroll="true"
           ref="refCanvas"
+          @touchmove="onMove"
           @mousemove="onMove"
           @mouseup="onUp"
           @mousedown="onDown"

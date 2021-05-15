@@ -137,6 +137,30 @@
       </section>
     </section>
 
+    <div
+      style="
+        background-color: rgb(190, 114, 114);
+        border-radius: 10px;
+        width: 200px;
+        height: 150px;
+        margin: 0 auto;
+        position: absolute;
+        top: 1000px;
+        left: 700px;
+        padding: 20px;
+      "
+    >
+      <h3>选择金额进行充值</h3>
+      <el-input
+        style="margin-top: 40px"
+        v-model="input"
+        placeholder="输入点数"
+      ></el-input>
+      <el-button style="width: 100%; margin-top: 10px" type="success"
+        >成功按钮</el-button
+      >
+    </div>
+
     <footer class="footer">
       <HomeFooter></HomeFooter>
     </footer>
