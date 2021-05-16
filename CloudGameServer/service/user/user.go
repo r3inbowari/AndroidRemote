@@ -21,6 +21,8 @@ type User struct {
 	Password string             `json:"password,omitempty" valid:"required,ascii,length(5|16)"`
 	Status   int                `json:"status"`
 	Role     int                `json:"role,omitempty"`
+	Level    int                `json:"level"`
+	Point    int                `json:"point"`
 }
 
 //type UInfo struct {
@@ -97,6 +99,8 @@ func (u *User) CreateUser() *User {
 	u.Password = bilicoin.CreateMD5(u.Password)
 	u.Status = 0
 	u.Role = 0
+	u.Level = 1
+	u.Point = 2 * 60
 	return u
 }
 

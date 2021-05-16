@@ -18,7 +18,7 @@ const (
 	UserTokenCreateError
 	UserUnauthorized
 	// android
-
+	UserChargeSucceed
 	// admin
 
 	// grpc

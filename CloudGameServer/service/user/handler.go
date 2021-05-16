@@ -1,11 +1,14 @@
 package user
 
 import (
+	"CloudGameServer/db"
 	"CloudGameServer/service"
 	bilicoin "CloudGameServer/utils"
 	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/bson"
 	"net/http"
+	"strconv"
 )
 
 //type CSRFImpl interface {
@@ -55,7 +58,7 @@ func HandlerLogin(context *gin.Context) {
 	context.JSON(http.StatusOK, service.SucceedResponse(token, bilicoin.UserLoginSucceed))
 }
 
-// unsafe operation
+// HandlerInfo unsafe operation
 func HandlerInfo(context *gin.Context) {
 	bearer := context.GetHeader("Authorization")
 	token := bilicoin.ParseToken(bearer)
@@ -64,4 +67,28 @@ func HandlerInfo(context *gin.Context) {
 		context.JSON(http.StatusOK, service.FailedResponse(err.Error(), bilicoin.InternalServerError))
 	}
 	context.JSON(http.StatusOK, service.SucceedResponse(userInfo, bilicoin.UserLoginSucceed))
+}
+
+func HandlerPay(context *gin.Context) {
+	point, err := strconv.Atoi(context.Query("point"))
+	if err != nil {
+		context.JSON(http.StatusOK, service.FailedResponse(err.Error(), bilicoin.InternalServerError))
+		return
+	}
+	bearer := context.GetHeader("Authorization")
+	token := bilicoin.ParseToken(bearer)
+	info, err := GetInfoByToken(token)
+
+	ud := User{}
+	if err := db.MDB().FindOne(bson.M{"mobile": info.Mobile}, &ud); err != nil {
+		context.JSON(http.StatusOK, service.FailedResponse("not found", bilicoin.InternalServerError))
+	}
+	ud.Point += point * 60// demo，没有支付服务，直接加就算了
+
+	err = ud.Update()
+	if err != nil {
+		context.JSON(http.StatusOK, service.FailedResponse("充值失败", bilicoin.InternalServerError))
+		return
+	}
+	context.JSON(http.StatusOK, service.SucceedResponse("ok", bilicoin.UserChargeSucceed))
 }

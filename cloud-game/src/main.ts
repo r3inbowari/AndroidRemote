@@ -27,6 +27,8 @@ import VueNativeSock from 'vue-native-websocket-vue3'
 
 import Vant from 'vant'
 import 'vant/lib/index.css'
+import { Toast } from 'vant'
+import { Dialog } from 'vant'
 
 // 桌面端适配
 // import '@vant/touch-emulator'
@@ -36,6 +38,8 @@ app
   .use(router)
   .use(store, key)
   .use(ElementPlus)
+  .use(Toast) // vant toast
+  .use(Dialog)
   .use(Vant) // vant
   .use(VueCookieNext) // options api mount
   .use(VueNativeSock, import.meta.env['VITE_PUSH_BASE_URL'], {

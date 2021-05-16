@@ -7,6 +7,50 @@ import { importView } from '../utils'
 
 export const routerMap = [
   {
+    name: 'MIndex',
+    path: '/m',
+    component: importView('MIndex'),
+    redirect: '/m/game',
+    children: [
+      {
+        name: 'MMe',
+        path: 'me',
+        component: importView('MMe'),
+      },
+      {
+        name: 'MCom',
+        path: 'com',
+        component: importView('MCom'),
+      },
+      {
+        name: 'MGame',
+        path: 'game',
+        component: importView('MGame'),
+      },
+      {
+        name: 'MLogin',
+        path: 'login',
+        component: importView('MLogin'),
+      },
+      {
+        name: 'MAbout',
+        path: 'about',
+        component: importView('MAbout'),
+      },
+      {
+        name: 'MSetting',
+        path: 'setting',
+        component: importView('MSetting'),
+      },
+      {
+        name: 'MCharge',
+        path: 'charge',
+        component: importView('MCharge'),
+      },
+    ],
+  },
+  {
+    name: 'PCPage',
     path: '/',
     component: importView('Home'),
   },

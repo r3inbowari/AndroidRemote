@@ -19,3 +19,8 @@ export const userLogin = function (mobile: string, password: string) {
 export const userInfo = function () {
   return reqV(GET, '/info', {})
 }
+
+// get user info
+export const userPay = function (point: number) {
+  return reqV(GET, '/pay?point=' + point, {})
+}

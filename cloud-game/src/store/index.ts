@@ -22,10 +22,13 @@ import { IWebSocket } from '../ws'
 export interface State {
   count: number
   avatar: String
+  mobile: String
+  username: String
   token: String
   ws: IWebSocket | null
   theme: boolean
   session: String
+  info: Object
 }
 
 // define injection key
@@ -33,6 +36,8 @@ export const key: InjectionKey<Store<State>> = Symbol()
 
 export const store = createStore<State>({
   state: {
+    username: '',
+    mobile: '',
     count: 1,
     avatar: 'null',
     token: '',
@@ -40,6 +45,9 @@ export const store = createStore<State>({
     ws: null,
     theme: true,
     session: '',
+    info: {
+      level: 0,
+    },
   },
   mutations: {
     setTheme(state, t) {
@@ -57,6 +65,18 @@ export const store = createStore<State>({
     setAvatar(state, t) {
       state.avatar = t
       console.log('[store] setAvatar ' + state.avatar)
+    },
+    setMobile(state, t) {
+      state.mobile = t
+      console.log('[store] setMobile ' + state.mobile)
+    },
+    setUsername(state, t) {
+      state.username = t
+      console.log('[store] setUsername ' + state.username)
+    },
+    setInfo(state, t) {
+      state.info = t
+      console.log('[store] setInfo ' + state.info)
     },
     setWs(state, t) {
       state.ws = t

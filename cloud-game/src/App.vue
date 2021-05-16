@@ -20,6 +20,7 @@ import { userInfo } from './api/user'
 
 import { IWebSocket } from './ws'
 import { useRouter } from 'vue-router'
+
 export default defineComponent({
   name: 'App',
   components: {},
@@ -47,7 +48,7 @@ export default defineComponent({
             // console.log(res)
             // save foreach
             // undefined avatar param
-            store.commit('setAvatar', res.data.avatar)
+            store.commit('setInfo', res.data)
           })
           .catch(() => {
             console.log('[app] get info failed. see ↓')
@@ -71,6 +72,28 @@ export default defineComponent({
     onMounted(initUserInfo)
     // init ws
     onMounted(initMsgWebsocket)
+
+    // 设备类型判断
+    function isMobile() {
+      let flag = navigator.userAgent.match(
+        /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
+      )
+      return flag
+    }
+    // 执行判断
+    onMounted(() => {
+      if (isMobile()) {
+        // alert('移动端')
+        // 跳转到移动端
+        router.replace({
+          name: 'MIndex',
+        })
+      } else {
+        // router.replace({
+        //   name: 'PCPage',
+        // })
+      }
+    })
   },
 })
 </script>
