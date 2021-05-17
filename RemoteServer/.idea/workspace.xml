@@ -2,10 +2,109 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bf713413-0619-41a4-bb33-c69da8f8fe23" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../.idea/runConfigurations.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CloudGameServer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/cmd/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/db/mdb_interface.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/db/mdb_interface.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/db/mdbo.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/db/mdbo.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/db/mongo.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/db/mongo.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/db/rdb.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/db/rdb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/device/control.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/device/control.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/device/dev_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/device/dev_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/domain/manager/map.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/domain/manager/map.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CloudGameServer/domain/public/map.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/domain/public/map.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/domain/rtmsg/map.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/domain/rtmsg/map.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/domain/rtmsg/ws_push.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/domain/rtmsg/ws_push.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/domain/rtmsg/ws_test.html" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/domain/rtmsg/ws_test.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/domain/user/map.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/domain/user/map.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/mqtt.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/mqtt.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/queue/esQueue.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/queue/esQueue.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/queue/es_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/queue/es_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/queue/up.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/queue/up.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/release/build_config.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/release/build_config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/rmq/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/rmq/api.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/rmq/rmq.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/rmq/rmq.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/service/exp.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/service/exp.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/service/manager/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/service/manager/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/service/public/Detail.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/service/public/Detail.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/service/public/banner.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/service/public/banner.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/service/public/hot.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/service/public/hot.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/service/public/public.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/service/public/public.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/service/public/update.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/service/public/update.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/service/rtmsg/handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/service/rtmsg/handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/service/rtmsg/play_log.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/service/rtmsg/play_log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/service/user/handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/service/user/handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/service/user/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/service/user/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/test/control_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/test/control_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/test/mongo_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/test/mongo_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/test/rtmsg_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/test/rtmsg_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/test/user_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/test/user_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/test/ws_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/test/ws_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/utils/common.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/utils/common.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/utils/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/utils/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/utils/enum.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/utils/enum.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/utils/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/utils/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/utils/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/utils/utils.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/control/control.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/control/control.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/control/control_grpc.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/control/control_grpc.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/control/impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/control/impl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/control/impl_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/control/impl_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/rdb.go" beforeDir="false" afterPath="$PROJECT_DIR$/db/rdb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/device/device.go" beforeDir="false" afterPath="$PROJECT_DIR$/device/device.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/event/event.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/event/event.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/event/event.proto" beforeDir="false" afterPath="$PROJECT_DIR$/event/event.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/event/event_grpc.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/event/event_grpc.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/event/event_t.go" beforeDir="false" afterPath="$PROJECT_DIR$/event/event_t.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/event/event_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/event/event_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/event/impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/event/impl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hello/hello.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/hello/hello.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hello/hello_grpc.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/hello/hello_grpc.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hello/impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/hello/impl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/google/protobuf/any.proto" beforeDir="false" afterPath="$PROJECT_DIR$/include/google/protobuf/any.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/google/protobuf/api.proto" beforeDir="false" afterPath="$PROJECT_DIR$/include/google/protobuf/api.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/google/protobuf/compiler/plugin.proto" beforeDir="false" afterPath="$PROJECT_DIR$/include/google/protobuf/compiler/plugin.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/google/protobuf/descriptor.proto" beforeDir="false" afterPath="$PROJECT_DIR$/include/google/protobuf/descriptor.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/google/protobuf/duration.proto" beforeDir="false" afterPath="$PROJECT_DIR$/include/google/protobuf/duration.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/google/protobuf/empty.proto" beforeDir="false" afterPath="$PROJECT_DIR$/include/google/protobuf/empty.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/google/protobuf/field_mask.proto" beforeDir="false" afterPath="$PROJECT_DIR$/include/google/protobuf/field_mask.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/google/protobuf/source_context.proto" beforeDir="false" afterPath="$PROJECT_DIR$/include/google/protobuf/source_context.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/google/protobuf/struct.proto" beforeDir="false" afterPath="$PROJECT_DIR$/include/google/protobuf/struct.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/google/protobuf/timestamp.proto" beforeDir="false" afterPath="$PROJECT_DIR$/include/google/protobuf/timestamp.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/google/protobuf/type.proto" beforeDir="false" afterPath="$PROJECT_DIR$/include/google/protobuf/type.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/google/protobuf/wrappers.proto" beforeDir="false" afterPath="$PROJECT_DIR$/include/google/protobuf/wrappers.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jpeg/impl.go" beforeDir="false" afterPath="$PROJECT_DIR$/jpeg/impl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jpeg/jpeg.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/jpeg/jpeg.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jpeg/jpeg.proto" beforeDir="false" afterPath="$PROJECT_DIR$/jpeg/jpeg.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jpeg/jpeg_grpc.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/jpeg/jpeg_grpc.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/queue/esQueue.go" beforeDir="false" afterPath="$PROJECT_DIR$/queue/esQueue.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/queue/es_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/queue/es_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/queue/rmq.go" beforeDir="false" afterPath="$PROJECT_DIR$/queue/rmq.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/release/build_config.go" beforeDir="false" afterPath="$PROJECT_DIR$/release/build_config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc/reg.go" beforeDir="false" afterPath="$PROJECT_DIR$/rpc/reg.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/rdb_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/test/rdb_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/rmq_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/test/rmq_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/signal.go" beforeDir="false" afterPath="$PROJECT_DIR$/test/signal.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/webrtc_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/test/webrtc_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/CMap.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils/CMap.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/MMap.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils/MMap.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/enum.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils/enum.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils/utils.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ws/dot.go" beforeDir="false" afterPath="$PROJECT_DIR$/ws/dot.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ws/websocket_ap.go" beforeDir="false" afterPath="$PROJECT_DIR$/ws/websocket_ap.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ws/websocket_jpeg.go" beforeDir="false" afterPath="$PROJECT_DIR$/ws/websocket_jpeg.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ws/ws_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/ws/ws_test.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,7 +118,7 @@
       </list>
     </option>
   </component>
-  <component name="GOROOT" url="file://$PROJECT_DIR$/../../../../../../Go" />
+  <component name="GOROOT" url="file://$PROJECT_DIR$/../../../../../Go" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
@@ -35,14 +134,13 @@
     <option name="indexEntireGoPath" value="false" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/event/event_grpc.pb.go" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$USER_HOME$/go/pkg/mod/google.golang.org/grpc@v1.36.0/server.go" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/ws/websocket_ap.go" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/test/config.json" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/config.json" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/ws/websocket_jpeg.go" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/cmd/main.go" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/test/config.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ws/websocket_ap.go" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/config.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/event/event.pb.go" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ws/websocket_jpeg.go" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/event/event_grpc.pb.go" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/cmd/config.json" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1r7PZIPzRk6G83JyA2VijIhViIr" />
@@ -60,6 +158,7 @@
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="http.proxy" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
