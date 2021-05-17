@@ -120,7 +120,7 @@ export const routerMap = [
 export const asyncRouterMap = []
 
 export const router = createRouter({
-  // history: createWebHistory(),
-  history: createWebHashHistory(),
+  history: createWebHistory(),
+  // history: createWebHashHistory(),
   routes: routerMap,
 })

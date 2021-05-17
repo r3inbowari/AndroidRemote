@@ -84,6 +84,12 @@
       </van-tabs>
     </div>
   </section>
+
+  <div v-if="displayWaitCard" class="wait-loading">
+    <div class="title">正在排队，请稍等</div>
+    <div><van-loading color="#1989fa" /></div>
+    <div @click="cancel" class="cancel-btn"><span>取消</span></div>
+  </div>
 </template>
 
 <script>
@@ -131,12 +137,18 @@ export default defineComponent({
 
     let activeTab = ref(0)
 
+    let displayWaitCard = ref(false)
+    let timer
     function onPlay(index) {
       if (VueCookieNext.isCookieAvailable('token')) {
-        router.push({
-          name: 'MPlay',
-          params: recommendData.dat[index],
-        })
+        displayWaitCard.value = true
+        timer = setTimeout(() => {
+          router.push({
+            name: 'MPlay',
+            params: recommendData.dat[index],
+          })
+          displayWaitCard.value = false
+        }, 4000)
       } else {
         // 需要登陆
         router.push({
@@ -144,6 +156,12 @@ export default defineComponent({
         })
       }
     }
+
+    function cancel() {
+      displayWaitCard.value = false
+      clearTimeout(timer)
+    }
+
     return {
       bannerData,
       recommendData,
@@ -151,6 +169,8 @@ export default defineComponent({
       searchValue,
       activeTab,
       onPlay,
+      cancel,
+      displayWaitCard,
     }
   },
 })
@@ -462,5 +482,51 @@ ul {
   -ms-user-select: none;
   user-select: none;
   cursor: pointer;
+}
+</style>
+
+<style scoped>
+.wait-loading {
+  /* position: absolute; */
+  left: 50%;
+  top: 50%;
+  /* border: 1px solid #000; */
+  transform: translate(-50%, -50%); /* 50%为自身尺寸的一半 */
+  width: 200px;
+  height: 100px;
+  background-color: rgb(32, 51, 73);
+  border-radius: 8px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  box-shadow: 0 0 6px rgb(0 0 0 / 30%);
+  opacity: 0.9;
+  position: fixed;
+
+  padding: 10px;
+  padding-top: 20px;
+}
+
+.wait-loading .title {
+  color: #03c47e;
+  font-weight: bold;
+}
+
+.cancel-btn {
+  margin-top: 14px;
+  margin-bottom: 8px;
+  background-color: #03c47e;
+  width: 180px;
+  height: 40px;
+  padding: 6px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.cancel-btn span {
+  color: #fff;
+  font-weight: bold;
 }
 </style>

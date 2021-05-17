@@ -1,6 +1,6 @@
 <template>
-  <li>
-    <a :href="href">
+  <li @click="onClick">
+    <div>
       <p class="tag">
         <span v-if="info.new" class="new">新作</span>
         <span v-if="info.recommend" class="recommend">推荐</span>
@@ -16,7 +16,7 @@
         <span class="genre">{{ info.type }}</span>
       </p>
       <p class="desc">{{ info.desc }}</p>
-    </a>
+    </div>
   </li>
 </template>
 
@@ -30,6 +30,8 @@ import {
   watch,
   toRefs,
 } from 'vue'
+
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'NormalCard',
@@ -54,6 +56,8 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const router = useRouter()
+
     // 响应性获取
     const { info } = toRefs(props)
 
@@ -92,9 +96,17 @@ export default defineComponent({
       // console.log(info.value.icon)
       changeBackground(iconBackground, info.value.icon)
     })
+
+    function onClick() {
+      console.log(info.value.aid)
+      router.push({
+        path: '/game/' + info.value.aid,
+      })
+    }
     return {
       href,
       iconBackground,
+      onClick,
     }
   },
 })
@@ -120,7 +132,7 @@ a {
   top: 20px;
   left: 20px;
   background: none;
-  border-radius: 30px;
+  border-radius: 20px;
   -webkit-mask-image: -webkit-radial-gradient(white, black);
 }
 

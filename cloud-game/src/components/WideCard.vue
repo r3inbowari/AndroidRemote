@@ -89,6 +89,7 @@ export default defineComponent({
           first,
           second
         )
+        changeBackground(imgBackground, info.value.cover)
       }
     )
 

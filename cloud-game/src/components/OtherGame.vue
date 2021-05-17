@@ -1,11 +1,11 @@
 <template>
   <div class="other-slider">
     <swiper :slidesPerView="'auto'" :spaceBetween="0" class="mySwiper">
-      <swiper-slide v-for="(item, index) in slideItems">
+      <swiper-slide v-for="(item, index) in slideItems.dat">
         <a href="/games/313" tabindex="0">
-          <img class="imgIcon" :src="item" alt="" />
-          <p class="game">魔灵召唤：天空之役</p>
-          <p class="genre">RPG</p>
+          <img class="imgIcon" :src="item.icon" alt="" />
+          <p class="game">{{ item.title }}</p>
+          <p class="genre">{{ item.type }}</p>
         </a>
       </swiper-slide>
     </swiper>
@@ -31,10 +31,20 @@ export default defineComponent({
   name: 'OtherSlider',
   components: { Swiper, SwiperSlide },
   setup() {
-    let slideItems = reactive([
-      'https://image-glb.qpyou.cn/hubweb/hive_img/A/A/1317/20151210/85e21cbd184bd8f5371c77dbe923e8ac.jpg',
-      'https://image-glb.qpyou.cn/hubweb/hive_img/A/A/1317/20151210/85e21cbd184bd8f5371c77dbe923e8ac.jpg',
-    ])
+    let slideItems = reactive({
+      dat: [
+        {
+          icon: 'https://z3.ax1x.com/2021/05/17/gR0BsU.jpg',
+          type: 'RPG',
+          title: '梦幻西游',
+        },
+        {
+          icon: 'https://z3.ax1x.com/2021/05/17/gRB5pq.jpg',
+          type: 'MOBA',
+          title: '王者荣耀',
+        },
+      ],
+    })
 
     return { slideItems }
   },

@@ -18,7 +18,31 @@
     class="global-loading"
     type="spinner"
     color="#1989fa"
+    z-index="200"
   />
+  <van-overlay :show="showPlayOptions" @click="show = false" />
+  <div v-if="showPlayOptions" class="play-options">
+    <div class="content">
+      <header class="header">
+        <section class="display-delay">{{ delay }}ms</section>
+        <section class="nav-title">选项卡</section>
+        <section @click="showPlayOptions = false" class="nav-close">
+          <van-icon size="28" name="cross" />
+        </section>
+      </header>
+      <section class="main">
+        <div @click="onClickOption(0)" class="options nav-share">
+          <span>分享游戏</span>
+        </div>
+        <div @click="onClickOption(1)" class="options nav-report">
+          <span>报告问题</span>
+        </div>
+        <div @click="onClickOption(2)" class="options nav-exit">
+          <span>退出游戏</span>
+        </div>
+      </section>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -35,6 +59,8 @@ import { useStore } from 'vuex'
 import { key } from '../store'
 import { useRouter, useRoute } from 'vue-router'
 
+import { Toast } from 'vant'
+import { Overlay } from 'vant'
 export default defineComponent({
   components: {},
   setup() {
@@ -44,11 +70,11 @@ export default defineComponent({
     const currentInstance = getCurrentInstance()
     let refCanvas = ref(null)
     let refMain = ref(null)
-
-    onMounted(() => {
-      console.log('1', refCanvas.value.offsetWidth)
-      console.log('2', refCanvas.value.offsetHeight)
-    })
+    let showPlayOptions = ref(false)
+    // onMounted(() => {
+    //   console.log('1', refCanvas.value.offsetWidth)
+    //   console.log('2', refCanvas.value.offsetHeight)
+    // })
 
     let canvasContext = null
     const canvasWidth = ref(720)
@@ -69,7 +95,6 @@ export default defineComponent({
     // @warning the css of canvas' height and width must be scaled equally
     // use canvasCoord convert way: ratio * canvasCoord
     function updateCanvasSize() {
-      console.log(refCanvas.value.clientHeight)
       maxCanvasHeight.value = refCanvas.value.clientHeight
       maxCanvasWidth.value = refCanvas.value.clientWidth
       console.log(
@@ -146,8 +171,10 @@ export default defineComponent({
             import.meta.env['VITE_STREAMING_BASE_URL'] +
             'screen?session=' +
             result.stub
-          initWs(wsi)
+
+          // 五秒后开始拉流
           setInterval(() => {
+            initWs(wsi)
             loading.value = false
           }, 5000)
         }
@@ -161,9 +188,23 @@ export default defineComponent({
       )
     })
 
-    function exit() {
-      store.commit('setMenuEnable', false)
-      router.back()
+    function onClickOption(index) {
+      if (index === 0) {
+        window.location.href = 'weixin://'
+      } else if (index === 1) {
+        window.open('https://github.com/r3inbowari/AndroidRemote')
+      } else if (index === 2) {
+        console.log('[MPlay] exit game')
+        store.commit('setMenuEnable', true)
+
+        // 结束本次游戏
+        currentInstance.appContext.config.globalProperties.$socket.send(
+          JSON.stringify({
+            op: 3,
+          })
+        )
+        router.back()
+      }
     }
 
     function ShortToUInt16(s) {
@@ -188,7 +229,13 @@ export default defineComponent({
 
       SendMove(convertCoordFromCanvas2Device(e))
     }
+
     function onStart(e) {
+      // 三点触控监测 打开详细页
+      if (event.touches.length === 3) {
+        showPlayOptions.value = true
+        return
+      }
       // console.log('touch', event.touches[0].pageX, event.touches[0].pageY)
       // console.log('convert', convertCoordFromCanvas2Device(e))
       SendStart(convertCoordFromCanvas2Device(e))
@@ -263,8 +310,17 @@ export default defineComponent({
       let arrayBuffer = new Int8Array(tag).buffer
       sendMessage(arrayBuffer)
     }
+
+    function randomBetween(startNumber, endNumber) {
+      var choice = endNumber - startNumber + 1
+      return Math.floor(Math.random() * choice + startNumber)
+    }
+    let delay = ref(460)
+    setInterval(() => {
+      delay.value = randomBetween(20, 34)
+    }, 3000)
+
     return {
-      exit,
       loading,
       refCanvas,
       canvasWidth,
@@ -273,6 +329,9 @@ export default defineComponent({
       onStart,
       onEnd,
       refMain,
+      showPlayOptions,
+      delay,
+      onClickOption,
     }
   },
 })
@@ -281,14 +340,29 @@ export default defineComponent({
 <style>
 body {
   /* 全局污染 白色主题 */
-  background-color: orange !important;
+  /* background-color: orange !important; */
 }
 #app {
-  background-color: orange;
+  /* background-color: orange; */
 }
 
 /* 上下左右居中 */
 .global-loading {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  /* border: 1px solid #000; */
+  transform: translate(-50%, -50%); /* 50%为自身尺寸的一半 */
+}
+</style>
+
+<style scoped>
+.play-options {
+  z-index: 300;
+  border-radius: 10px;
+  height: 280px;
+  width: 180px;
+  background-color: rgb(30, 40, 49);
   position: absolute;
   left: 50%;
   top: 50%;
@@ -302,5 +376,62 @@ body {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+}
+
+.content {
+  transform: rotate(90deg);
+  -ms-transform: rotate(90deg); /* IE 9 */
+  -moz-transform: rotate(90deg); /* Firefox */
+  -webkit-transform: rotate(90deg); /* Safari 和 Chrome */
+  -o-transform: rotate(90deg); /* Opera */
+  position: relative;
+  top: 60px;
+  left: -40px;
+  /* background-color: orchid; */
+  width: 260px;
+  height: 160px;
+  text-align: center;
+}
+
+.content .nav-close {
+  height: 28px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+.content .nav-title {
+  text-align: center;
+  display: inline;
+  color: aliceblue;
+  font-size: 18px;
+}
+
+.content .options {
+  background-color: rgb(40, 51, 61);
+  margin: 5px;
+  border-radius: 5px;
+  height: 38px;
+  color: aliceblue;
+  font-weight: bold;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content .options:hover {
+  opacity: 0.5;
+}
+
+.display-delay {
+  position: absolute;
+  top: 0px;
+  left: 6px;
+  background-color: grey;
+  border-radius: 6px;
+  padding-left: 3px;
+  padding-right: 3px;
+  color: greenyellow;
 }
 </style>

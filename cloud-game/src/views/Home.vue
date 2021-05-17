@@ -137,7 +137,7 @@
       </section>
     </section>
 
-    <div
+    <!-- <div
       style="
         background-color: rgb(190, 114, 114);
         border-radius: 10px;
@@ -159,7 +159,7 @@
       <el-button style="width: 100%; margin-top: 10px" type="success"
         >成功按钮</el-button
       >
-    </div>
+    </div> -->
 
     <footer class="footer">
       <HomeFooter></HomeFooter>

@@ -25,4 +25,10 @@ func MappingGameService(s *gin.RouterGroup) {
 	s.GET("/version", func(context *gin.Context) {
 		context.JSON(http.StatusOK, gin.H{"version": bilicoin.GetConfig().Version, "hash": bilicoin.HashValue})
 	})
+
+	s.GET("/detail/:id", public.GetDetail)
+	s.POST("/detail", public.AddDetail)
+	s.DELETE("/detail/:id", public.DelDetail)
+
+	s.GET("/details", public.GetDetails)
 }

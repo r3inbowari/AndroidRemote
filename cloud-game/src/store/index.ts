@@ -82,11 +82,11 @@ export const store = createStore<State>({
     },
     setWs(state, t) {
       state.ws = t
-      console.log('[store] setWs ')
+      console.log('[store] setWs ' + state.ws)
     },
     setMenuEnable(state, t) {
       state.menuEnable = t
-      console.log('[store] setMenuEnable ' + state.session)
+      console.log('[store] setMenuEnable ' + state.menuEnable)
     },
     setSession(state, t) {
       state.session = t

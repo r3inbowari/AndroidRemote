@@ -86,6 +86,8 @@ export default defineComponent({
     // 启动 tag 序号
     const processValue = ref(0)
 
+    let currAid = ref('')
+
     // 卡片close处理
     function handleClose() {
       console.log('close')
@@ -100,6 +102,7 @@ export default defineComponent({
 
     // 加载过程模拟
     function handleRun() {
+      // 回调设置
       currentInstance.appContext.config.globalProperties.sockets.onmessage = (
         res
       ) => {
@@ -107,9 +110,10 @@ export default defineComponent({
         let result = JSON.parse(res.data)
         // console.log('[ws] ' + result.op)
         if (result.op === 6) {
-          // open
-          store.state.ws.send({ op: 5 })
+          // 开始
+          store.state.ws.send({ op: 5, data: currAid.value })
 
+          // 五秒后开始跳转
           store.commit('setSession', result.stub)
           setInterval(() => {
             router.replace({
@@ -162,9 +166,6 @@ export default defineComponent({
         }
 
         if (openPercentage.value === 100) {
-          // router.replace({
-          //   name: 'Play',
-          // })
           return -1
         } else {
           return cnt
@@ -180,17 +181,18 @@ export default defineComponent({
           loadingDotStr.value = '.'
         }
       }
-
-      // setTimeout(() => {
-      //   store.state.ws.send({ msg: 'hello' })
-      // }, 4000)
     }
-
-    // onMounted(handleRun)
 
     function onRunClose() {
       console.log('[wait] close waiting window')
       raceClk.value = true
+    }
+
+    // 需要aid参数传入
+    function openWait(aid) {
+      currAid.value = aid
+      this.waitCardVisible = true
+      this.handleRun()
     }
 
     return {
@@ -202,13 +204,8 @@ export default defineComponent({
       loadingDotStr,
       onRunClose,
       handleRun,
+      openWait,
     }
-  },
-  methods: {
-    openWait() {
-      this.waitCardVisible = true
-      this.handleRun()
-    },
   },
 })
 </script>

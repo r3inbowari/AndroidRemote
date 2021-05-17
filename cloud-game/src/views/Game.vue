@@ -6,9 +6,11 @@
           <div class="content">
             <ol class="breadcrumb">
               <li><a href="/home" id="nav_home">主界面</a></li>
-              <li><a href="/games/648">魔灵召唤：失落的世纪</a></li>
+              <li>
+                <a href="/games/648">{{ datailData.dat.title }}</a>
+              </li>
             </ol>
-            <h2 class="title">魔灵召唤：失落的世纪</h2>
+            <h2 class="title">{{ datailData.dat.title }}</h2>
           </div>
         </div>
       </section>
@@ -29,20 +31,17 @@
                 ></iframe>
               </div>
               <div class="profile">
-                <div
-                  class="game_icon"
-                  style="
-                    background-image: url(https://image-glb.qpyou.cn/hubweb/gmnotice/appcenter/1612349547427.jpg);
-                  "
-                ></div>
+                <div :style="iconBackground" class="game_icon"></div>
                 <div class="game">
                   <div class="inner">
-                    <h3 class="title">魔灵召唤：失落的世纪</h3>
-                    <p class="genre">Strategy</p>
+                    <h3 class="title">{{ datailData.dat.title }}</h3>
+                    <p class="genre">{{ datailData.dat.type }}</p>
                   </div>
                 </div>
                 <ul class="introduce_txt">
-                  <li><span>精彩的巅峰对决！</span></li>
+                  <li>
+                    <span>{{ datailData.dat.desc }}</span>
+                  </li>
                 </ul>
                 <ul class="component">
                   <li class="item">
@@ -99,17 +98,7 @@
             <div class="desc" id="description">
               <h4>游戏说明</h4>
               <div class="txt" style="height: auto">
-                <div class="wrap">
-                  <p>◈ [魔灵召唤：失落的世纪]精彩的巅峰对决！</p>
-                  <p><br /></p>
-                  <p>◇ 官方网页： https://summonerswar.com/LostCenturia</p>
-                  <p>◇ 官方论坛： https://cafe.naver.com/lostcenturia</p>
-                  <p>◇ 官方脸书：https://www.facebook.com/LostCenturia</p>
-                  <p>
-                    ◇
-                    官方kakao频道：http://pf.kakao.com/_zxffvK&ZeroWidthSpace;<br />
-                  </p>
-                </div>
+                <div v-html="datailData.dat.description" class="wrap"></div>
               </div>
               <button type="button" class="view_more" style="display: none">
                 查看更多<i class="icon"></i>
@@ -121,31 +110,7 @@
             <div class="desc" id="features">
               <h4>特征</h4>
               <div class="txt on">
-                <div class="wrap">
-                  <p>深受全球1亿召唤师喜爱的‘魔灵召唤’的另一个故事</p>
-                  <p>
-                    - 前往至[魔灵召唤：失落的世纪]，查看天空之役之前的故事吧！
-                  </p>
-                  <p><br /></p>
-                  <p>■ 与全球召唤师展开实时对战吧！</p>
-                  <p>- 华丽的动作与实时对战，令人窒息的PvP对决！</p>
-                  <p>- 挑战成为全球第1名，展开世界级的对战吧。</p>
-                  <p>- 战略战斗与动作，挑战最高等级的竞技场吧。</p>
-                  <p><br /></p>
-                  <p>■ 实时策略动作手游，以不可预测的反击技能压倒对手！</p>
-                  <p>- 通过多种PvP与PvE模式，体验精彩的动作战略战斗！</p>
-                  <p>- 通过‘反击技能’扭转局势，获得胜利吧！</p>
-                  <p>- 使用失落的世纪独有的召唤师咒语技能吧。</p>
-                  <p><br /></p>
-                  <p>■ 创建联盟与好友构建交流！</p>
-                  <p>- 向联盟成员及好友申请对战。</p>
-                  <p>- 与联盟成员分享魔灵与咒语。</p>
-                  <p><br /></p>
-                  <p>■ 召唤个性突出的魔灵！</p>
-                  <p>- 以失落的世纪风格，重新诠释天空之城的魔灵们。&nbsp;</p>
-                  <p>- 用自己的策略，组合符文及技能石。</p>
-                  <p>- 体验最强战略及战斗动作手游！&ZeroWidthSpace;<br /></p>
-                </div>
+                <div v-html="datailData.dat.features" class="wrap"></div>
               </div>
               <button type="button" class="view_more on">
                 查看更多<i class="icon"></i>
@@ -197,6 +162,8 @@ import LoginDialog from '../components/Login/Login.vue'
 // waitGroup
 import WaitCard from '../components/WaitCard.vue'
 
+import { getDetail } from '../api/detail'
+
 export default defineComponent({
   name: 'GameDetail',
   components: { HomeFooter, DetailSlider, OtherGame, LoginDialog, WaitCard },
@@ -205,17 +172,10 @@ export default defineComponent({
     const route = useRoute()
 
     let titleBackground = ref('')
+    let iconBackground = ref('')
 
     function changeBackground(r, url) {
       r.value = 'background-image: url("' + url + '")'
-    }
-
-    let aynx = {
-      title: '内核活动2',
-      alias: 'kernel event',
-      cover:
-        'https://image-glb.qpyou.cn/hubweb/hive_img/web/banner/20210204/0aa3bbb693b4d1b9cb6fc61ce9d9ac8e_1200x490.jpg',
-      icon: 'https://image-glb.qpyou.cn/hubweb/gmnotice/appcenter/1612412918869.jpg',
     }
 
     onMounted(() => {
@@ -225,9 +185,18 @@ export default defineComponent({
       )
     })
 
-    // function onStartGame() {
-    //   console.log('123')
-    // }
+    // console.log(route.params)
+
+    const datailData = reactive({
+      dat: {},
+    })
+
+    getDetail(route.params.aid).then((res) => {
+      console.log(res)
+      datailData.dat = res.Data
+      changeBackground(iconBackground, res.Data.icon)
+    })
+
     const currentInstance = getCurrentInstance()
 
     function onStartGame() {
@@ -236,13 +205,12 @@ export default defineComponent({
       if (t) {
         // queue task
         // 等待队列卡片 test
-        currentInstance.appContext.config.globalProperties.$socket.send(
-          JSON.stringify({
-            op: 4,
-          })
-        )
-        console.log('12')
-        this.$refs['woc1'].openWait()
+        // currentInstance.appContext.config.globalProperties.$socket.send(
+        //   JSON.stringify({
+        //     op: 4,
+        //   })
+        // )
+        this.$refs['woc1'].openWait(route.params.aid)
       } else {
         this.$refs['nop2'].needLogin()
       }
@@ -250,6 +218,8 @@ export default defineComponent({
     return {
       titleBackground,
       onStartGame,
+      datailData,
+      iconBackground,
     }
   },
 })

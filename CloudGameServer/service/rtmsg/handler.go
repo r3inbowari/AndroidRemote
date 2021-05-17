@@ -67,7 +67,7 @@ func PushHandler(c *gin.Context) {
 		bilicoin.Info("[WS] close ws connection", logrus.Fields{"addr": addr.String()})
 
 		if running {
-
+			bilicoin.Info("[WS] release resource")
 			// 关闭推流与运行状态
 			deviceID, ok := getDevice(spStub)
 			if ok {
@@ -106,13 +106,17 @@ func PushHandler(c *gin.Context) {
 				ConsumePoint(p.UID, deltaTime)
 			}
 
+			// 清除redis中的附着关系
+			device.Try2Detach(spStub)
+		}
+
+		if applied && running == false {
+			// 清除redis中的附着关系
+			device.Try2Detach(spStub)
 		}
 
 		// 清除本地存根
 		WSSessionMap.Delete(spStub)
-
-		// 清除redis
-		device.Try2Detach(spStub)
 
 	}()
 
@@ -239,12 +243,15 @@ func PushHandler(c *gin.Context) {
 							db.MDB().InsertOne(&pl)
 							// 消费
 							ConsumePoint(p.UID, deltaTime)
+
+							// 清除redis中的附着关系
+							device.Try2Detach(spStub)
 						}
 
 					}
 				}
 			}
-			return
+			// return
 		case REQ_APPLY:
 			bilicoin.Info("[WS] try to apply a device", logrus.Fields{"stub": spStub})
 			// 尝试申请容器 ok 则申请成功
