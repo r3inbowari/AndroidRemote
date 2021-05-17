@@ -15,6 +15,7 @@ type Banner struct {
 	Cover string             `json:"cover"`
 	Icon  string             `json:"icon"`
 	AID   string             `json:"aid"`
+	Pack  string             `json:"pack"`
 }
 
 func GetBanner(c *gin.Context) {

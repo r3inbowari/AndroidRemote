@@ -17,6 +17,7 @@ type Hot struct {
 	Type  string             `json:"type"`
 	Tags  []string           `json:"tags"`
 	AID   string             `json:"aid"`
+	Pack  string             `json:"pack"`
 }
 
 func GetHot(c *gin.Context) {

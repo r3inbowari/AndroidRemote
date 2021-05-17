@@ -18,4 +18,5 @@ func MappingUser(s *gin.RouterGroup) {
 
 	// 充值
 	s.GET("/pay", user.HandlerPay)
+
 }

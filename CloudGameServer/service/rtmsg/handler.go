@@ -12,6 +12,7 @@ import (
 	"github.com/gorilla/websocket"
 	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"golang.org/x/net/context"
 	"net/http"
 	"sync"
@@ -38,6 +39,7 @@ type UserSession struct {
 	Ws            *websocket.Conn `json:"-"`
 	PackageName   string          `json:"-"`
 	Game          interface{}     `json:"game"` // 游戏信息
+	StartTime     int64           `json:"st"`
 }
 
 func PushHandler(c *gin.Context) {
@@ -78,6 +80,32 @@ func PushHandler(c *gin.Context) {
 					rmq.CloseApp(spStub, deviceID, gi.Pack)
 				}
 			}
+
+			// 持久化支付数据
+			ins, ok := WSSessionMap.Load(spStub)
+			if ok {
+				p := ins.(UserSession)
+				deltaTime := time.Now().Unix() - p.StartTime
+				bilicoin.Info("[WS] reckon by time succeed", logrus.Fields{"uid": p.UID, "delta": deltaTime})
+				WSSessionMap.Store(spStub, p)
+
+				gameDetail := p.Game.(*public.Update)
+
+				pl := PlayLog{
+					Id:        primitive.NewObjectID(),
+					StartTime: p.StartTime,
+					Duration:  deltaTime,
+					AID:       gameDetail.AID,
+					Title:     gameDetail.Title,
+					UID:       p.UID,
+					DeviceID:  deviceID,
+				}
+
+				db.MDB().InsertOne(&pl)
+				// 消费
+				ConsumePoint(p.UID, deltaTime)
+			}
+
 		}
 
 		// 清除本地存根
@@ -126,14 +154,6 @@ func PushHandler(c *gin.Context) {
 				res.Stub = spStub //...
 				res.Op = SU_LOGIN
 				res.Data = "login ok"
-
-				//ret, err := json.Marshal(res)
-				//if err != nil {
-				//	bilicoin.Warn("[WS] websocket reset due to some inner problems")
-				//	return
-				//}
-
-				//ws.WriteMessage(mt, ret)
 
 				err := ws.WriteJSON(res)
 				if err != nil {
@@ -188,12 +208,39 @@ func PushHandler(c *gin.Context) {
 				if ok {
 					ins, ok1 := WSSessionMap.Load(spStub)
 					if ok1 {
+						running = false
+
 						in := ins.(UserSession)
 						gi := in.Game.(*public.Update)
 
 						rmq.CloseSender(spStub, deviceID)
 						rmq.CloseApp(spStub, deviceID, gi.Pack)
-						running = false
+
+						// 持久化支付数据
+						ins, ok := WSSessionMap.Load(spStub)
+						if ok {
+							p := ins.(UserSession)
+							deltaTime := time.Now().Unix() - p.StartTime
+							bilicoin.Info("[WS] reckon by time succeed", logrus.Fields{"uid": p.UID, "delta": deltaTime})
+							WSSessionMap.Store(spStub, p)
+
+							gameDetail := p.Game.(*public.Update)
+
+							pl := PlayLog{
+								Id:        primitive.NewObjectID(),
+								StartTime: p.StartTime,
+								Duration:  deltaTime,
+								AID:       gameDetail.AID,
+								Title:     gameDetail.Title,
+								UID:       p.UID,
+								DeviceID:  deviceID,
+							}
+
+							db.MDB().InsertOne(&pl)
+							// 消费
+							ConsumePoint(p.UID, deltaTime)
+						}
+
 					}
 				}
 			}
@@ -210,6 +257,15 @@ func PushHandler(c *gin.Context) {
 				})
 				applied = true
 				bilicoin.Info("[WS] apply succeed", logrus.Fields{"stub": spStub})
+
+				// 开始记录启动时间
+				ins, ok := WSSessionMap.Load(spStub)
+				if ok {
+					p := ins.(UserSession)
+					p.StartTime = time.Now().Unix()
+					WSSessionMap.Store(spStub, p)
+				}
+
 			} else {
 				// 可以扩展排队系统
 				ws.WriteJSON(Push{
@@ -249,10 +305,19 @@ func PushHandler(c *gin.Context) {
 						}
 					}
 				}
-
 			}
 		}
 	}
+}
+
+func ConsumePoint(uid string, point int64) error {
+	ud := user.User{}
+	if err := db.MDB().FindOne(bson.M{"uid": uid}, &ud); err != nil {
+		return err
+	}
+
+	ud.Point = ud.Point - int(point)
+	return ud.Update()
 }
 
 func getDevice(sessionID string) (string, bool) {
@@ -289,4 +354,5 @@ const (
 	ASK_APPLY_FAILED  = 7
 	ASK_START_SUCCEED = 8
 	ASK_START_FAILED  = 9
+	ASK_POINT_OUT     = 10
 )

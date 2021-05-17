@@ -5,6 +5,7 @@ import (
 	"CloudGameServer/service/rtmsg"
 	bilicoin "CloudGameServer/utils"
 	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/bson"
 	"golang.org/x/net/context"
 	"net/http"
 	"runtime"
@@ -73,11 +74,20 @@ func GetDevices(c *gin.Context) {
 		//rets = append(rets, result.Val())
 		rets += result.Val()
 
-		if k + 1 == vl {
+		if k+1 == vl {
 			rets += "]"
 		} else {
 			rets += ","
 		}
 	}
 	c.String(200, rets)
+}
+
+func GetPlayLog(c *gin.Context) {
+	var pl []rtmsg.PlayLog
+	err := db.MDB().FindAll(bson.M{}, &pl)
+	if err != nil {
+		bilicoin.Warn("error find all")
+	}
+	c.JSON(200, bilicoin.ResponseWrapWithDate(200, "ok", pl))
 }

@@ -27,4 +27,8 @@ func MappingManager(s *gin.RouterGroup) {
 	// 要分页的
 	s.GET("/device/count", manager.GetDevicesCount)
 	s.GET("/device/all", manager.GetDevices)
+
+	s.GET("/play/log", manager.GetPlayLog)
+
+
 }
