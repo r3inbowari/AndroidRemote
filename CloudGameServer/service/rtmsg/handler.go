@@ -4,12 +4,14 @@ import (
 	"CloudGameServer/db"
 	"CloudGameServer/device"
 	"CloudGameServer/rmq"
+	"CloudGameServer/service/public"
 	"CloudGameServer/service/user"
 	bilicoin "CloudGameServer/utils"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	"github.com/sirupsen/logrus"
+	"go.mongodb.org/mongo-driver/bson"
 	"golang.org/x/net/context"
 	"net/http"
 	"sync"
@@ -34,6 +36,8 @@ type UserSession struct {
 	Created       int64           `json:"created"`
 	DeviceID      string          `json:"device_id"`
 	Ws            *websocket.Conn `json:"-"`
+	PackageName   string          `json:"-"`
+	Game          interface{}     `json:"game"` // 游戏信息
 }
 
 func PushHandler(c *gin.Context) {
@@ -61,8 +65,19 @@ func PushHandler(c *gin.Context) {
 		bilicoin.Info("[WS] close ws connection", logrus.Fields{"addr": addr.String()})
 
 		if running {
-			rmq.CloseSender("123", "21")
-			rmq.CloseApp("21", "sda")
+
+			// 关闭推流与运行状态
+			deviceID, ok := getDevice(spStub)
+			if ok {
+				ins, ok1 := WSSessionMap.Load(spStub)
+				if ok1 {
+					in := ins.(UserSession)
+					gi := in.Game.(*public.Update)
+
+					rmq.CloseSender(spStub, deviceID)
+					rmq.CloseApp(spStub, deviceID, gi.Pack)
+				}
+			}
 		}
 
 		// 清除本地存根
@@ -169,8 +184,18 @@ func PushHandler(c *gin.Context) {
 		case REQ_EXIT:
 			// 退出
 			if running {
-				rmq.CloseSender("12", "asd")
-				rmq.CloseApp("@1", "@!3")
+				deviceID, ok := getDevice(spStub)
+				if ok {
+					ins, ok1 := WSSessionMap.Load(spStub)
+					if ok1 {
+						in := ins.(UserSession)
+						gi := in.Game.(*public.Update)
+
+						rmq.CloseSender(spStub, deviceID)
+						rmq.CloseApp(spStub, deviceID, gi.Pack)
+						running = false
+					}
+				}
 			}
 			return
 		case REQ_APPLY:
@@ -196,22 +221,35 @@ func PushHandler(c *gin.Context) {
 			}
 		case REQ_START:
 			if applied {
+				// 使用会话获取已分配设备
 				deviceID, ok := getDevice(spStub)
 
-				if ok {
-					ins, ok := WSSessionMap.Load(spStub)
+				// 查询游戏信息 res.Data里面放aid的
+				game, ok1 := GetGameInfoByAid(res.Data)
+				if !ok1 {
+					ws.WriteJSON(Push{
+						Stub: spStub,
+						Op:   ASK_START_FAILED,
+						Data: "服务器内部错误",
+					})
+				} else {
 					if ok {
-						p := ins.(UserSession)
-						p.Aid = "app"
-						p.DeviceID = deviceID
-						p.State = "游戏中"
-						WSSessionMap.Store(spStub, p)
+						ins, ok := WSSessionMap.Load(spStub)
+						if ok {
+							p := ins.(UserSession)
+							p.Aid = "app"
+							p.DeviceID = deviceID
+							p.State = "游戏中"
+							p.Game = game // 添加游戏信息
+							WSSessionMap.Store(spStub, p)
 
-						rmq.OpenSender(spStub, deviceID)
-						rmq.OpenApp(spStub, res.Data)
-						running = true
+							rmq.OpenSender(spStub, deviceID)
+							rmq.OpenApp(spStub, deviceID, game.Title)
+							running = true
+						}
 					}
 				}
+
 			}
 		}
 	}
@@ -223,6 +261,14 @@ func getDevice(sessionID string) (string, bool) {
 		return "", false
 	}
 	return ret, true
+}
+
+func GetGameInfoByAid(aid string) (*public.Update, bool) {
+	u := public.Update{}
+	if err := db.MDB().FindOne(bson.M{"aid": aid}, &u); err != nil {
+		return nil, false
+	}
+	return &u, true
 }
 
 type Push struct {
@@ -241,4 +287,6 @@ const (
 	REQ_START         = 5
 	ASK_APPLY_SUCCEED = 6
 	ASK_APPLY_FAILED  = 7
+	ASK_START_SUCCEED = 8
+	ASK_START_FAILED  = 9
 )

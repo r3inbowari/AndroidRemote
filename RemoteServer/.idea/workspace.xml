@@ -3,16 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="bf713413-0619-41a4-bb33-c69da8f8fe23" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../CloudGameServer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/rmq/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/rmq/api.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/service/public/update.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/service/public/update.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CloudGameServer/service/rtmsg/handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/../CloudGameServer/service/rtmsg/handler.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/stf/cap/MiniCap.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/stf/cap/MiniCap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/router/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/router/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/store/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/store/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/GP.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/GP.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/MCom.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/MCom.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/MGame.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/MGame.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/MIndex.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/MIndex.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/MLogin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/MLogin.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/rmq_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/test/rmq_test.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

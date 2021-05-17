@@ -3,20 +3,15 @@ package rmq
 import (
 	bilicoin "CloudGameServer/utils"
 	"encoding/json"
-	"time"
+	"github.com/sirupsen/logrus"
 )
 
-func OpenSender(stub, appName string) error {
+func OpenSender(stub, deviceID string) error {
 
-	//// 检查stub
-	//CheckStub()
-	//
-	//// 发送命令
-	//Order()
-
+	bilicoin.Info("[WS] open sender", logrus.Fields{"stub": stub, "deviceID": deviceID})
 	op := MQOrder{
-		Id:        "deab9dbaaa74541d",
-		Stub:      bilicoin.CreateMD5(time.Now().String()),
+		Id:        deviceID,
+		Stub:      stub,
 		Data:      "",
 		Msg:       "order",
 		Operation: bilicoin.REQ_START_SENDER,
@@ -34,17 +29,11 @@ func OpenSender(stub, appName string) error {
 	return nil
 }
 
-func CloseSender(stub, appName string) error {
-
-	//// 检查stub
-	//CheckStub()
-	//
-	//// 发送命令
-	//Order()
+func CloseSender(stub, deviceID string) error {
 
 	op := MQOrder{
-		Id:        "deab9dbaaa74541d",
-		Stub:      bilicoin.CreateMD5(time.Now().String()),
+		Id:        deviceID,
+		Stub:      stub,
 		Data:      "",
 		Msg:       "order",
 		Operation: bilicoin.REQ_PAUSE_SENDER,
@@ -60,12 +49,12 @@ func CloseSender(stub, appName string) error {
 	return nil
 }
 
-func OpenApp(stub, appName string) error {
+func OpenApp(stub, deviceID, appName string) error {
 
 	op := MQOrder{
-		Id:        "deab9dbaaa74541d",
-		Stub:      bilicoin.CreateMD5(time.Now().String()),
-		Data:      "仙境传说RO",
+		Id:        deviceID,
+		Stub:      stub,
+		Data:      appName,
 		Msg:       "order",
 		Operation: bilicoin.REQ_OPEN_APP,
 	}
@@ -82,13 +71,14 @@ func OpenApp(stub, appName string) error {
 	return nil
 }
 
-func CloseApp(stub, appName string) error {
+func CloseApp(stub, deviceID, packName string) error {
 
 	op := MQOrder{
-		Id:        "deab9dbaaa74541d",
-		Stub:      bilicoin.CreateMD5(time.Now().String()),
+		Id:   deviceID,
+		Stub: stub,
 		//Data:      "com.shandagames.falloutshelterUc.uc",
-		Data: "com.xd.ro.roapk",
+		//"com.xd.ro.roapk"
+		Data:      packName,
 		Msg:       "order",
 		Operation: bilicoin.REQ_CLOSE_APP,
 	}

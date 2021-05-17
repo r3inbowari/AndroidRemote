@@ -181,7 +181,7 @@ func TestCloseApp(t *testing.T) {
 	}
 }
 
-
+//var AppMap sync.Map
 
 
 

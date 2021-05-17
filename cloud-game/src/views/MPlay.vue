@@ -140,7 +140,7 @@ export default defineComponent({
         let result = JSON.parse(res.data)
         if (result.op === 6) {
           // 成功申请
-          store.state.ws.send({ op: 5, data: route.params.title })
+          store.state.ws.send({ op: 5, data: route.params.aid })
           store.commit('setSession', result.stub)
           let wsi =
             import.meta.env['VITE_STREAMING_BASE_URL'] +

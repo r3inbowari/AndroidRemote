@@ -21,6 +21,7 @@ type Update struct {
 	Recommend bool               `json:"recommend"`
 	Popular   bool               `json:"popular"`
 	Desc      string             `json:"desc"`
+	Pack      string             `json:"pack"`
 }
 
 func GetUpdate(c *gin.Context) {

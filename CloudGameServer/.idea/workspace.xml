@@ -3,16 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="e102a309-9211-4948-bf88-6afa939dea44" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rmq/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/rmq/api.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/public/update.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/public/update.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/rtmsg/handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/rtmsg/handler.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../RemoteServer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/stf/cap/MiniCap.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/mujin/androidremoteservant/core/stf/cap/MiniCap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/router/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/router/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/store/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/store/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/GP.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/GP.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/MCom.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/MCom.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/MGame.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/MGame.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/MIndex.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/MIndex.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-game/src/views/MLogin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-game/src/views/MLogin.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RemoteServer/test/rmq_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/../RemoteServer/test/rmq_test.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,16 +94,16 @@
       <pattern value="^\QTestAttach\E$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestCron in CloudGameServer/device" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestGetGame in CloudGameServer/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="CloudGameServer" />
-      <working_directory value="$PROJECT_DIR$/device" />
+      <working_directory value="$PROJECT_DIR$/test" />
       <root_directory value="$PROJECT_DIR$" />
       <kind value="PACKAGE" />
-      <package value="CloudGameServer/device" />
+      <package value="CloudGameServer/test" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
       <framework value="gotest" />
-      <pattern value="^\QTestCron\E$" />
+      <pattern value="^\QTestGetGame\E$" />
       <method v="2" />
     </configuration>
     <configuration name="TestHDel in CloudGameServer/device" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
@@ -138,10 +133,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Go Build.go build CloudGameServer/cmd" />
+        <item itemvalue="Go Test.TestGetGame in CloudGameServer/test" />
         <item itemvalue="Go Test.TestHDel in CloudGameServer/device" />
         <item itemvalue="Go Test.TestHashSet in CloudGameServer/device" />
         <item itemvalue="Go Test.TestAttach in CloudGameServer/device" />
-        <item itemvalue="Go Test.TestCron in CloudGameServer/device" />
       </list>
     </recent_temporary>
   </component>
@@ -162,13 +157,38 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/service/rtmsg/handler.go</url>
-          <line>178</line>
-          <option name="timeStamp" value="9" />
+          <line>247</line>
+          <option name="timeStamp" value="16" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/service/rtmsg/handler.go</url>
-          <line>96</line>
-          <option name="timeStamp" value="10" />
+          <line>246</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/service/rtmsg/handler.go</url>
+          <line>245</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/service/rtmsg/handler.go</url>
+          <line>236</line>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/service/rtmsg/handler.go</url>
+          <line>237</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/service/rtmsg/handler.go</url>
+          <line>222</line>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/service/rtmsg/handler.go</url>
+          <line>224</line>
+          <option name="timeStamp" value="24" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
