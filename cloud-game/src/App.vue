@@ -1,7 +1,7 @@
 <template>
   <!-- 路由出口 -->
   <!-- 路由匹配到的组件将渲染在这里 -->
-  <router-view></router-view>
+  <router-view v-if="enableRouter"></router-view>
 
   <div v-if="dev" class="builtState">development mode v{{ version }}</div>
 </template>
@@ -17,6 +17,7 @@ import { useStore } from 'vuex'
 import { VueCookieNext } from 'vue-cookie-next'
 
 import { userInfo } from './api/user'
+import { enable } from './api/public'
 
 import { IWebSocket } from './ws'
 import { useRouter } from 'vue-router'
@@ -31,6 +32,11 @@ export default defineComponent({
     }
   },
   setup() {
+    let enableRouter = ref(false)
+    enable().then((res) => {
+      enableRouter.value = true
+    })
+
     printEnv()
 
     const store = useStore(key)
@@ -94,6 +100,10 @@ export default defineComponent({
         // })
       }
     })
+
+    return {
+      enableRouter,
+    }
   },
 })
 </script>

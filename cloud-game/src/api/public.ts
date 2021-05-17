@@ -9,3 +9,7 @@ const DEL: string = 'delete'
 export const getVersion = function () {
   return req(GET, '/public/version', {})
 }
+
+export const enable = function () {
+  return req(GET, '/public/enable', {})
+}

@@ -9,6 +9,11 @@ import (
 
 func MappingGameService(s *gin.RouterGroup) {
 	bilicoin.Info("[GS] public service mapping")
+
+	s.GET("/enable", func(context *gin.Context) {
+		context.JSON(http.StatusOK, gin.H{"enable": true})
+	})
+
 	// banner 数据
 	s.GET("/home/banner", public.GetBanner)
 	s.DELETE("/home/banner/:id", public.DelBanner)
