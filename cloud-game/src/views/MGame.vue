@@ -59,6 +59,7 @@
 
             <div class="recommend-tab">
               <ul class="recommend-list">
+                <!-- 单个游戏 -->
                 <li
                   v-for="(item, index) in recommendData.dat"
                   class="recommend-item"
@@ -70,7 +71,9 @@
                     <h3>{{ item.title }}</h3>
                     <p>{{ item.desc }}</p>
                   </div>
-                  <div class="recommend-btn btn"><p>试玩</p></div>
+                  <div @click="onPlay(index)" class="recommend-btn btn">
+                    <p>试玩</p>
+                  </div>
                 </li>
               </ul>
             </div>
@@ -79,24 +82,6 @@
         <van-tab title="手机游戏"></van-tab>
         <van-tab title="更多">更多</van-tab>
       </van-tabs>
-      <div>11</div>
-      <div>11</div>
-      <div>11</div>
-      <div>11</div>
-      <div>11</div>
-      <div>11</div>
-      <div>11</div>
-      <div>12221</div>
-      <div>11</div>
-      <div>11</div>
-      <div>11</div>
-      <div>11</div>
-      <div>12221</div>
-      <div>11</div>
-      <div>11</div>
-      <div>11</div>
-      <div>11</div>
-      <div>12221</div>
     </div>
   </section>
 </template>
@@ -116,10 +101,15 @@ import { getUpdate } from '../api/update'
 
 import { useStore } from 'vuex'
 import { key } from '../store'
+import { useRouter } from 'vue-router'
+import { VueCookieNext } from 'vue-cookie-next'
 
 export default defineComponent({
   components: {},
   setup() {
+    const router = useRouter()
+    const store = useStore(key)
+
     let searchValue = ref('')
     const bannerData = reactive({
       dat: [],
@@ -140,7 +130,28 @@ export default defineComponent({
     }
 
     let activeTab = ref(0)
-    return { bannerData, recommendData, onChangeSwipe, searchValue, activeTab }
+
+    function onPlay(index) {
+      if (VueCookieNext.isCookieAvailable('token')) {
+        router.push({
+          name: 'MPlay',
+          params: recommendData.dat[index],
+        })
+      } else {
+        // 需要登陆
+        router.push({
+          name: 'MLogin',
+        })
+      }
+    }
+    return {
+      bannerData,
+      recommendData,
+      onChangeSwipe,
+      searchValue,
+      activeTab,
+      onPlay,
+    }
   },
 })
 </script>

@@ -1,8 +1,14 @@
 <template>
-  <div style="padding-bottom: 50px">
+  <!-- <div style="padding-bottom: 50px"> -->
+  <div class="mobile-app" id="mapp">
     <router-view></router-view>
   </div>
-  <van-tabbar @change="onChangeMenu" v-model="menuActive">
+  <!-- 使用state控制 -->
+  <van-tabbar
+    v-if="store.state.menuEnable"
+    @change="onChangeMenu"
+    v-model="menuActive"
+  >
     <van-tabbar-item v-for="(item, index) in menuList.dat">
       <span>{{ item.name }}</span>
       <template #icon="props">
@@ -30,7 +36,7 @@ import { ElNotification } from 'element-plus'
 import { ops } from '../utils'
 
 import { useStore } from 'vuex'
-import { key } from '../../store'
+import { key } from '../store'
 import { useRouter } from 'vue-router'
 
 import imgGameActive from '../assets/menu_game_active.png'
@@ -44,6 +50,7 @@ export default defineComponent({
   components: {},
   setup() {
     const router = useRouter()
+    const store = useStore(key)
 
     let menuActive = ref(0)
     let menuList = reactive({
@@ -78,6 +85,7 @@ export default defineComponent({
       menuList,
       menuActive,
       onChangeMenu,
+      store,
     }
   },
 })

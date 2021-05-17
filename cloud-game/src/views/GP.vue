@@ -208,7 +208,7 @@ export default defineComponent({
       )
       // calc ratio
       transforRatio = canvasHeight.value / maxCanvasHeight.value
-      console.log('[minicap] cuurrent transfor ratio: %f', transforRatio)
+      console.log('[minicap] current transfor ratio: %f', transforRatio)
     }
 
     // add onresize callback function

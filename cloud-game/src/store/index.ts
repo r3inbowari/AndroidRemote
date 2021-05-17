@@ -29,6 +29,7 @@ export interface State {
   theme: boolean
   session: String
   info: Object
+  menuEnable: boolean
 }
 
 // define injection key
@@ -48,6 +49,7 @@ export const store = createStore<State>({
     info: {
       level: 0,
     },
+    menuEnable: true,
   },
   mutations: {
     setTheme(state, t) {
@@ -81,6 +83,10 @@ export const store = createStore<State>({
     setWs(state, t) {
       state.ws = t
       console.log('[store] setWs ')
+    },
+    setMenuEnable(state, t) {
+      state.menuEnable = t
+      console.log('[store] setMenuEnable ' + state.session)
     },
     setSession(state, t) {
       state.session = t

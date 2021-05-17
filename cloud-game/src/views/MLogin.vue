@@ -83,15 +83,16 @@ export default defineComponent({
 
     let loading = ref(false)
     function backMe() {
-      router.push({
-        name: 'MMe',
-      })
+      router.back()
     }
 
     const user = reactive({
       mobile: '',
       password: '',
     })
+
+    const currentInstance = getCurrentInstance()
+
     function onLoginXHR() {
       loading.value = true
       // userLogin()
@@ -104,12 +105,19 @@ export default defineComponent({
               userInfo().then((res) => {
                 if (res.code === 2005) {
                   store.commit('setInfo', res.data)
-                  router.push({
-                    name: 'MMe',
-                  })
+                  router.back()
                   loading.value = false
                 }
               })
+
+              // 登录ws push
+              currentInstance.appContext.config.globalProperties.$socket.send(
+                JSON.stringify({
+                  stub: '',
+                  op: 0,
+                  data: res.data, // token
+                })
+              )
             } else {
               Toast({
                 forbidClick: true,

@@ -47,6 +47,11 @@ export const routerMap = [
         path: 'charge',
         component: importView('MCharge'),
       },
+      {
+        name: 'MPlay',
+        path: 'play',
+        component: importView('MPlay'),
+      },
     ],
   },
   {
@@ -115,6 +120,7 @@ export const routerMap = [
 export const asyncRouterMap = []
 
 export const router = createRouter({
-  history: createWebHistory(),
+  // history: createWebHistory(),
+  history: createWebHashHistory(),
   routes: routerMap,
 })
