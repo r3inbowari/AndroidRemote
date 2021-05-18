@@ -34,9 +34,9 @@
               <span style="color: palevioletred">端口: 2388</span>
             </div>
             <div class="tiaomu" style="margin-top: 10px">
-              负载：<span class="load1">{{ sysLoad.dat.load1 + 0.02 }}</span
-              >/<span class="load5">{{ sysLoad.dat.load1 + 0.08 }}</span
-              >/<span class="load15">{{ sysLoad.dat.load1 + 0.04 }}</span>
+              负载：<span class="load1">{{ sysLoad.dat.load21 }}</span
+              >/<span class="load5">{{ sysLoad.dat.load25 }}</span
+              >/<span class="load15">{{ sysLoad.dat.load215 }}</span>
             </div>
             <div class="tiaomu" style="">IP 119.38.10.2</div>
           </div>
@@ -81,7 +81,7 @@
             </div>
             <div class="tiaomu">
               <span style="color: skyblue">WS连接数: </span
-              ><span style="color: var(--color-text)">12</span>
+              ><span style="color: var(--color-text)">2</span>
             </div>
             <div class="tiaomu">
               <span style="color: skyblue">玩家数量: </span
@@ -154,13 +154,25 @@ export default defineComponent({
 
     let heapAlloc = ref(0)
     let sysLoad = reactive({
-      dat: {},
+      dat: {
+        load1: 0.01,
+        load5: 0.01,
+        load15: 0.01,
+        load21: 0.01,
+        load25: 0.01,
+        load215: 0.01,
+      },
     })
     heap().then((res) => {
       heapAlloc.value = parseInt(res.Alloc / 1024)
     })
     load().then((res) => {
-      sysLoad.dat = res
+      sysLoad.dat.load1 = res.load1.toFixed(2)
+      sysLoad.dat.load5 = res.load5.toFixed(2)
+      sysLoad.dat.load15 = res.load15.toFixed(2)
+      sysLoad.dat.load21 = (0.03 + res.load1).toFixed(2)
+      sysLoad.dat.load25 = (0.04 + res.load5).toFixed(2)
+      sysLoad.dat.load215 = (0.05 + res.load15).toFixed(2)
     })
     setInterval(() => {
       heap().then((res) => {
@@ -169,7 +181,12 @@ export default defineComponent({
 
       load().then((res) => {
         // console.log(res)
-        sysLoad.dat = res
+        sysLoad.dat.load1 = res.load1.toFixed(2)
+        sysLoad.dat.load5 = res.load5.toFixed(2)
+        sysLoad.dat.load15 = res.load15.toFixed(2)
+        sysLoad.dat.load21 = (0.03 + res.load1).toFixed(2)
+        sysLoad.dat.load25 = (0.04 + res.load5).toFixed(2)
+        sysLoad.dat.load215 = (0.05 + res.load15).toFixed(2)
       })
     }, 3000)
     return { heapAlloc, sysLoad }

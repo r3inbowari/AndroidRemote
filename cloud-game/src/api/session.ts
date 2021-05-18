@@ -14,3 +14,7 @@ export const getSessions = function () {
 export const killSession = function (stub: string) {
   return req(GET, '/m/kill/' + stub, {})
 }
+
+export const getPlayLog = function (stub: string) {
+  return req(GET, '/m/play/log', {})
+}

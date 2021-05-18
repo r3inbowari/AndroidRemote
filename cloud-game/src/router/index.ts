@@ -82,6 +82,7 @@ export const routerMap = [
   {
     name: 'Center',
     path: '/center',
+    redirect: '/center/about',
     component: importView('Manager'),
     children: [
       {

@@ -30,7 +30,24 @@
           </div>
         </div>
       </div>
-      <div style="padding-bottom: 30px">
+
+      <div class="content-main">
+        <div>
+          <el-table empty-text="无数据" :data="logData.dat" style="width: 100%">
+            <el-table-column prop="_id" label="索引"> </el-table-column>
+            <el-table-column prop="title" label="游戏"> </el-table-column>
+            <el-table-column prop="aid" label="游戏 ID"> </el-table-column>
+            <el-table-column prop="uid" label="用户 ID"> </el-table-column>
+            <el-table-column prop="device_id" label="设备 ID">
+            </el-table-column>
+            <el-table-column prop="st" label="开始时间"> </el-table-column>
+            <el-table-column prop="duration" label="持续时长(秒)">
+            </el-table-column>
+          </el-table>
+        </div>
+      </div>
+
+      <div style="padding-bottom: 30px; display: none">
         <div class="PaFzglKCf5" style="height: 593px">
           <div class="_29b6nIu_GY">
             <svg
@@ -58,12 +75,62 @@
               </g>
             </svg>
           </div>
+
           <div style="font-size: 28px">暂无日志...</div>
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+import {
+  defineComponent,
+  onMounted,
+  getCurrentInstance,
+  ref,
+  reactive,
+  watch,
+} from 'vue'
+import { getBanner } from '../api/banner'
+import { getHot } from '../api/hot'
+import { getUpdate } from '../api/update'
+
+import { useStore } from 'vuex'
+import { key } from '../store'
+import { useRouter } from 'vue-router'
+
+import { userLogin, userInfo } from '../api/user'
+
+import { Toast } from 'vant'
+
+import { VueCookieNext } from 'vue-cookie-next'
+
+import { getPlayLog } from '../api/session'
+import { format } from '../utils'
+
+export default defineComponent({
+  components: {},
+  setup() {
+    const store = useStore(key)
+    const router = useRouter()
+
+    const logData = reactive({
+      dat: [],
+    })
+
+    getPlayLog().then((res) => {
+      logData.dat = res.Data
+      logData.dat.forEach((element, index) => {
+        logData.dat[index].st = format(new Date(element.st * 1000))
+      })
+    })
+
+    // console.log(format(new Date()))
+    return { logData }
+  },
+})
+</script>
 
 <style>
 .B4QNkMu-0t {
@@ -152,5 +219,66 @@ textarea {
   color: var(--color-text-secondary);
   font-size: 1.4em;
   opacity: 0.6;
+}
+</style>
+
+<style scoped>
+.content-main {
+  margin: 20px 40px 20px 40px;
+}
+</style>
+
+<!-- 对话框与列表的主题定制 -->
+<style>
+/* 对话框颜色 */
+.el-dialog {
+  background-color: var(--color-bg-sidebar);
+}
+
+/* 表格底色 */
+.el-table th,
+.el-table tr {
+  background-color: var(--color-bg-sidebar);
+}
+
+/* 表格底色扩展 */
+.el-table,
+.el-table__expanded-cell {
+  background-color: var(--color-bg-sidebar);
+}
+
+/* 表格项悬浮 */
+.el-table--enable-row-hover .el-table__body tr:hover > td {
+  background-color: var(--color-input-border);
+}
+
+/* 表格头颜色 */
+.el-table th,
+.el-table tr:hover {
+  background-color: var(--color-sb-active-row-bg);
+}
+
+/* 表格间隔分离 */
+.el-table td,
+.el-table th.is-leaf {
+  border-bottom: 1px solid var(--color-separator);
+}
+
+/* 表格底部分离 */
+.el-table--border::after,
+.el-table--group::after,
+.el-table::before {
+  background-color: var(--color-separator);
+}
+
+/* 字体 */
+.el-table .cell,
+.el-dialog__title {
+  color: var(--color-text);
+}
+
+/* 弹窗标题字重 */
+.el-dialog__title {
+  font-weight: bold;
 }
 </style>

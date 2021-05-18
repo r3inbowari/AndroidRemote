@@ -1,5 +1,8 @@
 <template>
   <div id="jiyouCommunity">
+    <!-- <audio id="voice" autoplay="autoplay">
+      <source :src="mp" />
+    </audio> -->
     <header class="header main" id="jiyouweb_header">
       <nav class="nav">
         <h1 class="logo" style="color: violet"></h1>
@@ -160,7 +163,9 @@
         >成功按钮</el-button
       >
     </div> -->
-
+    <!-- <audio :src="src" autoplay="autoplay" controls="controls" ref="audio">
+      Your browser does not support the audio element.
+    </audio> -->
     <footer class="footer">
       <HomeFooter></HomeFooter>
     </footer>
@@ -202,6 +207,9 @@ SwiperCore.use([Navigation, Pagination])
 
 import { getBanner } from '../api/banner'
 
+import mp from '../assets/20210312033044719.mp3'
+import { useSound } from '@vueuse/sound'
+
 export default defineComponent({
   name: 'App',
   components: {
@@ -217,6 +225,9 @@ export default defineComponent({
   },
   methods: {},
   setup() {
+    let audio = ref(null)
+    let src = mp
+
     let slideItems = reactive({
       dat: [
         // {
@@ -377,6 +388,8 @@ export default defineComponent({
       nextIconBackground,
       processLoading,
       currentIndex,
+      audio,
+      mp,
     }
   },
 })

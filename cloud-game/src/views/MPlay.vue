@@ -34,7 +34,8 @@
         <div @click="onClickOption(0)" class="options nav-share">
           <span>分享游戏</span>
         </div>
-        <div @click="onClickOption(1)" class="options nav-report">
+        <!-- <div @click="onClickOption(1)" class="options nav-report"> -->
+        <div @click="play" class="options nav-report">
           <span>报告问题</span>
         </div>
         <div @click="onClickOption(2)" class="options nav-exit">
@@ -61,9 +62,15 @@ import { useRouter, useRoute } from 'vue-router'
 
 import { Toast } from 'vant'
 import { Overlay } from 'vant'
+
+import { useSound } from '@vueuse/sound'
+import buttonSfx from '../assets/20210312033044719.mp3'
+
 export default defineComponent({
   components: {},
   setup() {
+    const { play } = useSound(buttonSfx)
+
     const store = useStore(key)
     const router = useRouter()
     const route = useRoute()
@@ -332,6 +339,7 @@ export default defineComponent({
       showPlayOptions,
       delay,
       onClickOption,
+      play,
     }
   },
 })

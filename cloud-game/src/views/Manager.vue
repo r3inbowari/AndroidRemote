@@ -32,7 +32,7 @@
           </svg>
           <div class="item-desc">概况</div>
         </a>
-        <a
+        <!-- <a
           class="sider-item"
           :class="{ selectside: currIndex === 1 }"
           @click="onJump(1)"
@@ -58,7 +58,7 @@
             ></path>
           </svg>
           <div class="item-desc">全局</div>
-        </a>
+        </a> -->
         <a
           class="sider-item"
           :class="{ selectside: currIndex === 2 }"
@@ -392,7 +392,7 @@ export default defineComponent({
     }
 
     let currIndex = ref(-1)
-    let navName = ref('概况')
+    let navName = ref('关于')
 
     function onJump(index) {
       switch (index) {
@@ -404,6 +404,7 @@ export default defineComponent({
         case 1:
           router.push('/center/global')
           currIndex.value = 1
+          navName.value = '全局'
           break
         case 2:
           router.push('/center/measure')

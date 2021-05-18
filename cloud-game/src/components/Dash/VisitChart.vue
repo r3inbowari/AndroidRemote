@@ -66,7 +66,7 @@ export default defineComponent({
         datasets: [
           {
             label: 'Caffine',
-            data: [0, 0, 0, 0, 0, 0],
+            data: [4, 23, 11, 2, 10, 6],
             fill: false,
             borderColor: '#41B883',
             backgroundColor: 'black',

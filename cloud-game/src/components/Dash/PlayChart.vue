@@ -66,7 +66,7 @@ export default defineComponent({
         datasets: [
           {
             label: 'Caffine',
-            data: [0, 0, 0, 0, 0, 0],
+            data: [3, 1, 2, 0, 2, 1],
             fill: false,
             borderColor: '#41B883',
             backgroundColor: 'black',
@@ -98,11 +98,11 @@ export default defineComponent({
       }
     )
 
-    onMounted(() => {
-      setInterval(() => {
-        pushDate2ChartByQueueWay(playChartRef, playChart, 20)
-      }, 2000)
-    })
+    // onMounted(() => {
+    //   setInterval(() => {
+    //     pushDate2ChartByQueueWay(playChartRef, playChart, 20)
+    //   }, 2000)
+    // })
 
     function pushDate2ChartByQueueWay(ref, chartInstance, value) {
       chartInstance.data.datasets[0].data.splice(0, 1)
