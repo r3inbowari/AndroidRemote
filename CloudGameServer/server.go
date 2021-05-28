@@ -43,7 +43,8 @@ func BCApplication() {
 	managerService := s.Group("/m")
 	manager.MappingManager(managerService)
 
-	go s.Run(bilicoin.GetConfig().APIAddr)
+	//go s.Run(bilicoin.GetConfig().APIAddr)
+	s.Run(bilicoin.GetConfig().APIAddr)
 }
 
 func CorsComplex() gin.HandlerFunc {

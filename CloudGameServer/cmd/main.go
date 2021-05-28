@@ -6,7 +6,6 @@ import (
 	"CloudGameServer/device"
 	"CloudGameServer/rmq"
 	bilicoin "CloudGameServer/utils"
-	"time"
 )
 
 var (
@@ -29,7 +28,7 @@ func main() {
 
 	CloudGameServer.BCApplication()
 
-	time.Sleep(time.Hour * 24)
+	// time.Sleep(time.Hour * 24)
 	// token 获取
 	// 进入
 

@@ -8,3 +8,7 @@
 [0518/080838:WARNING:quota_manager.cc(1833)] Create directory failed for path
 [0518/083838:WARNING:quota_manager.cc(1833)] Create directory failed for path
 [0518/090838:WARNING:quota_manager.cc(1833)] Create directory failed for path
+[0518/093838:WARNING:quota_manager.cc(1833)] Create directory failed for path
+[0518/100838:WARNING:quota_manager.cc(1833)] Create directory failed for path
+[0518/100924:ERROR:tcp_socket_win.cc(647)] closesocket: 应用程序没有调用 WSAStartup，或者 WSAStartup 失败。 (0x276D)
+[0518/100924:ERROR:tcp_socket_win.cc(647)] closesocket: 应用程序没有调用 WSAStartup，或者 WSAStartup 失败。 (0x276D)
